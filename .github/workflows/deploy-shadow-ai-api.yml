@@ -41,9 +41,12 @@ jobs:
           cd tools/shadow-ai-assessment/api
           pnpm build
 
-      - name: Deploy to Azure Functions
-        uses: Azure/functions-action@v1
+      - name: Login to Azure
+        uses: azure/login@v1
         with:
-          app-name: 'generationai-shadow-ai'
-          package: 'tools/shadow-ai-assessment/api'
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE_SHADOW_AI }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Functions
+        run: |
+          cd tools/shadow-ai-assessment/api
+          func azure functionapp publish generationai-shadow-ai --javascript
