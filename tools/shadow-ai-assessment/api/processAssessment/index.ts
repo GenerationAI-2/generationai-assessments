@@ -3,7 +3,7 @@
  * Processes assessment submissions and orchestrates all services
  */
 
-import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import type { HttpRequest } from "@azure/functions";
 import { AssessmentSubmission, PDFGenerationRequest, PDFGenerationResponse } from "@generation-ai/types";
 import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine } from "../shared/scoring-engine";
@@ -12,29 +12,31 @@ import { sendAssessmentEmail } from "../shared/email";
 import fetch from "node-fetch";
 
 export async function processAssessment(
-  request: HttpRequest,
-  context: InvocationContext
-): Promise<HttpResponseInit> {
+  context: any,
+  req: HttpRequest
+): Promise<void> {
   context.log('Processing Shadow AI assessment submission');
 
   // Handle CORS preflight
-  if (request.method === 'OPTIONS') {
-    return {
+  if (req.method === 'OPTIONS') {
+    context.res = {
       status: 204,
       headers: getCorsHeaders()
     };
+    return;
   }
 
   try {
     // 1. Validate request
-    const submission = await request.json() as AssessmentSubmission;
+    const submission = (req.body || (req as any).rawBody) as AssessmentSubmission;
 
     if (!submission || !submission.email) {
-      return {
+      context.res = {
         status: 400,
         headers: getCorsHeaders(),
-        jsonBody: { error: "Invalid submission data. Email is required." }
+        body: { error: "Invalid submission data. Email is required." }
       };
+      return;
     }
 
     context.log(`Processing assessment for: ${submission.email}`);
@@ -188,10 +190,10 @@ export async function processAssessment(
     }
 
     // 8. Return success response
-    return {
+    context.res = {
       status: 200,
       headers: getCorsHeaders(),
-      jsonBody: {
+      body: {
         success: true,
         score: scoringResult.metadata.score,
         maturity_band: scoringResult.data.maturity_label,
@@ -200,12 +202,12 @@ export async function processAssessment(
     };
 
   } catch (error: any) {
-    context.error('Assessment processing error:', error);
+    context.log.error('Assessment processing error:', error);
 
-    return {
+    context.res = {
       status: 500,
       headers: getCorsHeaders(),
-      jsonBody: {
+      body: {
         success: false,
         error: "Failed to process assessment. Please try again or contact support@generationai.co.nz",
         details: process.env.NODE_ENV === 'development' ? error.message : undefined
