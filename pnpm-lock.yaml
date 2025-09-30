@@ -20,6 +20,9 @@ importers:
       '@generation-ai/types':
         specifier: workspace:*
         version: link:../../shared/types
+      '@puppeteer/browsers':
+        specifier: ^2.4.1
+        version: 2.10.10
       '@sparticuz/chromium':
         specifier: ^131.0.0
         version: 131.0.1

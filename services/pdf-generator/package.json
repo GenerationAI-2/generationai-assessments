@@ -15,6 +15,7 @@
   "dependencies": {
     "@azure/functions": "^4.0.0",
     "@generation-ai/types": "workspace:*",
+    "@puppeteer/browsers": "^2.4.1",
     "@sparticuz/chromium": "^131.0.0",
     "puppeteer": "^24.22.3",
     "puppeteer-core": "^23.11.0"
