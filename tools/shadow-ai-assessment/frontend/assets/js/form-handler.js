@@ -185,7 +185,7 @@ class AssessmentForm {
 
         try {
             // Call Azure Function API
-            const response = await fetch('https://generationai-shadow-ai.azurewebsites.net/api/processAssessment', {
+            const response = await fetch('https://generationai-shadow-ai.azurewebsites.net/api/processassessment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
