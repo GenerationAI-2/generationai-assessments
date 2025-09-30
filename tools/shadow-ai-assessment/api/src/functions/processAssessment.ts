@@ -6,9 +6,9 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { AssessmentSubmission, PDFGenerationRequest, PDFGenerationResponse } from "@generation-ai/types";
 import { getCorsHeaders } from "@generation-ai/utils";
-import { ScoringEngine } from "../shared/scoring-engine";
-import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable";
-import { sendAssessmentEmail } from "../shared/email";
+import { ScoringEngine } from "../../shared/scoring-engine";
+import { saveToAirtable, checkDuplicateSubmission } from "../../shared/airtable";
+import { sendAssessmentEmail } from "../../shared/email";
 import fetch from "node-fetch";
 
 export async function processAssessment(
