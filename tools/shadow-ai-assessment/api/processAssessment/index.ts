@@ -7,7 +7,7 @@ import type { HttpRequest } from "@azure/functions";
 import { AssessmentSubmission, PDFGenerationRequest, PDFGenerationResponse } from "@generation-ai/types";
 import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine } from "../shared/scoring-engine";
-import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable";
+// import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable"; // Disabled
 import { sendAssessmentEmail } from "../shared/email";
 import fetch from "node-fetch";
 
@@ -41,12 +41,12 @@ export async function processAssessment(
 
     context.log(`Processing assessment for: ${submission.email}`);
 
-    // 2. Check for duplicate submissions (optional - prevents spam)
-    const isDuplicate = await checkDuplicateSubmission(submission.email, 24);
-    if (isDuplicate) {
-      context.log(`Duplicate submission detected for ${submission.email}`);
-      // Still allow but log it
-    }
+    // 2. Check for duplicate submissions - DISABLED (requires Airtable)
+    // const isDuplicate = await checkDuplicateSubmission(submission.email, 24);
+    // if (isDuplicate) {
+    //   context.log(`Duplicate submission detected for ${submission.email}`);
+    //   // Still allow but log it
+    // }
 
     // 3. Run scoring engine
     const scoringResult = ScoringEngine.process(submission);
@@ -116,35 +116,36 @@ export async function processAssessment(
       // throw pdfError; // Uncomment to make PDF generation mandatory
     }
 
-    // 5. Save to Airtable
-    try {
-      await saveToAirtable({
-        email: submission.email,
-        contact_name: submission.contact_name,
-        company_name: submission.company_name,
-        org_size: scoringResult.data.org_size,
-        sector: scoringResult.data.sector,
-        score: scoringResult.metadata.score,
-        maturity_band: scoringResult.data.maturity_label,
-        pdf_url: pdfBase64 ? 'Generated' : 'Failed',
-        submitted_at: new Date().toISOString(),
-        access: submission.access,
-        incidents: submission.incidents,
-        approval: submission.approval,
-        usage_visibility: submission.usage_visibility,
-        detection: submission.detection,
-        policy: submission.policy,
-        training: submission.training,
-        risk_concerns: submission.risk_concerns.join(', '),
-        exposure: submission.exposure,
-        traceability: submission.traceability,
-        compliance_awareness: submission.compliance_awareness
-      });
-      context.log('Saved to Airtable');
-    } catch (airtableError: any) {
-      context.log('Airtable save failed:', airtableError);
-      // Continue even if Airtable fails - don't block user from getting report
-    }
+    // 5. Save to Airtable - DISABLED due to EventTarget compatibility issue in Azure Functions
+    // TODO: Re-enable once Airtable SDK is updated or use direct REST API calls
+    // try {
+    //   await saveToAirtable({
+    //     email: submission.email,
+    //     contact_name: submission.contact_name,
+    //     company_name: submission.company_name,
+    //     org_size: scoringResult.data.org_size,
+    //     sector: scoringResult.data.sector,
+    //     score: scoringResult.metadata.score,
+    //     maturity_band: scoringResult.data.maturity_label,
+    //     pdf_url: pdfBase64 ? 'Generated' : 'Failed',
+    //     submitted_at: new Date().toISOString(),
+    //     access: submission.access,
+    //     incidents: submission.incidents,
+    //     approval: submission.approval,
+    //     usage_visibility: submission.usage_visibility,
+    //     detection: submission.detection,
+    //     policy: submission.policy,
+    //     training: submission.training,
+    //     risk_concerns: submission.risk_concerns.join(', '),
+    //     exposure: submission.exposure,
+    //     traceability: submission.traceability,
+    //     compliance_awareness: submission.compliance_awareness
+    //   });
+    //   context.log('Saved to Airtable');
+    // } catch (airtableError: any) {
+    //   context.log('Airtable save failed:', airtableError);
+    //   // Continue even if Airtable fails - don't block user from getting report
+    // }
 
     // 6. Send email with PDF attachment
     let emailSent = false;

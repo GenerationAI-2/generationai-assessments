@@ -25,20 +25,179 @@ importers:
         version: 2.10.10
       '@sparticuz/chromium':
         specifier: ^131.0.0
-        version: 131.0.1
-      puppeteer:
-        specifier: ^24.22.3
-        version: 24.22.3(typescript@5.9.2)
+        version: 131.0.1(debug@4.4.3)
+      agent-base:
+        specifier: ^7.1.2
+        version: 7.1.4
+      ansi-regex:
+        specifier: ^5.0.1
+        version: 5.0.1
+      ansi-styles:
+        specifier: ^4.0.0
+        version: 4.3.0
+      b4a:
+        specifier: ^1.6.4
+        version: 1.7.3
+      bare-events:
+        specifier: ^2.7.0
+        version: 2.7.0
+      buffer-crc32:
+        specifier: ~0.2.3
+        version: 0.2.13
+      chromium-bidi:
+        specifier: 0.11.0
+        version: 0.11.0(devtools-protocol@0.0.1367902)
+      cliui:
+        specifier: ^8.0.1
+        version: 8.0.1
+      color-convert:
+        specifier: ^2.0.1
+        version: 2.0.1
+      color-name:
+        specifier: ~1.1.4
+        version: 1.1.4
+      debug:
+        specifier: ^4.4.3
+        version: 4.4.3
+      devtools-protocol:
+        specifier: 0.0.1367902
+        version: 0.0.1367902
+      emoji-regex:
+        specifier: ^8.0.0
+        version: 8.0.0
+      end-of-stream:
+        specifier: ^1.4.4
+        version: 1.4.5
+      escalade:
+        specifier: ^3.1.1
+        version: 3.2.0
+      events-universal:
+        specifier: ^1.0.0
+        version: 1.0.1
+      extract-zip:
+        specifier: ^2.0.1
+        version: 2.0.1
+      fast-fifo:
+        specifier: ^1.3.2
+        version: 1.3.2
+      fd-slicer:
+        specifier: ~1.1.0
+        version: 1.1.0
+      follow-redirects:
+        specifier: ^1.15.9
+        version: 1.15.11(debug@4.4.3)
+      get-caller-file:
+        specifier: ^2.0.5
+        version: 2.0.5
+      get-stream:
+        specifier: ^5.2.0
+        version: 5.2.0
+      http-proxy-agent:
+        specifier: ^7.0.1
+        version: 7.0.2
+      https-proxy-agent:
+        specifier: ^7.0.6
+        version: 7.0.6
+      is-fullwidth-code-point:
+        specifier: ^3.0.0
+        version: 3.0.0
+      lru-cache:
+        specifier: ^7.14.1
+        version: 7.18.3
+      mitt:
+        specifier: ^3.0.1
+        version: 3.0.1
+      ms:
+        specifier: ^2.1.3
+        version: 2.1.3
+      once:
+        specifier: ^1.4.0
+        version: 1.4.0
+      pac-proxy-agent:
+        specifier: ^7.1.0
+        version: 7.2.0
+      pend:
+        specifier: ~1.2.0
+        version: 1.2.0
+      progress:
+        specifier: ^2.0.3
+        version: 2.0.3
+      proxy-agent:
+        specifier: ^6.5.0
+        version: 6.5.0
+      proxy-from-env:
+        specifier: ^1.1.0
+        version: 1.1.0
+      pump:
+        specifier: ^3.0.0
+        version: 3.0.3
       puppeteer-core:
         specifier: ^23.11.0
         version: 23.11.1
+      require-directory:
+        specifier: ^2.1.1
+        version: 2.1.1
       semver:
-        specifier: ^7.6.0
+        specifier: ^7.7.2
         version: 7.7.2
+      socks:
+        specifier: ^2.7.1
+        version: 2.8.7
+      socks-proxy-agent:
+        specifier: ^8.0.5
+        version: 8.0.5
+      streamx:
+        specifier: ^2.15.0
+        version: 2.23.0
+      string-width:
+        specifier: ^4.2.3
+        version: 4.2.3
+      strip-ansi:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tar-fs:
+        specifier: ^3.1.0
+        version: 3.1.1
+      tar-stream:
+        specifier: ^3.1.5
+        version: 3.1.7
+      text-decoder:
+        specifier: ^1.1.0
+        version: 1.2.3
+      typed-query-selector:
+        specifier: ^2.12.0
+        version: 2.12.0
+      wrap-ansi:
+        specifier: ^7.0.0
+        version: 7.0.0
+      wrappy:
+        specifier: '1'
+        version: 1.0.2
+      ws:
+        specifier: ^8.18.0
+        version: 8.18.3
+      y18n:
+        specifier: ^5.0.5
+        version: 5.0.8
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
+      yargs-parser:
+        specifier: ^21.1.1
+        version: 21.1.1
+      yauzl:
+        specifier: ^2.10.0
+        version: 2.10.0
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
         version: 20.19.18
+      puppeteer:
+        specifier: ^24.22.3
+        version: 24.22.3(typescript@5.9.2)
       typescript:
         specifier: ^5.0.0
         version: 5.9.2
@@ -78,6 +237,9 @@ importers:
       airtable:
         specifier: ^0.12.2
         version: 0.12.2
+      event-target-polyfill:
+        specifier: ^0.0.4
+        version: 0.0.4
       event-target-shim:
         specifier: ^6.0.2
         version: 6.0.2
@@ -379,6 +541,9 @@ packages:
   esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
+
+  event-target-polyfill@0.0.4:
+    resolution: {integrity: sha512-Gs6RLjzlLRdT8X9ZipJdIZI/Y6/HhRLyq9RdDlCsnpxr/+Nn6bU2EFGuC94GjxqhM+Nmij2Vcq98yoHrU8uNFQ==}
 
   event-target-shim@5.0.1:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
@@ -778,9 +943,9 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@sparticuz/chromium@131.0.1':
+  '@sparticuz/chromium@131.0.1(debug@4.4.3)':
     dependencies:
-      follow-redirects: 1.15.11
+      follow-redirects: 1.15.11(debug@4.4.3)
       tar-fs: 3.1.1
     transitivePeerDependencies:
       - bare-buffer
@@ -1002,6 +1167,8 @@ snapshots:
 
   esutils@2.0.3: {}
 
+  event-target-polyfill@0.0.4: {}
+
   event-target-shim@5.0.1: {}
 
   event-target-shim@6.0.2: {}
@@ -1026,7 +1193,9 @@ snapshots:
     dependencies:
       pend: 1.2.0
 
-  follow-redirects@1.15.11: {}
+  follow-redirects@1.15.11(debug@4.4.3):
+    optionalDependencies:
+      debug: 4.4.3
 
   form-data@4.0.4:
     dependencies:

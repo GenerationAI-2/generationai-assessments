@@ -3,6 +3,29 @@
  * Stores assessment submissions for tracking and analytics
  */
 
+// Polyfill for abort-controller EventTarget issue in Azure Functions
+// The abort-controller package tries to call EventTarget() without 'new'
+// This wraps it to allow both constructor styles
+// @ts-ignore
+const OriginalEventTarget = global.EventTarget;
+if (OriginalEventTarget) {
+  // @ts-ignore
+  global.EventTarget = function EventTarget(...args: any[]) {
+    // If called without 'new', create instance with 'new'
+    if (!new.target) {
+      // @ts-ignore
+      return new OriginalEventTarget(...args);
+    }
+    // If called with 'new', use original constructor
+    // @ts-ignore
+    return Reflect.construct(OriginalEventTarget, args, new.target);
+  } as any;
+  // @ts-ignore
+  Object.setPrototypeOf(global.EventTarget, OriginalEventTarget);
+  // @ts-ignore
+  Object.setPrototypeOf(global.EventTarget.prototype, OriginalEventTarget.prototype);
+}
+
 import Airtable from 'airtable';
 import { AssessmentSubmission } from './scoring-engine';
 
