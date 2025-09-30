@@ -26,6 +26,9 @@ jobs:
         with:
           version: 10
 
+      - name: Install Azure Functions Core Tools
+        run: npm install -g azure-functions-core-tools@4 --unsafe-perm true
+
       - name: Install dependencies
         run: pnpm install
 
