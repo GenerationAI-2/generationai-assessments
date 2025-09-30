@@ -1,0 +1,27 @@
+{
+  "name": "shadow-ai-assessment-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for Shadow AI Risk Assessment",
+  "main": "dist/processAssessment/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "dev": "npm run build && func start",
+    "clean": "rm -rf dist",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "@generation-ai/types": "workspace:*",
+    "@generation-ai/utils": "workspace:*",
+    "airtable": "^0.12.2",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/node-fetch": "^2.6.13",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Assess your organisation's Shadow AI risk in under 5 minutes. Receive a personalised risk report instantly.">
+    <title>Shadow AI Risk Assessment | GenerationAI</title>
+    <link rel="stylesheet" href="/assets/css/brand.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <a href="https://www.generationai.co.nz" class="nav__logo">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="section section--light">
+        <div class="container text-center" style="max-width: 800px;">
+            <h1>Shadow AI Risk Assessment</h1>
+            <p class="text-muted" style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">
+                AI is already active in your organisation – whether you've approved it or not.
+                Complete this 5-minute assessment to understand your risk exposure and receive
+                a personalised report with actionable recommendations.
+            </p>
+            <div class="alert alert--info">
+                <strong>What you'll receive:</strong> A comprehensive risk analysis covering 8 critical areas,
+                your AI maturity band, and a prioritised action plan – delivered to your inbox within 60 seconds.
+            </div>
+        </div>
+    </section>
+
+    <!-- ASSESSMENT FORM -->
+    <section class="section">
+        <div class="container" style="max-width: 800px;">
+
+            <!-- Progress Indicator -->
+            <div class="progress">
+                <div class="progress__text" id="progress-text">0 of 16 questions completed</div>
+                <div class="progress__bar">
+                    <div class="progress__fill" id="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Loading State (hidden by default) -->
+            <div id="loading-state" class="loading">
+                <div class="loading__spinner"></div>
+                <h3>Processing Your Assessment...</h3>
+                <p class="text-muted">Calculating your risk score and generating your personalised report. This should take less than 60 seconds.</p>
+            </div>
+
+            <!-- Main Form -->
+            <form id="assessment-form">
+
+                <!-- CONTACT INFORMATION -->
+                <h2>Contact Information</h2>
+
+                <div class="form__group">
+                    <label for="email" class="form__label form__label--required">What is your email address?</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form__input"
+                        placeholder="name@company.co.nz"
+                        required>
+                    <div id="email-error" class="form__error"></div>
+                </div>
+
+                <div class="form__group">
+                    <label for="contact_name" class="form__label form__label--required">Your name</label>
+                    <input
+                        type="text"
+                        id="contact_name"
+                        name="contact_name"
+                        class="form__input"
+                        placeholder="John Smith"
+                        required>
+                    <div id="contact_name-error" class="form__error"></div>
+                </div>
+
+                <div class="form__group">
+                    <label for="company_name" class="form__label form__label--required">Organisation name</label>
+                    <input
+                        type="text"
+                        id="company_name"
+                        name="company_name"
+                        class="form__input"
+                        placeholder="Your Company Ltd"
+                        required>
+                    <div id="company_name-error" class="form__error"></div>
+                </div>
+
+                <!-- ORGANISATION CONTEXT -->
+                <h2 class="mt-xl">Organisation Context</h2>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">How many people work in your organisation?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="org_size" value="buEnbBsnqxHG" required>
+                            <span class="form__radio-label">1–10 (Micro business)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="org_size" value="IwNGTfgstrR5">
+                            <span class="form__radio-label">11–50 (Small business)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="org_size" value="ELi7nGNdnb0W">
+                            <span class="form__radio-label">51–200 (Medium business)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="org_size" value="AMOp7oJAFREj">
+                            <span class="form__radio-label">201–500 (Large business)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="org_size" value="hgjY75zvtwNf">
+                            <span class="form__radio-label">500+ (Enterprise)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">Which sector best describes your organisation?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="Dt50cUdkTt05" required>
+                            <span class="form__radio-label">Professional Services (legal, accounting, consulting)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="GsmM7QJUkTfb">
+                            <span class="form__radio-label">Financial Services / Insurance</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="OLKA6z05ogDM">
+                            <span class="form__radio-label">Healthcare / Medical</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="kRQrBSAYe0lI">
+                            <span class="form__radio-label">Technology / Software</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="ONs3p888DHEX">
+                            <span class="form__radio-label">Retail / Hospitality</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="pA7PRRRdwx4W">
+                            <span class="form__radio-label">Manufacturing / Industrial</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="0DltiMQi9Zrh">
+                            <span class="form__radio-label">Agriculture / Primary Industries</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="23QVdYXEys7M">
+                            <span class="form__radio-label">Construction / Trades</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="dkkqAATx7sGN">
+                            <span class="form__radio-label">Government / Education</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="sector" value="xAYyxFqGCMnN">
+                            <span class="form__radio-label">Other</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- AI GOVERNANCE QUESTIONS -->
+                <h2 class="mt-xl">AI Governance & Access</h2>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">Do you provide staff with access to any approved AI tools for work purposes?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="access" value="5yHSaK0w5Cnh" required>
+                            <span class="form__radio-label">Yes — widely available across the business</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="access" value="zyFjAE0PxdNu">
+                            <span class="form__radio-label">Yes — available to some teams only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="access" value="AoFsqSlopBlf">
+                            <span class="form__radio-label">No — but access is under consideration</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="access" value="qGW56XhvmLeB">
+                            <span class="form__radio-label">No — we do not provide access to any AI tools</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="access" value="6Kgk6Zftt9U3">
+                            <span class="form__radio-label">Not sure</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">Has your organisation experienced any negative issues from AI tool usage?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="incidents" value="f6MAOmbnYwZA" required>
+                            <span class="form__radio-label">Yes — confirmed incident</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="incidents" value="nlXtCa0Cbe2H">
+                            <span class="form__radio-label">Yes — poor quality or incorrect output</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="incidents" value="D5cD2MaUUZTw">
+                            <span class="form__radio-label">Possibly — suspected but not confirmed</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="incidents" value="yBmhWjsKq98K">
+                            <span class="form__radio-label">No known issues</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="incidents" value="bbHTkyfrm1rP">
+                            <span class="form__radio-label">Not sure — we don't have visibility</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">Do you have a process for approving which AI tools can be used for work?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="approval" value="CL5RWrwBaIO1" required>
+                            <span class="form__radio-label">Yes — formal approval process</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="approval" value="HICmNi6IMeFC">
+                            <span class="form__radio-label">Yes — informal process</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="approval" value="g8v2G5i3DUcU">
+                            <span class="form__radio-label">No formal process, but some tools are approved</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="approval" value="drjkJbTVux8F">
+                            <span class="form__radio-label">No process — staff choose their own tools</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="approval" value="omPRzqb2ZKKY">
+                            <span class="form__radio-label">AI tools are not permitted</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">What's your best estimate of AI tool usage in your organisation?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="usage_visibility" value="0MioVOcLjwqk" required>
+                            <span class="form__radio-label">Only approved tools being used</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="usage_visibility" value="D2e4kw6zKhWX">
+                            <span class="form__radio-label">Mostly approved tools, some unauthorised</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="usage_visibility" value="qWV61821h2Ac">
+                            <span class="form__radio-label">Mix of approved and unauthorised</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="usage_visibility" value="Ks3oRzHdcHXs">
+                            <span class="form__radio-label">Mostly unauthorised/personal tools</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="usage_visibility" value="YdgXQdLWH8IP">
+                            <span class="form__radio-label">No AI tools being used</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="usage_visibility" value="Ld4i5rovL65S">
+                            <span class="form__radio-label">Don't know what's being used</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">How would you know if staff used free or unauthorised AI tools with company data?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="detection" value="y9exKrGGiXlu" required>
+                            <span class="form__radio-label">Our systems would detect it</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="detection" value="YXnW8RE37lCO">
+                            <span class="form__radio-label">We'd find out via audit</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="detection" value="9EeZ1hOx4TkC">
+                            <span class="form__radio-label">Only if someone told us</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="detection" value="Y7eLbzj6yG49">
+                            <span class="form__radio-label">No detection capability</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="detection" value="KX1XLSAmhxXa">
+                            <span class="form__radio-label">Haven't considered this</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- POLICY & TRAINING -->
+                <h2 class="mt-xl">Policy & Training</h2>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">Which best describes your organisation's AI usage policy?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="policy" value="qZb3RtYzGmvw" required>
+                            <span class="form__radio-label">Written policy — actively managed</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="policy" value="5pYTQ75byOTx">
+                            <span class="form__radio-label">Written policy — not regularly reviewed</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="policy" value="NaXmJcCZkNqH">
+                            <span class="form__radio-label">Verbal or informal guidelines only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="policy" value="1OMIe2wwXO6S">
+                            <span class="form__radio-label">AI use is prohibited (formally documented)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="policy" value="l3dzosDgAJxi">
+                            <span class="form__radio-label">AI use is prohibited (not documented)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="policy" value="Stzy9S9bVKUm">
+                            <span class="form__radio-label">No policy</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">What AI training or guidance have staff received?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="training" value="F1Agc0r7fg3m" required>
+                            <span class="form__radio-label">Comprehensive training on risks and safe usage</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="training" value="4HZUY6CyMDr2">
+                            <span class="form__radio-label">Basic "dos and don'ts"</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="training" value="s49jpucnq1Qq">
+                            <span class="form__radio-label">Policy shared but no usage training</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="training" value="I4OlXjV1IUwC">
+                            <span class="form__radio-label">Told not to use AI tools</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="training" value="OUqpBRnylGdB">
+                            <span class="form__radio-label">No training or guidance provided</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">Which risks worry you most about AI use in your organisation? (Select all that apply)</label>
+                    <div class="form__help">You can select multiple options</div>
+                    <div class="form__checkbox-group">
+                        <label class="form__checkbox">
+                            <input type="checkbox" name="risk_concerns" value="edxiDFVkVomW">
+                            <span class="form__checkbox-label">Privacy breaches (e.g. Privacy Act 2020)</span>
+                        </label>
+                        <label class="form__checkbox">
+                            <input type="checkbox" name="risk_concerns" value="CekmRu1ox0Wr">
+                            <span class="form__checkbox-label">Customer data exposure</span>
+                        </label>
+                        <label class="form__checkbox">
+                            <input type="checkbox" name="risk_concerns" value="NPzLCcwxm9zX">
+                            <span class="form__checkbox-label">IP / trade secret leakage</span>
+                        </label>
+                        <label class="form__checkbox">
+                            <input type="checkbox" name="risk_concerns" value="ga4phu9diMz8">
+                            <span class="form__checkbox-label">Incorrect or biased AI output</span>
+                        </label>
+                        <label class="form__checkbox">
+                            <input type="checkbox" name="risk_concerns" value="zQEqrFHag95i">
+                            <span class="form__checkbox-label">Cyber security / vulnerability</span>
+                        </label>
+                        <label class="form__checkbox">
+                            <input type="checkbox" name="risk_concerns" value="xwBNrUc4WI1j">
+                            <span class="form__checkbox-label">Competitive disadvantage</span>
+                        </label>
+                        <label class="form__checkbox">
+                            <input type="checkbox" name="risk_concerns" value="vns8kmtwoQPS">
+                            <span class="form__checkbox-label">Reputation risk</span>
+                        </label>
+                        <label class="form__checkbox">
+                            <input type="checkbox" name="risk_concerns" value="Bi5uDunURNLn">
+                            <span class="form__checkbox-label">Not sure what the risks are</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- DATA & COMPLIANCE -->
+                <h2 class="mt-xl">Data & Compliance</h2>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">Has customer, company, or personal data been put into unauthorised AI tools?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="exposure" value="Z7aEY1IJMnnP" required>
+                            <span class="form__radio-label">Definitely not — blocked by technical controls</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="exposure" value="Cvvq4VXmJr1a">
+                            <span class="form__radio-label">Unlikely — against policy</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="exposure" value="x2YDDMq02qAv">
+                            <span class="form__radio-label">Possibly — can't rule it out</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="exposure" value="0xr20T7ogJds">
+                            <span class="form__radio-label">Likely — some staff have done this</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="exposure" value="TnZONozLaWQK">
+                            <span class="form__radio-label">Confirmed — this has happened</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="exposure" value="wlc1nqZ7edIU">
+                            <span class="form__radio-label">Don't know</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">If a customer asked which AI tools had processed their data, could you answer confidently?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="traceability" value="qI36qW6J22Fh" required>
+                            <span class="form__radio-label">Yes — complete confidence</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="traceability" value="FR7d9Ts1FCns">
+                            <span class="form__radio-label">Yes — for approved tools only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="traceability" value="FOoqfPV9EsRz">
+                            <span class="form__radio-label">Partially</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="traceability" value="h9adjv57ICuL">
+                            <span class="form__radio-label">No</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="traceability" value="YCoEAaP9s2KZ">
+                            <span class="form__radio-label">Never considered this</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label form__label--required">Are you aware of your legal obligations when AI tools process personal or customer data?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="compliance_awareness" value="NGq4zhF6eLsm" required>
+                            <span class="form__radio-label">Fully aware and compliant</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="compliance_awareness" value="O6verJRPDrVI">
+                            <span class="form__radio-label">Generally aware</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="compliance_awareness" value="Bw94dH38HsYy">
+                            <span class="form__radio-label">Somewhat aware</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="compliance_awareness" value="Kg2riTAQY9Jq">
+                            <span class="form__radio-label">Not really aware</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="compliance_awareness" value="tP6F6fo3oPgW">
+                            <span class="form__radio-label">Didn't know there were obligations</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SUBMIT -->
+                <div class="form__group mt-xl">
+                    <button type="submit" id="submit-btn" class="btn btn--accent btn--large" disabled>
+                        Get My Risk Report
+                    </button>
+                    <p class="text-small text-muted text-center" style="margin-top: var(--space-md);">
+                        Your personalised report will be emailed to you within 60 seconds
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="section section--light">
+        <div class="container text-center">
+            <p class="text-small text-muted">
+                © 2025 GenerationAI Ltd. All rights reserved.<br>
+                This assessment is designed to build awareness about Shadow AI risks in your organisation.
+            </p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/form-handler.js"></script>
+</body>
+</html>

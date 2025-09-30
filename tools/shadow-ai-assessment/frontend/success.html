@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Complete | GenerationAI</title>
+    <link rel="stylesheet" href="/assets/css/brand.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <a href="https://www.generationai.co.nz" class="nav__logo">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SUCCESS MESSAGE -->
+    <section class="section">
+        <div class="container text-center" style="max-width: 700px;">
+
+            <div style="width: 80px; height: 80px; background: var(--lime-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-xl); font-size: 40px;">
+                ✓
+            </div>
+
+            <h1>Assessment Complete!</h1>
+
+            <p class="text-muted" style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">
+                Thank you for completing the Shadow AI Risk Assessment.
+            </p>
+
+            <div class="alert alert--success mb-xl">
+                <strong>Your report is on its way</strong>
+                <p style="margin: var(--space-sm) 0 0;">
+                    Check your inbox — your personalised risk analysis and recommendations
+                    will arrive within the next 60 seconds.
+                </p>
+            </div>
+
+            <div style="background: var(--bg-light); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-xl);">
+                <h3 class="mb-lg">What's in your report:</h3>
+                <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                    <p style="margin-bottom: var(--space-md);">
+                        ✓ Your Shadow AI risk score and maturity band
+                    </p>
+                    <p style="margin-bottom: var(--space-md);">
+                        ✓ Assessment across 8 critical risk areas
+                    </p>
+                    <p style="margin-bottom: var(--space-md);">
+                        ✓ Personalised recommendations based on your responses
+                    </p>
+                    <p style="margin: 0;">
+                        ✓ Prioritised action plan for the next 30-90 days
+                    </p>
+                </div>
+            </div>
+
+            <div class="mb-xl">
+                <p class="text-muted mb-lg">
+                    Want to discuss your results or explore how GenerationAI can help
+                    build your AI capability?
+                </p>
+                <a href="https://www.generationai.co.nz" class="btn btn--primary btn--large">
+                    Visit GenerationAI
+                </a>
+            </div>
+
+            <div style="padding-top: var(--space-2xl); border-top: 1px solid var(--border-light);">
+                <p class="text-small text-muted">
+                    Didn't receive your report? Check your spam folder or contact
+                    <a href="mailto:support@generationai.co.nz">support@generationai.co.nz</a>
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="section section--light">
+        <div class="container text-center">
+            <p class="text-small text-muted">
+                © 2025 GenerationAI Ltd. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Optional: Display score from URL parameter if available
+        const urlParams = new URLSearchParams(window.location.search);
+        const score = urlParams.get('score');
+
+        if (score) {
+            console.log('Assessment score:', score);
+            // Could display the score here if desired
+        }
+    </script>
+</body>
+</html>

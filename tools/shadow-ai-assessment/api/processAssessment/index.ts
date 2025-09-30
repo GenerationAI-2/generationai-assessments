@@ -1,0 +1,221 @@
+/**
+ * Shadow AI Assessment - Main Azure Function Handler
+ * Processes assessment submissions and orchestrates all services
+ */
+
+import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import { AssessmentSubmission, PDFGenerationRequest, PDFGenerationResponse } from "@generation-ai/types";
+import { getCorsHeaders } from "@generation-ai/utils";
+import { ScoringEngine } from "../shared/scoring-engine";
+import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable";
+import { sendAssessmentEmail } from "../shared/email";
+import fetch from "node-fetch";
+
+export async function processAssessment(
+  request: HttpRequest,
+  context: InvocationContext
+): Promise<HttpResponseInit> {
+  context.log('Processing Shadow AI assessment submission');
+
+  // Handle CORS preflight
+  if (request.method === 'OPTIONS') {
+    return {
+      status: 204,
+      headers: getCorsHeaders()
+    };
+  }
+
+  try {
+    // 1. Validate request
+    const submission = await request.json() as AssessmentSubmission;
+
+    if (!submission || !submission.email) {
+      return {
+        status: 400,
+        headers: getCorsHeaders(),
+        jsonBody: { error: "Invalid submission data. Email is required." }
+      };
+    }
+
+    context.log(`Processing assessment for: ${submission.email}`);
+
+    // 2. Check for duplicate submissions (optional - prevents spam)
+    const isDuplicate = await checkDuplicateSubmission(submission.email, 24);
+    if (isDuplicate) {
+      context.log(`Duplicate submission detected for ${submission.email}`);
+      // Still allow but log it
+    }
+
+    // 3. Run scoring engine
+    const scoringResult = ScoringEngine.process(submission);
+    context.log(`Score calculated: ${scoringResult.data.total_score} (${scoringResult.data.maturity_label})`);
+
+    // 4. Generate PDF report via PDF Generator Service
+    let pdfBase64: string | undefined;
+    try {
+      const pdfServiceUrl = process.env.PDF_SERVICE_URL || 'http://localhost:7072/api/generatePDF';
+      const pdfServiceKey = process.env.PDF_SERVICE_KEY;
+
+      context.log(`Calling PDF service: ${pdfServiceUrl}`);
+
+      const pdfRequest: PDFGenerationRequest = {
+        reportData: scoringResult.data
+      };
+
+      const headers: any = {
+        'Content-Type': 'application/json'
+      };
+
+      // Add function key if provided (for production)
+      if (pdfServiceKey) {
+        headers['x-functions-key'] = pdfServiceKey;
+      }
+
+      const response = await fetch(pdfServiceUrl, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(pdfRequest)
+      });
+
+      if (!response.ok) {
+        throw new Error(`PDF service returned ${response.status}: ${await response.text()}`);
+      }
+
+      const pdfResult = await response.json() as PDFGenerationResponse;
+
+      if (!pdfResult.success || !pdfResult.pdfBase64) {
+        throw new Error(pdfResult.error || 'PDF generation failed');
+      }
+
+      pdfBase64 = pdfResult.pdfBase64;
+      context.log(`PDF generated successfully (${pdfResult.sizeKB}KB)`);
+
+      // Save PDF locally for testing (development only)
+      if (process.env.NODE_ENV === 'development' && pdfBase64) {
+        const fs = require('fs');
+        const path = require('path');
+        const pdfBuffer = Buffer.from(pdfBase64, 'base64');
+        const filename = `Shadow-AI-Report-${submission.company_name.replace(/\s+/g, '-')}-${Date.now()}.pdf`;
+        const filepath = path.join(__dirname, '..', '..', 'pdfs', filename);
+
+        // Create pdfs directory if it doesn't exist
+        const pdfDir = path.join(__dirname, '..', '..', 'pdfs');
+        if (!fs.existsSync(pdfDir)) {
+          fs.mkdirSync(pdfDir, { recursive: true });
+        }
+
+        fs.writeFileSync(filepath, pdfBuffer);
+        context.log(`📄 PDF saved locally: ${filepath}`);
+      }
+    } catch (pdfError: any) {
+      context.error('PDF generation failed:', pdfError);
+      // Continue even if PDF fails - send email without attachment
+      // Or fail the request - depends on your requirements
+      // throw pdfError; // Uncomment to make PDF generation mandatory
+    }
+
+    // 5. Save to Airtable
+    try {
+      await saveToAirtable({
+        email: submission.email,
+        contact_name: submission.contact_name,
+        company_name: submission.company_name,
+        org_size: scoringResult.data.org_size,
+        sector: scoringResult.data.sector,
+        score: scoringResult.metadata.score,
+        maturity_band: scoringResult.data.maturity_label,
+        pdf_url: pdfBase64 ? 'Generated' : 'Failed',
+        submitted_at: new Date().toISOString(),
+        access: submission.access,
+        incidents: submission.incidents,
+        approval: submission.approval,
+        usage_visibility: submission.usage_visibility,
+        detection: submission.detection,
+        policy: submission.policy,
+        training: submission.training,
+        risk_concerns: submission.risk_concerns.join(', '),
+        exposure: submission.exposure,
+        traceability: submission.traceability,
+        compliance_awareness: submission.compliance_awareness
+      });
+      context.log('Saved to Airtable');
+    } catch (airtableError: any) {
+      context.error('Airtable save failed:', airtableError);
+      // Continue even if Airtable fails - don't block user from getting report
+    }
+
+    // 6. Send email with PDF attachment
+    let emailSent = false;
+    try {
+      await sendAssessmentEmail({
+        to: submission.email,
+        subject: `Your Shadow AI Risk Report - ${submission.company_name}`,
+        pdfBase64: pdfBase64, // PDF as base64 for attachment
+        recipientName: submission.contact_name,
+        companyName: submission.company_name,
+        score: scoringResult.metadata.score,
+        maturityBand: scoringResult.data.maturity_label
+      });
+      context.log(`Email sent to ${submission.email} with PDF attachment`);
+      emailSent = true;
+    } catch (emailError: any) {
+      context.error('Email send failed:', emailError);
+      // In development, don't fail if email isn't configured - PDF is still generated locally
+      if (process.env.NODE_ENV !== 'development') {
+        throw emailError;
+      }
+      context.log('Continuing without email (development mode)');
+    }
+
+    // 7. Send notification to GenerationAI team (optional)
+    try {
+      const notificationEmail = process.env.NOTIFICATION_EMAIL;
+      if (notificationEmail) {
+        await sendAssessmentEmail({
+          to: notificationEmail,
+          subject: `New Assessment: ${submission.company_name} - Score: ${scoringResult.metadata.score}`,
+          pdfBase64: pdfBase64,
+          recipientName: 'Team',
+          companyName: submission.company_name,
+          score: scoringResult.metadata.score,
+          maturityBand: scoringResult.data.maturity_label
+        });
+        context.log('Team notification sent');
+      }
+    } catch (notifyError) {
+      context.error('Team notification failed:', notifyError);
+      // Don't fail the request if team notification fails
+    }
+
+    // 8. Return success response
+    return {
+      status: 200,
+      headers: getCorsHeaders(),
+      jsonBody: {
+        success: true,
+        score: scoringResult.metadata.score,
+        maturity_band: scoringResult.data.maturity_label,
+        message: "Assessment processed successfully. Check your email for the full report."
+      }
+    };
+
+  } catch (error: any) {
+    context.error('Assessment processing error:', error);
+
+    return {
+      status: 500,
+      headers: getCorsHeaders(),
+      jsonBody: {
+        success: false,
+        error: "Failed to process assessment. Please try again or contact support@generationai.co.nz",
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      }
+    };
+  }
+}
+
+app.http('processAssessment', {
+  methods: ['GET', 'POST', 'OPTIONS'],
+  authLevel: 'anonymous',
+  handler: processAssessment
+});

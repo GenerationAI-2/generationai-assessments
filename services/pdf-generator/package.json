@@ -1,0 +1,26 @@
+{
+  "name": "pdf-generator",
+  "version": "1.0.0",
+  "description": "PDF Generation Service for GenerationAI Tools",
+  "main": "dist/generatePDF/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "dev": "npm run build && func start",
+    "clean": "rm -rf dist",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "@generation-ai/types": "workspace:*",
+    "@sparticuz/chromium": "^131.0.0",
+    "puppeteer": "^24.22.3",
+    "puppeteer-core": "^23.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

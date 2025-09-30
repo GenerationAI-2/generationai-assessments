@@ -1,0 +1,25 @@
+{
+  "name": "generation-ai-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GenerationAI Tools Monorepo - AI Risk Assessment and Compliance Tools",
+  "scripts": {
+    "build": "pnpm -r build",
+    "build:shadow-ai": "pnpm --filter shadow-ai-assessment-api build",
+    "build:pdf": "pnpm --filter pdf-generator build",
+    "dev:shadow-ai": "pnpm --filter shadow-ai-assessment-api dev",
+    "dev:pdf": "pnpm --filter pdf-generator dev",
+    "start:shadow-ai": "pnpm --filter shadow-ai-assessment-api start",
+    "start:pdf": "pnpm --filter pdf-generator start",
+    "clean": "pnpm -r clean",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

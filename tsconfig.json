@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "paths": {
+      "@generation-ai/types": ["./shared/types/src"],
+      "@generation-ai/utils": ["./shared/utils/src"]
+    }
+  },
+  "references": [
+    { "path": "./shared/types" },
+    { "path": "./shared/utils" },
+    { "path": "./services/pdf-generator" },
+    { "path": "./tools/shadow-ai-assessment/api" }
+  ]
+}

@@ -1,0 +1,5 @@
+packages:
+  - 'tools/*/api'
+  - 'tools/*/frontend'
+  - 'services/*'
+  - 'shared/*'
