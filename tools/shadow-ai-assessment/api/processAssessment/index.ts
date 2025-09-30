@@ -110,7 +110,7 @@ export async function processAssessment(
         context.log(`📄 PDF saved locally: ${filepath}`);
       }
     } catch (pdfError: any) {
-      context.error('PDF generation failed:', pdfError);
+      context.log('PDF generation failed:', pdfError);
       // Continue even if PDF fails - send email without attachment
       // Or fail the request - depends on your requirements
       // throw pdfError; // Uncomment to make PDF generation mandatory
@@ -142,7 +142,7 @@ export async function processAssessment(
       });
       context.log('Saved to Airtable');
     } catch (airtableError: any) {
-      context.error('Airtable save failed:', airtableError);
+      context.log('Airtable save failed:', airtableError);
       // Continue even if Airtable fails - don't block user from getting report
     }
 
@@ -161,7 +161,7 @@ export async function processAssessment(
       context.log(`Email sent to ${submission.email} with PDF attachment`);
       emailSent = true;
     } catch (emailError: any) {
-      context.error('Email send failed:', emailError);
+      context.log('Email send failed:', emailError);
       // In development, don't fail if email isn't configured - PDF is still generated locally
       if (process.env.NODE_ENV !== 'development') {
         throw emailError;
@@ -185,7 +185,7 @@ export async function processAssessment(
         context.log('Team notification sent');
       }
     } catch (notifyError) {
-      context.error('Team notification failed:', notifyError);
+      context.log('Team notification failed:', notifyError);
       // Don't fail the request if team notification fails
     }
 
