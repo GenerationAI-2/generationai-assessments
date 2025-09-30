@@ -28,23 +28,26 @@ export async function sendAssessmentEmail(options: EmailOptions): Promise<void> 
     // Format attachment for Logic App
     const attachmentName = `Shadow-AI-Report-${options.companyName.replace(/\s+/g, '-')}.pdf`;
 
-    const payload = {
+    const payload: any = {
       to: options.to,
       subject: options.subject,
       htmlBody: htmlBody,
       recipientName: options.recipientName,
       companyName: options.companyName,
       score: options.score,
-      maturityBand: options.maturityBand,
-      // Format attachment as Logic App expects
-      attachments: options.pdfBase64 ? [{
+      maturityBand: options.maturityBand
+    };
+
+    // Only add attachments if PDF is available
+    if (options.pdfBase64) {
+      payload.attachments = [{
         Name: attachmentName,
         ContentBytes: {
           "$content-type": "application/octet-stream",
           "$content": options.pdfBase64
         }
-      }] : undefined
-    };
+      }];
+    }
 
     const response = await fetch(logicAppUrl, {
       method: 'POST',

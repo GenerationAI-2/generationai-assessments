@@ -3,37 +3,39 @@
  * Generates PDFs from report data via HTTP POST
  */
 
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import type { HttpRequest } from "@azure/functions";
 import { PDFGenerationRequest, PDFGenerationResponse } from "@generation-ai/types";
 import { generatePDFBuffer } from "../shared/pdf-engine";
 
 export async function generatePDFHandler(
-  request: HttpRequest,
-  context: InvocationContext
-): Promise<HttpResponseInit> {
+  context: any,
+  req: HttpRequest
+): Promise<void> {
   context.log('PDF Generator Service - Processing request');
 
   // Handle CORS preflight
-  if (request.method === 'OPTIONS') {
-    return {
+  if (req.method === 'OPTIONS') {
+    context.res = {
       status: 204,
       headers: getCorsHeaders()
     };
+    return;
   }
 
   try {
     // Parse request body
-    const requestData = await request.json() as PDFGenerationRequest;
+    const requestData = (req.body || (req as any).rawBody) as PDFGenerationRequest;
 
     if (!requestData || !requestData.reportData) {
-      return {
+      context.res = {
         status: 400,
         headers: getCorsHeaders(),
-        jsonBody: {
+        body: {
           success: false,
           error: "Invalid request: reportData is required"
         } as PDFGenerationResponse
       };
+      return;
     }
 
     // Generate PDF
@@ -44,11 +46,11 @@ export async function generatePDFHandler(
     context.log(`PDF generated successfully: ${sizeKB}KB`);
 
     // Return PDF as base64 (for email attachment) or as binary
-    const responseFormat = request.query.get('format') || 'base64';
+    const responseFormat = (req.query && (req.query as any).format) || 'base64';
 
     if (responseFormat === 'binary') {
       // Return PDF as downloadable binary
-      return {
+      context.res = {
         status: 200,
         headers: {
           'Content-Type': 'application/pdf',
@@ -59,10 +61,10 @@ export async function generatePDFHandler(
       };
     } else {
       // Return PDF as base64 JSON response (default)
-      return {
+      context.res = {
         status: 200,
         headers: getCorsHeaders(),
-        jsonBody: {
+        body: {
           success: true,
           pdfBase64: pdfBase64,
           sizeKB: sizeKB
@@ -71,11 +73,11 @@ export async function generatePDFHandler(
     }
 
   } catch (error: any) {
-    context.error('PDF generation failed:', error);
-    return {
+    context.log('PDF generation failed:', error);
+    context.res = {
       status: 500,
       headers: getCorsHeaders(),
-      jsonBody: {
+      body: {
         success: false,
         error: error.message || "Failed to generate PDF"
       } as PDFGenerationResponse
@@ -92,8 +94,5 @@ function getCorsHeaders() {
   };
 }
 
-app.http('generatePDF', {
-  methods: ['POST', 'OPTIONS'],
-  authLevel: 'function', // Requires API key for security
-  handler: generatePDFHandler
-});
+// Export as default for function.json compatibility
+export default generatePDFHandler;
