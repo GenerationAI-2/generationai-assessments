@@ -3,7 +3,7 @@
  * Processes assessment submissions and orchestrates all services
  */
 
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { AssessmentSubmission, PDFGenerationRequest, PDFGenerationResponse } from "@generation-ai/types";
 import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine } from "../shared/scoring-engine";
@@ -214,8 +214,5 @@ export async function processAssessment(
   }
 }
 
-app.http('processAssessment', {
-  methods: ['GET', 'POST', 'OPTIONS'],
-  authLevel: 'anonymous',
-  handler: processAssessment
-});
+// Export as default for function.json compatibility
+export default processAssessment;
