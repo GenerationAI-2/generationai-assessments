@@ -27,11 +27,16 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: |
-          cd tools/shadow-ai-assessment/api
-          pnpm install
+        run: pnpm install
 
-      - name: Build
+      - name: Build shared packages
+        run: |
+          cd shared/types
+          pnpm build
+          cd ../utils
+          pnpm build
+
+      - name: Build Shadow AI API
         run: |
           cd tools/shadow-ai-assessment/api
           pnpm build
