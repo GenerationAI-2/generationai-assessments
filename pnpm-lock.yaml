@@ -32,6 +32,9 @@ importers:
       puppeteer-core:
         specifier: ^23.11.0
         version: 23.11.1
+      semver:
+        specifier: ^7.6.0
+        version: 7.7.2
     devDependencies:
       '@types/node':
         specifier: ^20.0.0

@@ -35,19 +35,17 @@ export async function sendAssessmentEmail(options: EmailOptions): Promise<void> 
       recipientName: options.recipientName,
       companyName: options.companyName,
       score: options.score,
-      maturityBand: options.maturityBand
-    };
-
-    // Only add attachments if PDF is available
-    if (options.pdfBase64) {
-      payload.attachments = [{
+      maturityBand: options.maturityBand,
+      // Always include attachments array (even if empty) to prevent Logic App errors
+      // The Logic App expects this field and will fail if it's undefined
+      attachments: options.pdfBase64 ? [{
         Name: attachmentName,
         ContentBytes: {
           "$content-type": "application/octet-stream",
           "$content": options.pdfBase64
         }
-      }];
-    }
+      }] : []
+    };
 
     const response = await fetch(logicAppUrl, {
       method: 'POST',
