@@ -2,7 +2,7 @@
   "name": "shadow-ai-assessment-api",
   "version": "1.0.0",
   "description": "Azure Functions API for Shadow AI Risk Assessment",
-  "main": "dist/src/functions.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
