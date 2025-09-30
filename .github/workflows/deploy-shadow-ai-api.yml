@@ -44,6 +44,12 @@ jobs:
           cd tools/shadow-ai-assessment/api
           pnpm build
 
+      - name: Prepare deployment (fix workspace dependencies)
+        run: |
+          cd tools/shadow-ai-assessment/api
+          chmod +x prepare-deploy.sh
+          ./prepare-deploy.sh
+
       - name: Azure CLI Login
         run: |
           az login --service-principal \
