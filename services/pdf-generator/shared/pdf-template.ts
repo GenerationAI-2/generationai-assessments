@@ -185,7 +185,7 @@ function generateShadowAIHTML(data: ReportData): string {
       padding: var(--space-lg);
       border-radius: var(--radius-lg);
       margin-bottom: var(--space-lg);
-      border: 2px solid var(--border-light);
+      border: 1px solid var(--border-light);
     }
 
     .introduction h2 {
@@ -290,7 +290,7 @@ function generateShadowAIHTML(data: ReportData): string {
       padding: var(--space-lg);
       background: var(--bg-light);
       border-radius: var(--radius-lg);
-      border: 2px solid var(--border-light);
+      border: 1px solid var(--border-light);
     }
 
     .score-display {
@@ -358,8 +358,8 @@ function generateShadowAIHTML(data: ReportData): string {
     }
 
     .explanation-box {
-      background: var(--bg-light);
-      padding: var(--space-sm);
+      background: #EFF6FF;
+      padding: var(--space-md);
       margin: var(--space-sm) 0;
       border-radius: var(--radius);
       border: 1px solid var(--border-light);
@@ -371,7 +371,7 @@ function generateShadowAIHTML(data: ReportData): string {
       padding: var(--space-lg);
       border-radius: var(--radius-lg);
       margin: var(--space-lg) 0;
-      border: 2px solid var(--primary-blue);
+      border: 1px solid var(--border-light);
     }
 
     .next-steps h2 {
@@ -389,46 +389,72 @@ function generateShadowAIHTML(data: ReportData): string {
       color: var(--text-body);
     }
 
-    .timeline-section {
-      margin: var(--space-md) 0;
-      padding: var(--space-md);
-      background: var(--white);
-      border-radius: var(--radius);
-    }
-
-    .timeline-section h4 {
-      color: var(--primary-blue);
-      margin-bottom: var(--space-sm);
-      font-size: var(--font-size-base);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 700;
-    }
-
     /* CTA Section */
     .cta-section {
-      background: var(--primary-blue);
-      color: var(--white);
-      padding: var(--space-lg);
+      background: var(--white);
+      padding: var(--space-2xl);
       border-radius: var(--radius-lg);
       margin: var(--space-lg) 0;
       text-align: center;
+      border: 1px solid var(--border-light);
     }
 
-    .cta-section h2,
-    .cta-section h3 {
-      color: var(--white);
+    .cta-section h2 {
+      color: var(--text-heading);
       margin-top: 0;
+      margin-bottom: var(--space-lg);
+    }
+
+    .cta-section h3 {
+      color: var(--primary-blue);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+      font-size: var(--font-size-lg);
     }
 
     .cta-section p {
-      color: var(--white);
-      opacity: 0.95;
+      color: var(--text-body);
+      margin-bottom: var(--space-md);
     }
 
-    .cta-section strong {
+    .cta-box {
+      background: var(--bg-light);
+      padding: var(--space-lg);
+      border-radius: var(--radius);
+      margin: var(--space-md) 0;
+      border: 1px solid var(--border-light);
+    }
+
+    .cta-links {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      margin-top: var(--space-md);
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary-blue);
       color: var(--white);
-      font-weight: 700;
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .cta-link:hover {
+      background: #1D4ED8;
+    }
+
+    .cta-link--secondary {
+      background: var(--white);
+      color: var(--primary-blue);
+      border: 2px solid var(--primary-blue);
+    }
+
+    .cta-link--secondary:hover {
+      background: var(--bg-light);
     }
 
     /* Footer */
@@ -681,13 +707,22 @@ function generateShadowAIHTML(data: ReportData): string {
     <h2>Ready to Take Action?</h2>
     <p>Whether you're starting from scratch or optimising what's working, we can help.</p>
 
-    <h3 style="margin-top: var(--space-lg);">AI Readiness Assessment & 90-Day Roadmap</h3>
-    <p>Move from insights to action with a practical plan tailored to your organisation's specific situation and maturity level.</p>
-    <p><a href="https://www.generationai.co.nz" style="color: var(--white); text-decoration: underline;"><strong>Book Your Session</strong></a> | <a href="https://www.generationai.co.nz" style="color: var(--white); text-decoration: underline;"><strong>Learn More</strong></a></p>
+    <div class="cta-box">
+      <h3>AI Readiness Assessment & 90-Day Roadmap</h3>
+      <p>Move from insights to action with a practical plan tailored to your organisation's specific situation and maturity level.</p>
+      <div class="cta-links">
+        <a href="https://www.generationai.co.nz" class="cta-link">Book Your Session</a>
+        <a href="https://www.generationai.co.nz" class="cta-link cta-link--secondary">Learn More</a>
+      </div>
+    </div>
 
-    <h3 style="margin-top: var(--space-lg);">Supporting Resources</h3>
-    <p>Access our guides and tools to support your AI readiness journey.</p>
-    <p><a href="https://www.generationai.co.nz/resources" style="color: var(--white); text-decoration: underline;"><strong>Explore Resources</strong></a></p>
+    <div class="cta-box">
+      <h3>Supporting Resources</h3>
+      <p>Access our guides and tools to support your AI readiness journey.</p>
+      <div class="cta-links">
+        <a href="https://www.generationai.co.nz/resources" class="cta-link">Explore Resources</a>
+      </div>
+    </div>
   </div>
 
   <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
