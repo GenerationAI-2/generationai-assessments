@@ -217,6 +217,61 @@ importers:
         specifier: ^5.0.0
         version: 5.9.2
 
+  tools/business-readiness-assessment/api:
+    dependencies:
+      '@azure/functions':
+        specifier: ^4.0.0
+        version: 4.8.0
+      '@generation-ai/types':
+        specifier: workspace:*
+        version: link:../../../shared/types
+      '@generation-ai/utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+      abort-controller:
+        specifier: ^3.0.0
+        version: 3.0.0
+      abortcontroller-polyfill:
+        specifier: ^1.7.8
+        version: 1.7.8
+      airtable:
+        specifier: ^0.12.2
+        version: 0.12.2
+      event-target-polyfill:
+        specifier: ^0.0.4
+        version: 0.0.4
+      event-target-shim:
+        specifier: ^6.0.2
+        version: 6.0.2
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      node-fetch:
+        specifier: ^2.7.0
+        version: 2.7.0
+      punycode:
+        specifier: ^2.3.1
+        version: 2.3.1
+      tr46:
+        specifier: ^6.0.0
+        version: 6.0.0
+      webidl-conversions:
+        specifier: ^8.0.0
+        version: 8.0.0
+      whatwg-url:
+        specifier: ^15.1.0
+        version: 15.1.0
+    devDependencies:
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.19.18
+      '@types/node-fetch':
+        specifier: ^2.6.13
+        version: 2.6.13
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
+
   tools/shadow-ai-assessment/api:
     dependencies:
       '@azure/functions':

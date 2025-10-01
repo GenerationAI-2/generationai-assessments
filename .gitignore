@@ -58,3 +58,9 @@ Desktop.ini
 # Temporary files
 *.tmp
 *.temp
+
+# Business Readiness Assessment
+tools/business-readiness-assessment/api/local.settings.json
+tools/business-readiness-assessment/api/pdfs/
+tools/business-readiness-assessment/api/dist/
+tools/business-readiness-assessment/api/node_modules/

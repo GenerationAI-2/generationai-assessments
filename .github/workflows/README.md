@@ -4,9 +4,11 @@ This directory contains GitHub Actions workflows for automated deployment of all
 
 ## Workflows
 
-1. **deploy-frontend.yml** - Deploys the Static Web App frontend
+1. **deploy-frontend.yml** - Deploys the Shadow AI Static Web App frontend
 2. **deploy-shadow-ai-api.yml** - Deploys the Shadow AI Assessment API
-3. **deploy-pdf-generator.yml** - Deploys the PDF Generator service
+3. **deploy-business-readiness-frontend.yml** - Deploys the Business Readiness Static Web App frontend
+4. **deploy-business-readiness-api.yml** - Deploys the Business Readiness Assessment API
+5. **deploy-pdf-generator.yml** - Deploys the PDF Generator service (shared)
 
 ## Required GitHub Secrets
 
@@ -14,7 +16,7 @@ To enable CI/CD, you need to add the following secrets to your GitHub repository
 
 ### 1. AZURE_STATIC_WEB_APPS_API_TOKEN
 
-Get this token:
+Get this token for Shadow AI frontend:
 ```bash
 az staticwebapp secrets list \
   --name generationai-shadow-ai-frontend \
@@ -22,9 +24,25 @@ az staticwebapp secrets list \
   --query "properties.apiKey" -o tsv
 ```
 
-Run the command above to get the current token value.
+### 2. AZURE_STATIC_WEB_APPS_API_TOKEN_BUSINESS_READINESS
 
-### 2. AZURE_FUNCTIONAPP_PUBLISH_PROFILE_SHADOW_AI
+Get this token for Business Readiness frontend:
+```bash
+az staticwebapp secrets list \
+  --name generationai-business-readiness-frontend \
+  --resource-group generationai-rg \
+  --query "properties.apiKey" -o tsv
+```
+
+### 3. Azure Service Principal Secrets (for API deployments)
+
+The API deployments use Azure CLI with service principal authentication. Add these secrets:
+- `AZURE_CLIENT_ID` - Service principal application ID
+- `AZURE_CLIENT_SECRET` - Service principal password
+- `AZURE_TENANT_ID` - Azure AD tenant ID
+- `AZURE_SUBSCRIPTION_ID` - Azure subscription ID
+
+### 4. AZURE_FUNCTIONAPP_PUBLISH_PROFILE_SHADOW_AI (Alternative method)
 
 Get the publish profile:
 ```bash
@@ -58,8 +76,10 @@ Then copy the entire XML content to GitHub Secrets.
 ## Deployment Triggers
 
 - **Automatic**: Workflows trigger automatically when you push changes to the `main` branch in the relevant paths:
-  - Frontend: `tools/shadow-ai-assessment/frontend/**`
-  - API: `tools/shadow-ai-assessment/api/**`
+  - Shadow AI Frontend: `tools/shadow-ai-assessment/frontend/**`
+  - Shadow AI API: `tools/shadow-ai-assessment/api/**`
+  - Business Readiness Frontend: `tools/business-readiness-assessment/frontend/**`
+  - Business Readiness API: `tools/business-readiness-assessment/api/**`
   - PDF Generator: `services/pdf-generator/**`
 
 - **Manual**: You can also trigger deployments manually:

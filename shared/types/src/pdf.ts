@@ -5,7 +5,7 @@
 import { ReportData } from './assessment';
 
 export interface PDFGenerationRequest {
-  reportData: ReportData;
+  reportData: ReportData | any; // Allow any report data structure (Shadow AI or Business Readiness)
 }
 
 export interface PDFGenerationResponse {

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Assess your organisation's business readiness for AI adoption in under 5 minutes. Receive a personalised readiness report instantly.">
+    <title>Business Readiness Assessment | GenerationAI</title>
+    <link rel="stylesheet" href="/assets/css/brand.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <a href="https://www.generationai.co.nz" class="nav__logo">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="section section--light">
+        <div class="container text-center" style="max-width: 800px;">
+            <h1>Business AI Readiness Assessment</h1>
+            <p class="text-muted" style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">
+                Is your organisation ready to adopt AI successfully?
+                Complete this 5-minute assessment to understand your readiness level and receive
+                a personalised report with actionable recommendations.
+            </p>
+            <div class="alert alert--info">
+                <strong>What you'll receive:</strong> A comprehensive readiness analysis covering key business areas,
+                your AI readiness maturity band, and a prioritised action plan – delivered to your inbox within 60 seconds.
+            </div>
+        </div>
+    </section>
+
+    <!-- ASSESSMENT FORM -->
+    <section class="section">
+        <div class="container" style="max-width: 800px;">
+
+            <!-- Progress Indicator -->
+            <div class="progress">
+                <div class="progress__text" id="progress-text">0 of 13 questions completed</div>
+                <div class="progress__bar">
+                    <div class="progress__fill" id="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Loading State (hidden by default) -->
+            <div id="loading-state" class="loading">
+                <div class="loading__spinner"></div>
+                <h3>Processing Your Assessment...</h3>
+                <p class="text-muted">Calculating your readiness score and generating your personalised report. This should take less than 60 seconds.</p>
+            </div>
+
+            <!-- Main Form -->
+            <form id="assessment-form">
+
+                <!-- CONTACT INFORMATION -->
+                <h2>Contact Information</h2>
+
+                <div class="form__group">
+                    <label for="email" class="form__label form__label--required">What is your email address?</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form__input"
+                        placeholder="name@company.co.nz"
+                        required>
+                    <div id="email-error" class="form__error"></div>
+                </div>
+
+                <div class="form__group">
+                    <label for="contact_name" class="form__label form__label--required">Your name</label>
+                    <input
+                        type="text"
+                        id="contact_name"
+                        name="contact_name"
+                        class="form__input"
+                        placeholder="John Smith"
+                        required>
+                    <div id="contact_name-error" class="form__error"></div>
+                </div>
+
+                <div class="form__group">
+                    <label for="company_name" class="form__label form__label--required">Organisation name</label>
+                    <input
+                        type="text"
+                        id="company_name"
+                        name="company_name"
+                        class="form__input"
+                        placeholder="Your Company Ltd"
+                        required>
+                    <div id="company_name-error" class="form__error"></div>
+                </div>
+
+                <!-- BUSINESS AI READINESS QUESTIONS -->
+                <h2 class="mt-xl">AI Leadership & Strategy</h2>
+
+                <!-- Q1: Ownership -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Who in your organisation currently owns responsibility for AI adoption or strategy?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q1_ownership" value="opt_5" required>
+                            <span class="form__radio-label">Clear ownership at executive level with visible leadership</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_ownership" value="opt_4">
+                            <span class="form__radio-label">Assigned to senior leader in IT or Operations</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_ownership" value="opt_3">
+                            <span class="form__radio-label">Shared interest across leaders but no single owner</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_ownership" value="opt_2">
+                            <span class="form__radio-label">Discussed occasionally, but not assigned</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_ownership" value="opt_1">
+                            <span class="form__radio-label">No clear ownership or intent to assign</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_ownership" value="opt_0">
+                            <span class="form__radio-label">Not discussed or considered at all</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q2: Strategic Direction -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How well is AI currently integrated into your business strategy or planning processes?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q2_strategy" value="opt_5" required>
+                            <span class="form__radio-label">Embedded in strategic plans and actively reviewed</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_strategy" value="opt_4">
+                            <span class="form__radio-label">Regularly discussed at board or exec level</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_strategy" value="opt_3">
+                            <span class="form__radio-label">Included in planning documents but not acted on</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_strategy" value="opt_2">
+                            <span class="form__radio-label">Mentioned informally by leaders or managers</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_strategy" value="opt_1">
+                            <span class="form__radio-label">Not included in any planning activities</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_strategy" value="opt_0">
+                            <span class="form__radio-label">Not discussed or considered</span>
+                        </label>
+                    </div>
+                </div>
+
+                <h2 class="mt-xl">Culture & Capability</h2>
+
+                <!-- Q3: Culture & Staff Confidence -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How would you describe your organisational culture around AI adoption and change?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q3_culture" value="opt_5" required>
+                            <span class="form__radio-label">Staff are encouraged, supported and confident using AI tools</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_culture" value="opt_4">
+                            <span class="form__radio-label">Most staff are positive, with champions emerging</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_culture" value="opt_3">
+                            <span class="form__radio-label">Mixed responses, with some resistance or uncertainty</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_culture" value="opt_2">
+                            <span class="form__radio-label">Limited engagement or experimentation by staff</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_culture" value="opt_1">
+                            <span class="form__radio-label">Clear hesitation or pushback from staff</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_culture" value="opt_0">
+                            <span class="form__radio-label">No visible engagement or signals at all</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q4: Staff Enablement -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">What guidance or training has staff received to use AI tools safely and effectively?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q4_enablement" value="opt_5" required>
+                            <span class="form__radio-label">Role-specific training and structured enablement delivered</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_enablement" value="opt_4">
+                            <span class="form__radio-label">Formal sessions or resources provided to most teams</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_enablement" value="opt_3">
+                            <span class="form__radio-label">Basic guidance shared across the business</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_enablement" value="opt_2">
+                            <span class="form__radio-label">Informal tips or peer support only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_enablement" value="opt_1">
+                            <span class="form__radio-label">Told not to use AI, without alternatives</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_enablement" value="opt_0">
+                            <span class="form__radio-label">No guidance, training or enablement at all</span>
+                        </label>
+                    </div>
+                </div>
+
+                <h2 class="mt-xl">Governance & Risk</h2>
+
+                <!-- Q5: Shadow AI Exposure -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">To what extent are staff using personal or unapproved AI tools for work?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q5_shadow_ai" value="opt_5" required>
+                            <span class="form__radio-label">No unauthorised use — strong controls and awareness in place</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_shadow_ai" value="opt_4">
+                            <span class="form__radio-label">Minimal use in isolated cases only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_shadow_ai" value="opt_3">
+                            <span class="form__radio-label">Some teams using personal accounts</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_shadow_ai" value="opt_2">
+                            <span class="form__radio-label">Widespread informal use across teams</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_shadow_ai" value="opt_1">
+                            <span class="form__radio-label">Extensive Shadow AI, no controls in place</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_shadow_ai" value="opt_0">
+                            <span class="form__radio-label">Don't know what's being used</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q6: Governance & Guardrails -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">What guardrails or policies exist to guide responsible AI use in your organisation?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q6_governance" value="opt_5" required>
+                            <span class="form__radio-label">Formal policy and review process in place</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_governance" value="opt_4">
+                            <span class="form__radio-label">Working draft shared and being refined</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_governance" value="opt_3">
+                            <span class="form__radio-label">Basic rules or principles communicated</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_governance" value="opt_2">
+                            <span class="form__radio-label">Informal expectations only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_governance" value="opt_1">
+                            <span class="form__radio-label">Told not to use AI, no guidance or support</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_governance" value="opt_0">
+                            <span class="form__radio-label">No guardrails or discussion at all</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q7: Risk Awareness / Compliance -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How confident are you that your AI use complies with privacy, data protection, and legal obligations?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q7_compliance" value="opt_5" required>
+                            <span class="form__radio-label">Fully confident — legal obligations mapped and controls in place</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_compliance" value="opt_4">
+                            <span class="form__radio-label">Mostly confident — risks understood and mitigated</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_compliance" value="opt_3">
+                            <span class="form__radio-label">Somewhat confident — partial understanding and oversight</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_compliance" value="opt_2">
+                            <span class="form__radio-label">Not confident — limited awareness or checks</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_compliance" value="opt_1">
+                            <span class="form__radio-label">Know we're likely exposed</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_compliance" value="opt_0">
+                            <span class="form__radio-label">Haven't considered legal or privacy risks at all</span>
+                        </label>
+                    </div>
+                </div>
+
+                <h2 class="mt-xl">Execution Readiness</h2>
+
+                <!-- Q8: Resource & Investment Readiness -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Have you allocated budget, people, or time to support AI adoption in the next 6-12 months?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q8_resources" value="opt_5" required>
+                            <span class="form__radio-label">Fully resourced with budget, team, and executive time committed</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_resources" value="opt_4">
+                            <span class="form__radio-label">Budget approved, team being assembled</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_resources" value="opt_3">
+                            <span class="form__radio-label">Resources identified, approval in progress</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_resources" value="opt_2">
+                            <span class="form__radio-label">Considering investment, no formal commitment</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_resources" value="opt_1">
+                            <span class="form__radio-label">No resources allocated or planned</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_resources" value="opt_0">
+                            <span class="form__radio-label">Haven't considered resourcing yet</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q9: Data & IP Protection -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How confident are you that sensitive company data hasn't been exposed through AI tools?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q9_data_protection" value="opt_5" required>
+                            <span class="form__radio-label">Fully confident — technical controls actively prevent it</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_data_protection" value="opt_4">
+                            <span class="form__radio-label">Strong policies and monitoring provide assurance</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_data_protection" value="opt_3">
+                            <span class="form__radio-label">Reasonably confident, relying on staff judgment</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_data_protection" value="opt_2">
+                            <span class="form__radio-label">Not confident — some exposure likely</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_data_protection" value="opt_1">
+                            <span class="form__radio-label">Exposure has occurred</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_data_protection" value="opt_0">
+                            <span class="form__radio-label">No idea what's being shared or with which tools</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q10: Opportunity Mapping -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How clearly have you identified where AI could create value in your business?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q10_opportunity" value="opt_5" required>
+                            <span class="form__radio-label">Clear ROI opportunities mapped across multiple areas</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_opportunity" value="opt_4">
+                            <span class="form__radio-label">Specific use cases identified with estimated benefits</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_opportunity" value="opt_3">
+                            <span class="form__radio-label">General sense of where AI could help</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_opportunity" value="opt_2">
+                            <span class="form__radio-label">Vague understanding of potential value</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_opportunity" value="opt_1">
+                            <span class="form__radio-label">Haven't explored opportunities yet</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_opportunity" value="opt_0">
+                            <span class="form__radio-label">Don't see how AI applies to us</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SUBMIT -->
+                <div class="form__group" style="margin-top: var(--space-xxl);">
+                    <button type="submit" class="btn btn--primary btn--large btn--block">
+                        Get My Readiness Report
+                    </button>
+                    <p class="text-muted text-center" style="margin-top: var(--space-md); font-size: var(--font-size-sm);">
+                        Your personalised report will be emailed to you within 60 seconds
+                    </p>
+                </div>
+
+            </form>
+
+            <!-- SUCCESS STATE -->
+            <div id="success-state" class="success" style="display: none;">
+                <div class="success__icon">✓</div>
+                <h2>Assessment Complete!</h2>
+                <p class="text-muted">
+                    Your Business AI Readiness Report has been generated and sent to <strong id="success-email"></strong>.
+                </p>
+                <p class="text-muted">
+                    Check your inbox (and spam folder) for your personalised report with your readiness score and recommendations.
+                </p>
+                <div style="margin-top: var(--space-xl);">
+                    <a href="https://www.generationai.co.nz" class="btn btn--primary">
+                        Book a Strategy Session
+                    </a>
+                </div>
+            </div>
+
+            <!-- ERROR STATE -->
+            <div id="error-state" class="error" style="display: none;">
+                <div class="error__icon">⚠</div>
+                <h2>Something went wrong</h2>
+                <p class="text-muted" id="error-message">
+                    We couldn't process your assessment. Please try again or contact support@generationai.co.nz
+                </p>
+                <div style="margin-top: var(--space-xl);">
+                    <button onclick="location.reload()" class="btn btn--secondary">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center text-muted" style="font-size: var(--font-size-sm);">
+                © 2025 GenerationAI. This assessment does not constitute legal, compliance, or technical advice.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Configuration
+        const API_ENDPOINT = 'http://localhost:7073/api/processAssessment'; // Update for production
+
+        // DOM Elements
+        const form = document.getElementById('assessment-form');
+        const loadingState = document.getElementById('loading-state');
+        const successState = document.getElementById('success-state');
+        const errorState = document.getElementById('error-state');
+        const progressText = document.getElementById('progress-text');
+        const progressFill = document.getElementById('progress-fill');
+
+        // Progress tracking
+        const totalQuestions = 13; // 3 contact fields + 10 assessment questions
+        let answeredQuestions = 0;
+
+        // Update progress on any input change
+        form.addEventListener('change', updateProgress);
+        form.addEventListener('input', updateProgress);
+
+        function updateProgress() {
+            const inputs = form.querySelectorAll('input[required]');
+            answeredQuestions = 0;
+
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    const name = input.name;
+                    if (form.querySelector(`input[name="${name}"]:checked`)) {
+                        answeredQuestions++;
+                    }
+                } else if (input.value.trim() !== '') {
+                    answeredQuestions++;
+                }
+            });
+
+            // Remove duplicates for radio groups
+            const radioGroups = new Set();
+            inputs.forEach(input => {
+                if (input.type === 'radio' && form.querySelector(`input[name="${input.name}"]:checked`)) {
+                    radioGroups.add(input.name);
+                }
+            });
+
+            // Count text inputs
+            const textInputs = Array.from(inputs).filter(i => i.type !== 'radio' && i.value.trim() !== '');
+            answeredQuestions = textInputs.length + radioGroups.size;
+
+            const percentage = (answeredQuestions / totalQuestions) * 100;
+            progressText.textContent = `${answeredQuestions} of ${totalQuestions} questions completed`;
+            progressFill.style.width = `${percentage}%`;
+        }
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(form);
+            const data = {
+                email: formData.get('email'),
+                contact_name: formData.get('contact_name'),
+                company_name: formData.get('company_name'),
+                q1_ownership: formData.get('q1_ownership'),
+                q2_strategy: formData.get('q2_strategy'),
+                q3_culture: formData.get('q3_culture'),
+                q4_enablement: formData.get('q4_enablement'),
+                q5_shadow_ai: formData.get('q5_shadow_ai'),
+                q6_governance: formData.get('q6_governance'),
+                q7_compliance: formData.get('q7_compliance'),
+                q8_resources: formData.get('q8_resources'),
+                q9_data_protection: formData.get('q9_data_protection'),
+                q10_opportunity: formData.get('q10_opportunity')
+            };
+
+            // Validate all questions answered
+            const missingFields = Object.entries(data).filter(([key, value]) => !value);
+            if (missingFields.length > 0) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+
+            // Show loading state
+            form.style.display = 'none';
+            loadingState.style.display = 'block';
+
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Show success
+                    loadingState.style.display = 'none';
+                    successState.style.display = 'block';
+                    document.getElementById('success-email').textContent = data.email;
+                } else {
+                    throw new Error(result.error || 'Assessment processing failed');
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                document.getElementById('error-message').textContent = error.message || 'An unexpected error occurred. Please try again.';
+            }
+        });
+
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+</html>

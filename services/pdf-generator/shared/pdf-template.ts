@@ -5,7 +5,18 @@
 
 import { ReportData } from '@generation-ai/types';
 
-export function generatePDFHTML(data: ReportData): string {
+export function generatePDFHTML(data: any): string {
+  // Route to correct template based on data structure
+  // Business Readiness has readiness_score, Shadow AI has total_score
+  if (data.readiness_score !== undefined) {
+    return generateBusinessReadinessHTML(data);
+  }
+
+  // Default to Shadow AI template
+  return generateShadowAIHTML(data);
+}
+
+function generateShadowAIHTML(data: ReportData): string {
   const scoreNum = parseInt(data.total_score) || 0;
   const maturityClass = getMaturityClass(data.maturity_label);
   const maturityDescription = getMaturityDescription(data.maturity_label);
@@ -727,4 +738,280 @@ function getMaturityDescription(maturity: string): string {
     return 'Your organisation has minimal AI governance. AI usage is largely unmanaged, with significant gaps in policy, visibility, and controls. Immediate action is recommended.';
   }
   return 'Your organisation has little to no AI governance in place. There is high risk exposure from unauthorised AI usage. Urgent action is required to establish basic controls and awareness.';
+}
+
+/**
+ * Business AI Readiness Assessment HTML Template
+ */
+function generateBusinessReadinessHTML(data: any): string {
+  const scoreNum = parseInt(data.readiness_score) || 0;
+  const readinessClass = getReadinessClass(data.readiness_band);
+
+  const assessmentDate = data.response_date || new Date().toLocaleDateString('en-NZ', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business AI Readiness Report - ${data.company_name}</title>
+  <style>
+    /* Use same design system as Shadow AI */
+    :root {
+      --primary-blue: #2563EB;
+      --dark-navy: #0F172A;
+      --lime-accent: #D4FF00;
+      --text-body: #6B7280;
+      --text-heading: #0F172A;
+      --border-light: #E5E7EB;
+      --bg-light: #F9FAFB;
+      --white: #FFFFFF;
+      --green: #10B981;
+      --green-bg: #D1FAE5;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 12px;
+      --space-lg: 16px;
+      --space-xl: 20px;
+      --space-2xl: 24px;
+      --space-3xl: 32px;
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      --font-size-xs: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 2rem;
+      --line-height: 1.6;
+      --line-height-tight: 1.2;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    @page { size: A4; margin: 1.5cm; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      color: var(--text-body);
+      background: var(--white);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-md);
+    }
+
+    h1, h2, h3, h4 { color: var(--text-heading); font-weight: 700; line-height: var(--line-height-tight); }
+    h1 { font-size: var(--font-size-3xl); margin-bottom: var(--space-md); padding-bottom: var(--space-sm); border-bottom: 3px solid var(--primary-blue); }
+    h2 { font-size: var(--font-size-2xl); margin-top: var(--space-xl); margin-bottom: var(--space-md); }
+    h3 { font-size: var(--font-size-xl); margin-top: var(--space-md); margin-bottom: var(--space-sm); }
+    p { margin-bottom: var(--space-sm); }
+    strong { font-weight: 600; color: var(--text-heading); }
+
+    .report-header {
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .report-header img { height: 50px; width: auto; margin-bottom: var(--space-md); }
+
+    .report-meta {
+      font-size: var(--font-size-base);
+      color: var(--text-body);
+      line-height: 1.8;
+    }
+
+    .score-box {
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      border: 2px solid var(--primary-blue);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin: var(--space-xl) 0;
+      text-align: center;
+    }
+
+    .score-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--primary-blue);
+      margin: var(--space-sm) 0;
+    }
+
+    .readiness-badge {
+      display: inline-block;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: 20px;
+      font-weight: 600;
+      margin-top: var(--space-md);
+      font-size: var(--font-size-lg);
+    }
+
+    .readiness-unmanaged { background: #FEE2E2; color: #DC2626; }
+    .readiness-adhoc { background: #FEF3C7; color: #F59E0B; }
+    .readiness-developing { background: #E0E7FF; color: var(--primary-blue); }
+    .readiness-ready { background: var(--green-bg); color: var(--green); }
+
+    .insight-box {
+      background: var(--bg-light);
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-light);
+      page-break-inside: avoid;
+    }
+
+    .gap-section {
+      background: var(--white);
+      padding: var(--space-md);
+      margin: var(--space-sm) 0;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--primary-blue);
+      page-break-inside: avoid;
+    }
+
+    .cta-box {
+      background: var(--primary-blue);
+      color: var(--white);
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      margin: var(--space-xl) 0;
+      text-align: center;
+    }
+
+    .cta-box h2, .cta-box h3 { color: var(--white); margin-top: 0; }
+    .cta-box p { color: var(--white); opacity: 0.95; }
+
+    .footer {
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-lg);
+      border-top: 2px solid var(--border-light);
+      font-size: var(--font-size-xs);
+      color: var(--text-body);
+    }
+
+    @media print {
+      body { padding: 0; }
+      .insight-box, .gap-section, .score-box, .cta-box { page-break-inside: avoid; }
+      h2, h3, h4 { page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-header">
+    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+         alt="GenerationAI">
+    <h1>Business AI Readiness Diagnostic Report</h1>
+    <div class="report-meta">
+      <strong>Prepared for:</strong> ${data.company_name}<br>
+      <strong>Assessment Completed By:</strong> ${data.contact_name}<br>
+      <strong>Date:</strong> ${assessmentDate}
+    </div>
+  </div>
+
+  <p>AI is reshaping business faster than any technology in history. Is your organisation ready? This diagnostic reveals where your business stands across five critical dimensions. It's not about the tools, it's about whether your leadership, governance, and capability are ready to turn AI from risk into advantage.</p>
+
+  <div class="score-box">
+    <div style="color: var(--text-body); font-size: var(--font-size-base); margin-bottom: var(--space-xs);">Your AI Readiness Score</div>
+    <div class="score-number">${scoreNum}<span style="font-size: 24px; color: var(--text-body);">/100</span></div>
+    <div class="readiness-badge readiness-${readinessClass}">${data.readiness_band}</div>
+    <p style="margin-top: var(--space-md); color: var(--text-body);">${data.readiness_band_narrative}</p>
+  </div>
+
+  <h2>Shadow AI Exposure</h2>
+  <p>Shadow AI means staff using free or personal AI accounts (like ChatGPT or Claude) without approval or oversight.</p>
+  <div class="insight-box">
+    <strong>What you told us:</strong> ${data.q5_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q5_interpretation_blurb}
+  </div>
+
+  <h2>Leadership & Ownership</h2>
+  <div class="insight-box">
+    <strong>What you told us:</strong> ${data.q1_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q1_interpretation_blurb}
+  </div>
+
+  <h2>Governance & Risk Management</h2>
+  <p>Many organisations discover their AI governance gaps the hard way, through incidents, not intention.</p>
+  <div class="insight-box">
+    <strong>What you told us:</strong> ${data.q6_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q6_interpretation_blurb}
+  </div>
+
+  <h2>Data & IP Protection</h2>
+  <div class="insight-box">
+    <strong>What you told us:</strong> ${data.q9_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q9_interpretation_blurb}
+  </div>
+
+  <h2>Opportunity Understanding</h2>
+  <div class="insight-box">
+    <strong>What you told us:</strong> ${data.q10_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q10_interpretation_blurb}
+  </div>
+
+  <h2>Your Priority Gaps</h2>
+  <p>The following areas require focused attention:</p>
+
+  <div class="gap-section">
+    <h3>${data.gap_1_title}</h3>
+    <p>${data.gap_1_description}</p>
+  </div>
+
+  <div class="gap-section">
+    <h3>${data.gap_2_title}</h3>
+    <p>${data.gap_2_description}</p>
+  </div>
+
+  <div class="gap-section">
+    <h3>${data.gap_3_title}</h3>
+    <p>${data.gap_3_description}</p>
+  </div>
+
+  <p style="margin-top: var(--space-md);"><em>${data.gap_summary_blurb}</em></p>
+
+  <div class="cta-box">
+    <h2>Next Step Recommendation</h2>
+    <h3 style="margin-top: var(--space-lg);">${data.next_step_cta}</h3>
+    <p>${data.next_step_narrative}</p>
+    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz" style="color: var(--white); text-decoration: underline;"><strong>Book Your Session</strong></a></p>
+  </div>
+
+  <div class="footer">
+    <h3>Disclaimer</h3>
+    <p>This assessment reflects information provided at time of completion. It is not legal, technical, or compliance advice. GenerationAI does not assess risks not disclosed through the diagnostic.</p>
+
+    <p style="margin-top: var(--space-lg); text-align: center; font-style: italic;">
+      GenerationAI helps NZ organisations build AI capability through proven frameworks, practical tools, and strategic guidance.
+    </p>
+  </div>
+</body>
+</html>
+  `.trim();
+}
+
+function getReadinessClass(band: string): string {
+  const lower = (band || '').toLowerCase();
+  if (lower.includes('ready')) return 'ready';
+  if (lower.includes('developing')) return 'developing';
+  if (lower.includes('ad hoc') || lower.includes('adhoc')) return 'adhoc';
+  return 'unmanaged';
 }
