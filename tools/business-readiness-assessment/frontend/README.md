@@ -19,7 +19,9 @@ Update the API endpoint in your JavaScript file to point to:
 
 ## Deployment
 
-Deploy to Azure Static Web Apps via the Azure Portal or GitHub Actions.
+Automatically deploys to Azure Static Web Apps via GitHub Actions when changes are pushed to main branch.
+
+Production URL: https://lively-bay-0fbbe1300.2.azurestaticapps.net
 
 ## Customization
 
