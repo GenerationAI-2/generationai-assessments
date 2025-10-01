@@ -19,10 +19,6 @@ export function generatePDFHTML(data: ReportData): string {
     return 'low';
   };
 
-  // Determine if there's a critical incident
-  const hasCriticalIncident = data.incidents_status?.toLowerCase().includes('yes') ||
-                              data.incidents_status?.toLowerCase().includes('confirmed');
-
   // Use response_date or generate current date
   const assessmentDate = data.response_date || new Date().toLocaleDateString('en-NZ', {
     day: 'numeric',
@@ -644,13 +640,6 @@ export function generatePDFHTML(data: ReportData): string {
       <strong>What you told us:</strong> ${data.compliance_blurb}
     </div>
   </div>
-
-  ${hasCriticalIncident ? `
-  <div class="critical-banner">
-    CRITICAL: You reported a confirmed AI-related incident.<br>
-    Immediate action required: investigate the root cause, assess data exposure, and implement controls.
-  </div>
-  ` : ''}
 
   <div class="score-section">
     <h2>Your Shadow AI Risk Profile</h2>
