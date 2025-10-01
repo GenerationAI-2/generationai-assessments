@@ -34,8 +34,8 @@ const getBase = () => {
   const apiKey = process.env.AIRTABLE_API_KEY;
   const baseId = process.env.AIRTABLE_BASE_ID;
 
-  if (!apiKey || !baseId) {
-    throw new Error('Airtable credentials not configured');
+  if (!apiKey || !baseId || apiKey === 'your_airtable_key') {
+    return null;
   }
 
   return new Airtable({ apiKey }).base(baseId);
@@ -66,6 +66,10 @@ export interface SubmissionRecord {
 export async function saveToAirtable(record: SubmissionRecord): Promise<any> {
   try {
     const base = getBase();
+    if (!base) {
+      console.warn('Airtable not configured - skipping save');
+      return null;
+    }
     const tableName = process.env.AIRTABLE_TABLE_NAME || 'Business-Readiness-Assessment';
 
     const result = await base(tableName).create([
@@ -104,6 +108,10 @@ export async function saveToAirtable(record: SubmissionRecord): Promise<any> {
 export async function checkDuplicateSubmission(email: string, hoursWindow: number = 24): Promise<boolean> {
   try {
     const base = getBase();
+    if (!base) {
+      console.warn('Airtable not configured - skipping duplicate check');
+      return false;
+    }
     const tableName = process.env.AIRTABLE_TABLE_NAME || 'Business-Readiness-Assessment';
 
     const cutoffTime = new Date();
