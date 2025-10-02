@@ -763,6 +763,9 @@ function getScoreClass(score: number): string {
 
 function getMaturityDescription(maturity: string): string {
   const lower = maturity.toLowerCase();
+  if (lower.includes('unmanaged')) {
+    return 'Your organisation has little to no AI governance in place. There is high risk exposure from unauthorised AI usage. Urgent action is required to establish basic controls and awareness.';
+  }
   if (lower.includes('managed')) {
     return 'Your organisation demonstrates strong AI governance practices with formal policies, training, and technical controls in place. Focus on continuous improvement and staying ahead of emerging risks.';
   }
