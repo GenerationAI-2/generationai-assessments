@@ -1092,7 +1092,8 @@ function generateBusinessReadinessHTML(data: any): string {
       .insight-box, .gap-section, .score-box, .cta-box { page-break-inside: avoid; }
       h2, h3, h4 { page-break-after: avoid; }
       .cta-box::before { display: none; }
-      box-shadow { box-shadow: none !important; }
+      .score-box, .insight-box, .gap-section, .cta-box { box-shadow: none !important; }
+      .score-number { text-shadow: none !important; }
     }
   </style>
 </head>

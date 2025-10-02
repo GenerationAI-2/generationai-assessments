@@ -207,7 +207,11 @@ export class ScoringEngine {
         next_step_cta: nextStep.cta,
         next_step_narrative: nextStep.narrative,
 
-        response_date: new Date().toLocaleDateString('en-NZ')
+        response_date: new Date().toLocaleDateString('en-NZ', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        })
       },
       metadata: {
         raw_score: results.rawScore,
