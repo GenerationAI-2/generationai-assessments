@@ -208,7 +208,7 @@ export const SCORING_CONFIG = {
       responses: {
         "opt_5": {
           score: 5,
-          label: "No unauthorised use — strong controls and awareness in place",
+          label: "No unauthorised use – strong controls in place",
           playback: "You told us your staff are not using unapproved AI tools, and you have controls in place to ensure that.",
           interpretation: "You've established clear expectations, approved tools, and strong oversight. Shadow AI isn't just low, it's actively prevented. This reflects mature policy, communication, and trust."
         },
@@ -250,7 +250,7 @@ export const SCORING_CONFIG = {
       responses: {
         "opt_5": {
           score: 5,
-          label: "Formal policy and review process in place",
+          label: "Clear AI policy and guardrails in place",
           playback: "You told us you have clear governance in place, with AI policies, approved tools, and team guidance already active.",
           interpretation: "You've built mature, enabling governance. Policies are clear, tools are approved, and staff have confidence to explore safely. This protects trust, reduces exposure, and positions you to scale capability."
         },
@@ -376,13 +376,13 @@ export const SCORING_CONFIG = {
       responses: {
         "opt_5": {
           score: 5,
-          label: "Fully confident — technical controls actively prevent it",
+          label: "Fully confident – technical controls prevent it",
           playback: "You said you're fully confident that strong technical controls are in place to prevent data exposure through AI tools.",
           interpretation: "This reflects a mature security posture. Approved tools, usage monitoring, and clear controls are working together to protect sensitive data. You're treating AI as a data processor, and managing the risks accordingly."
         },
         "opt_4": {
           score: 4,
-          label: "Strong policies and monitoring provide assurance",
+          label: "Confident – strong policies and monitoring",
           playback: "You told us you're confident data is protected through a combination of policies, training, and monitoring.",
           interpretation: "You've built solid protection, but policy without enforcement can drift. Stay proactive. Periodic audits and tighter controls on new tools will help maintain this confidence over time."
         },
@@ -448,7 +448,7 @@ export const SCORING_CONFIG = {
         },
         "opt_0": {
           score: 0,
-          label: "Don't see how AI applies to us",
+          label: "Don't see how AI applies to our business",
           playback: "You said you don't see how AI is relevant to your business.",
           interpretation: "This is the biggest risk of all, missed opportunity. While others reduce admin, improve customer service, or speed up delivery, you're sitting out the shift. Most organisations that say this revise their view once they see real examples."
         }

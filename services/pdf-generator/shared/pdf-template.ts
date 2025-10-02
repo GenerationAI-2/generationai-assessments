@@ -796,8 +796,13 @@ function generateBusinessReadinessHTML(data: any): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Business AI Readiness Report - ${data.company_name}</title>
   <style>
-    /* Use same design system as Shadow AI */
+    /* ============================================
+       GENERATIONAI BRAND DESIGN SYSTEM
+       Business AI Readiness Report Template
+       ============================================ */
+
     :root {
+      /* Brand Colours */
       --primary-blue: #2563EB;
       --dark-navy: #0F172A;
       --lime-accent: #D4FF00;
@@ -806,8 +811,16 @@ function generateBusinessReadinessHTML(data: any): string {
       --border-light: #E5E7EB;
       --bg-light: #F9FAFB;
       --white: #FFFFFF;
-      --green: #10B981;
-      --green-bg: #D1FAE5;
+
+      /* Risk Colours */
+      --risk-high: #DC2626;
+      --risk-high-bg: #FEE2E2;
+      --risk-medium: #F59E0B;
+      --risk-medium-bg: #FEF3C7;
+      --risk-low: #10B981;
+      --risk-low-bg: #D1FAE5;
+
+      /* Spacing System - 8px Grid */
       --space-xs: 4px;
       --space-sm: 8px;
       --space-md: 12px;
@@ -815,6 +828,8 @@ function generateBusinessReadinessHTML(data: any): string {
       --space-xl: 20px;
       --space-2xl: 24px;
       --space-3xl: 32px;
+
+      /* Typography */
       --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
       --font-size-xs: 0.875rem;
       --font-size-base: 1rem;
@@ -824,13 +839,25 @@ function generateBusinessReadinessHTML(data: any): string {
       --font-size-3xl: 2rem;
       --line-height: 1.6;
       --line-height-tight: 1.2;
+
+      /* Design Properties */
       --radius: 8px;
       --radius-lg: 12px;
+      --border-width: 1px;
     }
 
-    @page { size: A4; margin: 1.5cm; }
+    /* Page setup for PDF */
+    @page {
+      size: A4;
+      margin: 1.5cm;
+    }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Base Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: var(--font-family);
@@ -843,20 +870,59 @@ function generateBusinessReadinessHTML(data: any): string {
       padding: var(--space-md);
     }
 
-    h1, h2, h3, h4 { color: var(--text-heading); font-weight: 700; line-height: var(--line-height-tight); }
-    h1 { font-size: var(--font-size-3xl); margin-bottom: var(--space-md); padding-bottom: var(--space-sm); border-bottom: 3px solid var(--primary-blue); }
-    h2 { font-size: var(--font-size-2xl); margin-top: var(--space-xl); margin-bottom: var(--space-md); }
-    h3 { font-size: var(--font-size-xl); margin-top: var(--space-md); margin-bottom: var(--space-sm); }
-    p { margin-bottom: var(--space-sm); }
-    strong { font-weight: 600; color: var(--text-heading); }
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: var(--text-heading);
+      font-weight: 700;
+      line-height: var(--line-height-tight);
+    }
 
+    h1 {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 3px solid var(--primary-blue);
+    }
+
+    h2 {
+      font-size: var(--font-size-2xl);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+    }
+
+    h3 {
+      font-size: var(--font-size-xl);
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    h4 {
+      font-size: var(--font-size-lg);
+      margin-top: var(--space-sm);
+      margin-bottom: var(--space-xs);
+    }
+
+    p {
+      margin-bottom: var(--space-sm);
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    /* Header */
     .report-header {
       margin-bottom: var(--space-lg);
       padding-bottom: var(--space-md);
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: var(--border-width) solid var(--border-light);
     }
 
-    .report-header img { height: 50px; width: auto; margin-bottom: var(--space-md); }
+    .report-header img {
+      height: 50px;
+      width: auto;
+      margin-bottom: var(--space-md);
+    }
 
     .report-meta {
       font-size: var(--font-size-base);
@@ -864,6 +930,21 @@ function generateBusinessReadinessHTML(data: any): string {
       line-height: 1.8;
     }
 
+    /* Introduction Box */
+    .introduction {
+      background: var(--bg-light);
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-lg);
+      border: 1px solid var(--border-light);
+    }
+
+    .introduction h2 {
+      margin-top: 0;
+      color: var(--text-heading);
+    }
+
+    /* Score Box */
     .score-box {
       background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
       border: 2px solid var(--primary-blue);
@@ -889,11 +970,27 @@ function generateBusinessReadinessHTML(data: any): string {
       font-size: var(--font-size-lg);
     }
 
-    .readiness-unmanaged { background: #FEE2E2; color: #DC2626; }
-    .readiness-adhoc { background: #FEF3C7; color: #F59E0B; }
-    .readiness-developing { background: #E0E7FF; color: var(--primary-blue); }
-    .readiness-ready { background: var(--green-bg); color: var(--green); }
+    .readiness-unmanaged {
+      background: var(--risk-high-bg);
+      color: var(--risk-high);
+    }
 
+    .readiness-adhoc {
+      background: var(--risk-medium-bg);
+      color: var(--risk-medium);
+    }
+
+    .readiness-developing {
+      background: #E0E7FF;
+      color: var(--primary-blue);
+    }
+
+    .readiness-ready {
+      background: var(--risk-low-bg);
+      color: var(--risk-low);
+    }
+
+    /* Insight Boxes */
     .insight-box {
       background: var(--bg-light);
       padding: var(--space-md);
@@ -903,6 +1000,7 @@ function generateBusinessReadinessHTML(data: any): string {
       page-break-inside: avoid;
     }
 
+    /* Gap Sections */
     .gap-section {
       background: var(--white);
       padding: var(--space-md);
@@ -913,6 +1011,7 @@ function generateBusinessReadinessHTML(data: any): string {
       page-break-inside: avoid;
     }
 
+    /* CTA Section */
     .cta-box {
       background: var(--primary-blue);
       color: var(--white);
@@ -922,9 +1021,17 @@ function generateBusinessReadinessHTML(data: any): string {
       text-align: center;
     }
 
-    .cta-box h2, .cta-box h3 { color: var(--white); margin-top: 0; }
-    .cta-box p { color: var(--white); opacity: 0.95; }
+    .cta-box h2, .cta-box h3 {
+      color: var(--white);
+      margin-top: 0;
+    }
 
+    .cta-box p {
+      color: var(--white);
+      opacity: 0.95;
+    }
+
+    /* Footer */
     .footer {
       margin-top: var(--space-2xl);
       padding-top: var(--space-lg);
@@ -933,10 +1040,64 @@ function generateBusinessReadinessHTML(data: any): string {
       color: var(--text-body);
     }
 
+    .footer h3 {
+      font-size: var(--font-size-base);
+      color: var(--text-heading);
+      margin-bottom: var(--space-sm);
+    }
+
+    .tagline {
+      margin-top: var(--space-lg);
+      text-align: center;
+      padding: var(--space-md);
+      background: var(--bg-light);
+      border-radius: var(--radius);
+      font-style: italic;
+      color: var(--text-body);
+    }
+
+    ul {
+      margin-left: var(--space-lg);
+    }
+
+    li {
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Responsive */
     @media print {
-      body { padding: 0; }
-      .insight-box, .gap-section, .score-box, .cta-box { page-break-inside: avoid; }
-      h2, h3, h4 { page-break-after: avoid; }
+      body {
+        padding: 0;
+      }
+
+      /* Enhanced page break control */
+      .introduction,
+      .context-box,
+      .area-section,
+      .score-box,
+      .insight-box,
+      .gap-section,
+      .cta-box,
+      .footer {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* Ensure content doesn't break awkwardly */
+      h2, h3, h4 {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      p {
+        orphans: 3;
+        widows: 3;
+      }
+
+      /* Force page breaks before major sections if needed */
+      .score-box {
+        page-break-before: auto;
+      }
     }
   </style>
 </head>

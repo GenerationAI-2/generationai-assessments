@@ -29,7 +29,10 @@ Visit: **http://localhost:8080**
 ```
 generation-ai-tools/
 ├── tools/                          # Assessment tools
-│   └── shadow-ai-assessment/
+│   ├── shadow-ai-assessment/
+│   │   ├── api/                    # Azure Function API
+│   │   └── frontend/               # Static HTML/JS
+│   └── business-readiness-assessment/
 │       ├── api/                    # Azure Function API
 │       └── frontend/               # Static HTML/JS
 │
@@ -40,9 +43,11 @@ generation-ai-tools/
 │   ├── types/                      # @generation-ai/types
 │   └── utils/                      # @generation-ai/utils
 │
-├── infrastructure/                 # IaC (future)
-│   ├── terraform/
-│   └── deploy-scripts/
+├── .github/workflows/              # CI/CD automation
+│   ├── deploy-shadow-ai-api.yml
+│   ├── deploy-business-readiness-api.yml
+│   ├── deploy-pdf-generator.yml
+│   └── ...
 │
 └── docs/                           # Documentation
     ├── DEPLOYMENT_PRODUCTION.md    # Production deployment guide
@@ -150,11 +155,13 @@ pnpm build
 
 # Build specific package
 pnpm --filter shadow-ai-assessment-api build
+pnpm --filter business-readiness-assessment-api build
 pnpm --filter pdf-generator build
 
-# Run development server
-pnpm dev:shadow-ai    # Start Shadow AI Assessment API
-pnpm dev:pdf          # Start PDF Generator service
+# Run development servers
+pnpm dev:shadow-ai           # Start Shadow AI Assessment API
+pnpm dev:business-readiness  # Start Business Readiness Assessment API
+pnpm dev:pdf                 # Start PDF Generator service
 
 # Clean build artifacts
 pnpm -r clean
@@ -167,18 +174,22 @@ See **[READY_FOR_DEPLOYMENT.md](READY_FOR_DEPLOYMENT.md)** for complete deployme
 ### Quick Deploy
 
 ```bash
-# 1. Deploy PDF Generator
+# 1. Deploy PDF Generator (shared service)
 cd services/pdf-generator
 pnpm build
 func azure functionapp publish generationai-pdf-generator
 
-# 2. Deploy Assessment API
+# 2. Deploy Shadow AI Assessment
 cd tools/shadow-ai-assessment/api
 pnpm build
 func azure functionapp publish generationai-shadow-ai
+# Frontend deploys automatically via GitHub Actions
 
-# 3. Deploy Frontend
-# Via Azure Portal → Static Web Apps
+# 3. Deploy Business Readiness Assessment
+cd tools/business-readiness-assessment/api
+pnpm build
+func azure functionapp publish generationai-business-readiness
+# Frontend deploys automatically via GitHub Actions
 ```
 
 ## 🆕 Adding New Assessment Tools
@@ -209,10 +220,14 @@ Estimated monthly costs (NZD):
 | Service | Cost |
 |---------|------|
 | PDF Generator (Premium EP1) | $75-150 |
-| Assessment API (Consumption) | $10-30 |
-| Frontend (Static Web App) | $0 |
+| Shadow AI API (Consumption) | $10-30 |
+| Business Readiness API (Consumption) | $10-30 |
+| Frontends (2x Static Web App Free) | $0 |
 | Storage | $5 |
-| **Total** | **$90-185/month** |
+| Airtable (Pro Plan) | ~$27 |
+| **Total** | **$127-242/month** |
+
+**Scaling:** Each additional assessment tool adds ~$10-30/month (Consumption plan API only)
 
 ## 🔑 Key Features
 
@@ -225,10 +240,17 @@ Estimated monthly costs (NZD):
 
 ## 📊 Current Tools
 
-- **Shadow AI Assessment** - AI risk assessment tool
-  - Frontend: `tools/shadow-ai-assessment/frontend/`
-  - API: `tools/shadow-ai-assessment/api/`
-  - Status: ✅ Production ready
+1. **Shadow AI Assessment** - AI risk assessment tool
+   - Frontend: `tools/shadow-ai-assessment/frontend/`
+   - API: `tools/shadow-ai-assessment/api/`
+   - Production URL: https://generationai-shadow-ai-frontend.azurestaticapps.net
+   - Status: ✅ Production ready
+
+2. **Business Readiness Assessment** - Business AI readiness evaluation tool
+   - Frontend: `tools/business-readiness-assessment/frontend/`
+   - API: `tools/business-readiness-assessment/api/`
+   - Production URL: https://lively-bay-0fbbe1300.2.azurestaticapps.net
+   - Status: ✅ Production ready
 
 ## 🤝 Contributing
 

@@ -21,6 +21,7 @@
     { "path": "./shared/types" },
     { "path": "./shared/utils" },
     { "path": "./services/pdf-generator" },
-    { "path": "./tools/shadow-ai-assessment/api" }
+    { "path": "./tools/shadow-ai-assessment/api" },
+    { "path": "./tools/business-readiness-assessment/api" }
   ]
 }
