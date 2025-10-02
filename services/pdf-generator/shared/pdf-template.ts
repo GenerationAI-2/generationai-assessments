@@ -812,13 +812,14 @@ function generateBusinessReadinessHTML(data: any): string {
       --bg-light: #F9FAFB;
       --white: #FFFFFF;
 
-      /* Risk Colours */
+      /* Status Colours */
       --risk-high: #DC2626;
       --risk-high-bg: #FEE2E2;
       --risk-medium: #F59E0B;
       --risk-medium-bg: #FEF3C7;
       --risk-low: #10B981;
       --risk-low-bg: #D1FAE5;
+      --info-blue-bg: #EFF6FF;
 
       /* Spacing System - 8px Grid */
       --space-xs: 4px;
@@ -846,18 +847,9 @@ function generateBusinessReadinessHTML(data: any): string {
       --border-width: 1px;
     }
 
-    /* Page setup for PDF */
-    @page {
-      size: A4;
-      margin: 1.5cm;
-    }
+    @page { size: A4; margin: 1.5cm; }
 
-    /* Base Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: var(--font-family);
@@ -870,7 +862,6 @@ function generateBusinessReadinessHTML(data: any): string {
       padding: var(--space-md);
     }
 
-    /* Typography */
     h1, h2, h3, h4 {
       color: var(--text-heading);
       font-weight: 700;
@@ -888,30 +879,21 @@ function generateBusinessReadinessHTML(data: any): string {
       font-size: var(--font-size-2xl);
       margin-top: var(--space-xl);
       margin-bottom: var(--space-md);
+      color: var(--text-heading);
     }
 
     h3 {
       font-size: var(--font-size-xl);
       margin-top: var(--space-md);
       margin-bottom: var(--space-sm);
-    }
-
-    h4 {
-      font-size: var(--font-size-lg);
-      margin-top: var(--space-sm);
-      margin-bottom: var(--space-xs);
-    }
-
-    p {
-      margin-bottom: var(--space-sm);
-    }
-
-    strong {
-      font-weight: 600;
       color: var(--text-heading);
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: var(--space-xs);
     }
 
-    /* Header */
+    p { margin-bottom: var(--space-sm); }
+    strong { font-weight: 600; color: var(--text-heading); }
+
     .report-header {
       margin-bottom: var(--space-lg);
       padding-bottom: var(--space-md);
@@ -930,21 +912,16 @@ function generateBusinessReadinessHTML(data: any): string {
       line-height: 1.8;
     }
 
-    /* Introduction Box */
     .introduction {
       background: var(--bg-light);
       padding: var(--space-lg);
       border-radius: var(--radius-lg);
       margin-bottom: var(--space-lg);
       border: 1px solid var(--border-light);
+      font-size: var(--font-size-lg);
+      line-height: 1.7;
     }
 
-    .introduction h2 {
-      margin-top: 0;
-      color: var(--text-heading);
-    }
-
-    /* Score Box */
     .score-box {
       background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
       border: 2px solid var(--primary-blue);
@@ -952,83 +929,145 @@ function generateBusinessReadinessHTML(data: any): string {
       padding: var(--space-2xl);
       margin: var(--space-xl) 0;
       text-align: center;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
     }
 
     .score-number {
-      font-size: 48px;
+      font-size: 64px;
       font-weight: 800;
       color: var(--primary-blue);
       margin: var(--space-sm) 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .readiness-badge {
       display: inline-block;
-      padding: var(--space-sm) var(--space-lg);
-      border-radius: 20px;
+      padding: var(--space-sm) var(--space-xl);
+      border-radius: 24px;
       font-weight: 600;
       margin-top: var(--space-md);
       font-size: var(--font-size-lg);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .readiness-unmanaged {
       background: var(--risk-high-bg);
       color: var(--risk-high);
+      border: 2px solid var(--risk-high);
     }
 
     .readiness-adhoc {
       background: var(--risk-medium-bg);
       color: var(--risk-medium);
+      border: 2px solid var(--risk-medium);
     }
 
     .readiness-developing {
       background: #E0E7FF;
       color: var(--primary-blue);
+      border: 2px solid var(--primary-blue);
     }
 
     .readiness-ready {
       background: var(--risk-low-bg);
       color: var(--risk-low);
+      border: 2px solid var(--risk-low);
     }
 
-    /* Insight Boxes */
     .insight-box {
-      background: var(--bg-light);
-      padding: var(--space-md);
-      margin: var(--space-md) 0;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-light);
-      page-break-inside: avoid;
-    }
-
-    /* Gap Sections */
-    .gap-section {
-      background: var(--white);
-      padding: var(--space-md);
-      margin: var(--space-sm) 0;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      border-left: 4px solid var(--primary-blue);
-      page-break-inside: avoid;
-    }
-
-    /* CTA Section */
-    .cta-box {
-      background: var(--primary-blue);
-      color: var(--white);
+      background: #E5E7EB;
       padding: var(--space-lg);
+      margin: var(--space-md) 0;
+      border-radius: var(--radius-lg);
+      border: 2px solid #CBD5E1;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      page-break-inside: avoid;
+      position: relative;
+    }
+
+    .insight-box:first-of-type {
+      background: #E5E7EB;
+      border: 2px solid #CBD5E1;
+    }
+
+    .insight-box:last-of-type {
+      background: #DBEAFE;
+      border: 2px solid #93C5FD;
+    }
+
+    .gap-section {
+      background: #F3F4F6;
+      padding: var(--space-lg);
+      margin: var(--space-md) 0;
+      border: 2px solid #D1D5DB;
+      border-radius: var(--radius-lg);
+      page-break-inside: avoid;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .gap-section h3 {
+      border-bottom: none;
+      color: var(--text-heading);
+      font-size: var(--font-size-lg);
+      margin-bottom: var(--space-sm);
+      padding-bottom: 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--primary-blue) 0%, #1D4ED8 100%);
+      color: var(--white);
+      padding: var(--space-2xl);
       border-radius: var(--radius-lg);
       margin: var(--space-xl) 0;
       text-align: center;
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 40%;
+      height: 200%;
+      background: rgba(212, 255, 0, 0.1);
+      transform: rotate(35deg);
     }
 
     .cta-box h2, .cta-box h3 {
       color: var(--white);
       margin-top: 0;
+      position: relative;
+      z-index: 1;
     }
 
     .cta-box p {
       color: var(--white);
       opacity: 0.95;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-box a {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--lime-accent);
+      color: var(--dark-navy);
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-weight: 700;
+      margin-top: var(--space-md);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-box a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     /* Footer */
@@ -1042,62 +1081,18 @@ function generateBusinessReadinessHTML(data: any): string {
 
     .footer h3 {
       font-size: var(--font-size-base);
+      border-bottom: none;
       color: var(--text-heading);
       margin-bottom: var(--space-sm);
+      padding-bottom: 0;
     }
 
-    .tagline {
-      margin-top: var(--space-lg);
-      text-align: center;
-      padding: var(--space-md);
-      background: var(--bg-light);
-      border-radius: var(--radius);
-      font-style: italic;
-      color: var(--text-body);
-    }
-
-    ul {
-      margin-left: var(--space-lg);
-    }
-
-    li {
-      margin-bottom: var(--space-xs);
-    }
-
-    /* Responsive */
     @media print {
-      body {
-        padding: 0;
-      }
-
-      /* Enhanced page break control */
-      .introduction,
-      .context-box,
-      .area-section,
-      .score-box,
-      .insight-box,
-      .gap-section,
-      .cta-box,
-      .footer {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-
-      /* Ensure content doesn't break awkwardly */
-      h2, h3, h4 {
-        page-break-after: avoid;
-        break-after: avoid;
-      }
-
-      p {
-        orphans: 3;
-        widows: 3;
-      }
-
-      /* Force page breaks before major sections if needed */
-      .score-box {
-        page-break-before: auto;
-      }
+      body { padding: 0; }
+      .insight-box, .gap-section, .score-box, .cta-box { page-break-inside: avoid; }
+      h2, h3, h4 { page-break-after: avoid; }
+      .cta-box::before { display: none; }
+      box-shadow { box-shadow: none !important; }
     }
   </style>
 </head>
@@ -1113,7 +1108,9 @@ function generateBusinessReadinessHTML(data: any): string {
     </div>
   </div>
 
-  <p>AI is reshaping business faster than any technology in history. Is your organisation ready? This diagnostic reveals where your business stands across five critical dimensions. It's not about the tools, it's about whether your leadership, governance, and capability are ready to turn AI from risk into advantage.</p>
+  <div class="introduction">
+    <strong>AI is reshaping business faster than any technology in history. Is your organisation ready?</strong> This diagnostic reveals where your business stands across five critical dimensions. It's not about the tools, it's about whether your leadership, governance, and capability are ready to turn AI from risk into advantage.
+  </div>
 
   <div class="score-box">
     <div style="color: var(--text-body); font-size: var(--font-size-base); margin-bottom: var(--space-xs);">Your AI Readiness Score</div>
