@@ -83,10 +83,6 @@ function generateEmailHTML(options: EmailOptions): string {
           <!-- Header -->
           <tr>
             <td align="center" style="padding: 32px 32px 24px 32px;">
-              <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
-                   alt="GenerationAI"
-                   height="50"
-                   style="display: block; height: 50px; margin-bottom: 16px;">
               <h1 style="color: #0F172A; font-size: 24px; margin: 0; font-weight: 700;">Your Shadow AI Risk Report</h1>
             </td>
           </tr>
