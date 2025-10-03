@@ -75,129 +75,89 @@ function generateEmailHTML(options: EmailOptions): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      line-height: 1.6;
-      color: #6B7280;
-      margin: 0;
-      padding: 0;
-      background-color: #F9FAFB;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #FFFFFF;
-      padding: 32px;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .logo {
-      height: 50px;
-      margin-bottom: 16px;
-    }
-    h1 {
-      color: #0F172A;
-      font-size: 24px;
-      margin: 0;
-    }
-    .score-box {
-      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-      border: 2px solid #2563EB;
-      border-radius: 12px;
-      padding: 24px;
-      margin: 24px 0;
-      text-align: center;
-    }
-    .score-number {
-      font-size: 48px;
-      font-weight: 800;
-      color: #2563EB;
-      margin: 8px 0;
-    }
-    .maturity {
-      color: #0F172A;
-      font-size: 16px;
-      font-weight: 600;
-      margin-top: 8px;
-    }
-    .cta-button {
-      display: inline-block;
-      background: #D4FF00;
-      color: #0F172A;
-      padding: 16px 32px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 16px;
-      margin: 24px 0;
-    }
-    .content {
-      margin: 24px 0;
-      font-size: 15px;
-    }
-    .footer {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid #E5E7EB;
-      font-size: 12px;
-      color: #9CA3AF;
-      text-align: center;
-    }
-    .footer a {
-      color: #2563EB;
-      text-decoration: none;
-    }
-  </style>
 </head>
-<body>
-  <div class="container">
-    <div class="header">
-      <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
-           alt="GenerationAI" class="logo">
-      <h1>Your Business AI Readiness Report</h1>
-    </div>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background-color: #F9FAFB;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #F9FAFB;">
+    <tr>
+      <td align="center" style="padding: 20px 0;">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; max-width: 600px;">
+          <!-- Header -->
+          <tr>
+            <td align="center" style="padding: 32px 32px 24px 32px;">
+              <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                   alt="GenerationAI"
+                   height="50"
+                   style="display: block; height: 50px; margin-bottom: 16px;">
+              <h1 style="color: #0F172A; font-size: 24px; margin: 0; font-weight: 700;">Your Business AI Readiness Report</h1>
+            </td>
+          </tr>
 
-    <div class="content">
-      <p>Hi ${options.recipientName},</p>
-      <p>Your Business AI Readiness assessment for <strong>${options.companyName}</strong> is complete. The full report is attached to this email.</p>
-    </div>
+          <!-- Content -->
+          <tr>
+            <td style="padding: 0 32px; color: #6B7280; font-size: 15px; line-height: 1.6;">
+              <p style="margin: 24px 0;">Hi ${options.recipientName},</p>
+              <p style="margin: 24px 0;">Your Business AI Readiness assessment for <strong style="color: #0F172A;">${options.companyName}</strong> is complete. The full report is attached to this email.</p>
+            </td>
+          </tr>
 
-    <div class="score-box">
-      <div style="color: #6B7280; font-size: 14px; margin-bottom: 4px;">Readiness Score</div>
-      <div class="score-number">${options.score}/100</div>
-      <div class="maturity">Readiness Level: ${options.maturityBand}</div>
-    </div>
+          <!-- Score Box -->
+          <tr>
+            <td style="padding: 0 32px;">
+              <table role="presentation" width="100%" cellpadding="24" cellspacing="0" style="background-color: #DBEAFE; border: 2px solid #2563EB; border-radius: 12px; margin: 24px 0;">
+                <tr>
+                  <td align="center">
+                    <div style="color: #6B7280; font-size: 14px; margin-bottom: 4px;">Readiness Score</div>
+                    <div style="font-size: 48px; font-weight: 800; color: #2563EB; margin: 8px 0;">${options.score}/100</div>
+                    <div style="color: #0F172A; font-size: 16px; font-weight: 600; margin-top: 8px;">Readiness Level: ${options.maturityBand}</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
-    <div class="content">
-      <p>Your report includes:</p>
-      <p style="margin-left: 20px; line-height: 1.8;">
-        ✓ Assessment across 4 key readiness dimensions<br>
-        ✓ Your top 3 priority gaps<br>
-        ✓ Personalised next steps and action plan
-      </p>
-    </div>
+          <!-- Report Includes -->
+          <tr>
+            <td style="padding: 0 32px; color: #6B7280; font-size: 15px; line-height: 1.6;">
+              <p style="margin: 24px 0;">Your report includes:</p>
+              <p style="margin: 24px 0 24px 20px; line-height: 1.8;">
+                ✓ Assessment across 4 key readiness dimensions<br>
+                ✓ Your top 3 priority gaps<br>
+                ✓ Personalised next steps and action plan
+              </p>
+            </td>
+          </tr>
 
-    <div style="text-align: center; margin: 32px 0;">
-      <a href="https://www.generationai.co.nz" class="cta-button">Book a Strategy Session</a>
-    </div>
+          <!-- CTA Button -->
+          <tr>
+            <td align="center" style="padding: 32px;">
+              <a href="https://www.generationai.co.nz"
+                 style="display: inline-block; background-color: #D4FF00; color: #0F172A; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px;">Book a Strategy Session</a>
+            </td>
+          </tr>
 
-    <div class="content" style="font-size: 14px; color: #6B7280;">
-      <p>Ready to move from insights to action? We help NZ organisations build safe, strategic AI capability.</p>
-    </div>
+          <!-- Bottom Content -->
+          <tr>
+            <td style="padding: 0 32px; color: #6B7280; font-size: 14px; line-height: 1.6;">
+              <p style="margin: 24px 0;">Ready to move from insights to action? We help NZ organisations build safe, strategic AI capability.</p>
+            </td>
+          </tr>
 
-    <div class="footer">
-      <p>
-        <strong>GenerationAI</strong> | Auckland, New Zealand<br>
-        <a href="https://www.generationai.co.nz">www.generationai.co.nz</a>
-      </p>
-      <p style="margin-top: 12px; font-size: 11px;">
-        This assessment does not constitute legal, compliance, or technical advice.
-      </p>
-    </div>
-  </div>
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="padding: 32px 32px 32px 32px; border-top: 1px solid #E5E7EB; font-size: 12px; color: #9CA3AF;">
+              <p style="margin: 0 0 12px 0;">
+                <strong style="color: #9CA3AF;">GenerationAI</strong> | Auckland, New Zealand<br>
+                <a href="https://www.generationai.co.nz" style="color: #2563EB; text-decoration: none;">www.generationai.co.nz</a>
+              </p>
+              <p style="margin: 12px 0 0 0; font-size: 11px;">
+                This assessment does not constitute legal, compliance, or technical advice.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>
   `.trim();
