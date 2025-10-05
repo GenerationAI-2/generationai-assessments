@@ -889,6 +889,15 @@ function generateBusinessReadinessHTML(data: any): string {
       font-size: var(--font-size-xl);
       margin-top: var(--space-md);
       margin-bottom: var(--space-sm);
+      color: var(--text-heading);
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: var(--space-xs);
+    }
+
+    h4 {
+      font-size: var(--font-size-lg);
+      margin-top: var(--space-sm);
+      margin-bottom: var(--space-xs);
     }
 
     p { margin-bottom: var(--space-sm); }
@@ -1038,45 +1047,24 @@ function generateBusinessReadinessHTML(data: any): string {
     }
 
     .cta-section {
-      background: var(--white);
-      padding: var(--space-2xl);
+      background: var(--bg-light);
+      padding: var(--space-lg);
       border-radius: var(--radius-lg);
       margin: var(--space-lg) 0;
-      text-align: center;
       border: 1px solid var(--border-light);
     }
 
-    .cta-section h2 {
+    .cta-section h3 {
       color: var(--text-heading);
       margin-top: 0;
-      margin-bottom: var(--space-lg);
-    }
-
-    .cta-section h3 {
-      color: var(--primary-blue);
-      margin-top: var(--space-xl);
       margin-bottom: var(--space-md);
-      font-size: var(--font-size-lg);
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .cta-section p {
       color: var(--text-body);
       margin-bottom: var(--space-md);
-    }
-
-    .cta-box {
-      background: var(--bg-light);
-      padding: var(--space-lg);
-      border-radius: var(--radius);
-      margin: var(--space-md) 0;
-      border: 1px solid var(--border-light);
-    }
-
-    .cta-links {
-      display: flex;
-      gap: var(--space-md);
-      justify-content: center;
-      margin-top: var(--space-md);
     }
 
     .cta-link {
@@ -1092,16 +1080,6 @@ function generateBusinessReadinessHTML(data: any): string {
 
     .cta-link:hover {
       background: #1D4ED8;
-    }
-
-    .cta-link--secondary {
-      background: var(--white);
-      color: var(--primary-blue);
-      border: 2px solid var(--primary-blue);
-    }
-
-    .cta-link--secondary:hover {
-      background: var(--bg-light);
     }
 
     /* Footer */
@@ -1224,26 +1202,12 @@ function generateBusinessReadinessHTML(data: any): string {
 
   <p style="margin-top: var(--space-md);"><em>${data.gap_summary_blurb}</em></p>
 
+  <h2>Next Step Recommendation</h2>
+
   <div class="cta-section">
-    <h2>Next Step Recommendation</h2>
+    <h3>${data.next_step_cta}</h3>
     <p>${data.next_step_narrative}</p>
-
-    <div class="cta-box">
-      <h3>${data.next_step_cta}</h3>
-      <p>Move from insights to action with a practical plan tailored to your organisation's specific situation and maturity level.</p>
-      <div class="cta-links">
-        <a href="https://www.generationai.co.nz" class="cta-link">Book Your Session</a>
-        <a href="https://www.generationai.co.nz" class="cta-link cta-link--secondary">Learn More</a>
-      </div>
-    </div>
-
-    <div class="cta-box">
-      <h3>Supporting Resources</h3>
-      <p>Access our guides and tools to support your AI readiness journey.</p>
-      <div class="cta-links">
-        <a href="https://www.generationai.co.nz/resources" class="cta-link">Explore Resources</a>
-      </div>
-    </div>
+    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz" class="cta-link">Book Your Session</a></p>
   </div>
 
   <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
