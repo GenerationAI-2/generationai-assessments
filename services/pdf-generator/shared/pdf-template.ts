@@ -883,6 +883,8 @@ function generateBusinessReadinessHTML(data: any): string {
       margin-top: var(--space-xl);
       margin-bottom: var(--space-md);
       color: var(--text-heading);
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: var(--space-xs);
     }
 
     h3 {
@@ -932,6 +934,8 @@ function generateBusinessReadinessHTML(data: any): string {
     .introduction h2 {
       margin-top: 0;
       color: var(--text-heading);
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     /* Score Section */
@@ -942,6 +946,11 @@ function generateBusinessReadinessHTML(data: any): string {
       background: var(--bg-light);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-light);
+    }
+
+    .score-section h2 {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .score-display {
@@ -1047,34 +1056,40 @@ function generateBusinessReadinessHTML(data: any): string {
     }
 
     .cta-section {
-      background: var(--bg-light);
-      padding: var(--space-lg);
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      padding: var(--space-2xl);
       border-radius: var(--radius-lg);
-      margin: var(--space-lg) 0;
-      border: 1px solid var(--border-light);
+      margin: var(--space-xl) 0;
+      border: 2px solid var(--primary-blue);
+      text-align: center;
+      page-break-inside: avoid;
     }
 
     .cta-section h3 {
-      color: var(--text-heading);
+      color: var(--primary-blue);
+      font-size: var(--font-size-xl);
       margin-top: 0;
       margin-bottom: var(--space-md);
       border-bottom: none;
       padding-bottom: 0;
+      font-weight: 700;
     }
 
     .cta-section p {
-      color: var(--text-body);
+      color: var(--text-heading);
       margin-bottom: var(--space-md);
+      font-size: var(--font-size-base);
     }
 
     .cta-link {
       display: inline-block;
-      padding: 12px 24px;
+      padding: 14px 32px;
       background: var(--primary-blue);
       color: var(--white);
       text-decoration: none;
       border-radius: var(--radius);
-      font-weight: 600;
+      font-weight: 700;
+      font-size: var(--font-size-base);
       transition: background 0.2s ease;
     }
 
