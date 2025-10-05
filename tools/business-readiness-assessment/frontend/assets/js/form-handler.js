@@ -1,5 +1,5 @@
 /**
- * Shadow AI Assessment - Form Handler
+ * Business Readiness Assessment - Form Handler
  * Handles form validation, submission, and progress tracking
  */
 
@@ -9,7 +9,7 @@ class AssessmentForm {
         this.submitBtn = document.getElementById('submit-btn');
         this.progressBar = document.getElementById('progress-fill');
         this.progressText = document.getElementById('progress-text');
-        this.totalQuestions = 16; // 3 text + 12 radio + 1 checkbox group
+        this.totalQuestions = 13; // 3 text + 10 radio questions
 
         this.init();
     }
@@ -49,19 +49,15 @@ class AssessmentForm {
 
         // Radio button groups
         const radioGroups = [
-            'org_size', 'sector', 'access', 'incidents', 'approval',
-            'usage_visibility', 'detection', 'policy', 'training',
-            'exposure', 'traceability', 'compliance_awareness'
+            'q1_ownership', 'q2_strategy', 'q3_culture', 'q4_enablement',
+            'q5_shadow_ai', 'q6_governance', 'q7_compliance', 'q8_resources',
+            'q9_data_protection', 'q10_opportunity'
         ];
 
         radioGroups.forEach(name => {
             const selected = this.form.querySelector(`input[name="${name}"]:checked`);
             if (selected) count++;
         });
-
-        // Checkbox group (risk_concerns) - count if at least one checked
-        const riskCheckboxes = this.form.querySelectorAll('input[name="risk_concerns"]:checked');
-        if (riskCheckboxes.length > 0) count++;
 
         return count;
     }
@@ -70,9 +66,9 @@ class AssessmentForm {
         // Check all required fields are filled
         const requiredFields = [
             'email', 'contact_name', 'company_name',
-            'org_size', 'sector', 'access', 'incidents', 'approval',
-            'usage_visibility', 'detection', 'policy', 'training',
-            'exposure', 'traceability', 'compliance_awareness'
+            'q1_ownership', 'q2_strategy', 'q3_culture', 'q4_enablement',
+            'q5_shadow_ai', 'q6_governance', 'q7_compliance', 'q8_resources',
+            'q9_data_protection', 'q10_opportunity'
         ];
 
         for (const fieldName of requiredFields) {
@@ -86,10 +82,6 @@ class AssessmentForm {
                 if (!field.value.trim()) return false;
             }
         }
-
-        // Check at least one risk concern is selected
-        const riskCheckboxes = this.form.querySelectorAll('input[name="risk_concerns"]:checked');
-        if (riskCheckboxes.length === 0) return false;
 
         return true;
     }
@@ -137,19 +129,16 @@ class AssessmentForm {
             email: this.form.elements['email'].value.trim(),
             contact_name: this.form.elements['contact_name'].value.trim(),
             company_name: this.form.elements['company_name'].value.trim(),
-            org_size: this.getRadioValue('org_size'),
-            sector: this.getRadioValue('sector'),
-            access: this.getRadioValue('access'),
-            incidents: this.getRadioValue('incidents'),
-            approval: this.getRadioValue('approval'),
-            usage_visibility: this.getRadioValue('usage_visibility'),
-            detection: this.getRadioValue('detection'),
-            policy: this.getRadioValue('policy'),
-            training: this.getRadioValue('training'),
-            exposure: this.getRadioValue('exposure'),
-            traceability: this.getRadioValue('traceability'),
-            compliance_awareness: this.getRadioValue('compliance_awareness'),
-            risk_concerns: this.getCheckboxValues('risk_concerns')
+            q1_ownership: this.getRadioValue('q1_ownership'),
+            q2_strategy: this.getRadioValue('q2_strategy'),
+            q3_culture: this.getRadioValue('q3_culture'),
+            q4_enablement: this.getRadioValue('q4_enablement'),
+            q5_shadow_ai: this.getRadioValue('q5_shadow_ai'),
+            q6_governance: this.getRadioValue('q6_governance'),
+            q7_compliance: this.getRadioValue('q7_compliance'),
+            q8_resources: this.getRadioValue('q8_resources'),
+            q9_data_protection: this.getRadioValue('q9_data_protection'),
+            q10_opportunity: this.getRadioValue('q10_opportunity')
         };
 
         return formData;
@@ -158,11 +147,6 @@ class AssessmentForm {
     getRadioValue(name) {
         const selected = this.form.querySelector(`input[name="${name}"]:checked`);
         return selected ? selected.value : null;
-    }
-
-    getCheckboxValues(name) {
-        const checked = this.form.querySelectorAll(`input[name="${name}"]:checked`);
-        return Array.from(checked).map(cb => cb.value);
     }
 
     async handleSubmit(e) {
@@ -185,7 +169,7 @@ class AssessmentForm {
 
         try {
             // Call Azure Function API
-            const response = await fetch('https://generationai-shadow-ai.azurewebsites.net/api/processassessment', {
+            const response = await fetch('https://generationai-business-readiness.azurewebsites.net/api/processAssessment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -224,7 +208,7 @@ class AssessmentForm {
 
     hideLoading() {
         this.submitBtn.disabled = false;
-        this.submitBtn.textContent = 'Get My Risk Report';
+        this.submitBtn.textContent = 'Get My Readiness Report';
 
         const loadingEl = document.getElementById('loading-state');
         if (loadingEl) {

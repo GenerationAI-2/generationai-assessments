@@ -889,9 +889,6 @@ function generateBusinessReadinessHTML(data: any): string {
       font-size: var(--font-size-xl);
       margin-top: var(--space-md);
       margin-bottom: var(--space-sm);
-      color: var(--text-heading);
-      border-bottom: 2px solid var(--primary-blue);
-      padding-bottom: var(--space-xs);
     }
 
     p { margin-bottom: var(--space-sm); }
@@ -921,156 +918,190 @@ function generateBusinessReadinessHTML(data: any): string {
       border-radius: var(--radius-lg);
       margin-bottom: var(--space-lg);
       border: 1px solid var(--border-light);
-      font-size: var(--font-size-lg);
-      line-height: 1.7;
     }
 
-    .score-box {
-      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-      border: 2px solid var(--primary-blue);
-      border-radius: var(--radius-lg);
-      padding: var(--space-2xl);
-      margin: var(--space-xl) 0;
+    .introduction h2 {
+      margin-top: 0;
+      color: var(--text-heading);
+    }
+
+    /* Score Section */
+    .score-section {
       text-align: center;
-      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
+      margin: var(--space-lg) 0;
+      padding: var(--space-lg);
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
     }
 
-    .score-number {
-      font-size: 64px;
-      font-weight: 800;
-      color: var(--primary-blue);
-      margin: var(--space-sm) 0;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    .score-display {
+      font-size: 32px;
+      font-weight: 700;
+      margin: var(--space-md) 0;
     }
 
-    .readiness-badge {
+    .score-high {
+      color: var(--risk-high);
+    }
+
+    .score-medium {
+      color: var(--risk-medium);
+    }
+
+    .score-low {
+      color: var(--risk-low);
+    }
+
+    .maturity-badge {
       display: inline-block;
-      padding: var(--space-sm) var(--space-xl);
-      border-radius: 24px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: 20px;
       font-weight: 600;
       margin-top: var(--space-md);
       font-size: var(--font-size-lg);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
-    .readiness-unmanaged {
+    .maturity-unmanaged {
       background: var(--risk-high-bg);
       color: var(--risk-high);
-      border: 2px solid var(--risk-high);
     }
 
-    .readiness-adhoc {
+    .maturity-adhoc {
       background: var(--risk-medium-bg);
       color: var(--risk-medium);
-      border: 2px solid var(--risk-medium);
     }
 
-    .readiness-developing {
+    .maturity-developing {
       background: #E0E7FF;
+      color: var(--primary-blue);
+    }
+
+    .maturity-ready {
+      background: var(--risk-low-bg);
+      color: var(--risk-low);
+    }
+
+    .maturity-managed {
+      background: var(--risk-low-bg);
+      color: var(--risk-low);
+    }
+
+    /* Area Sections */
+    .area-section {
+      margin: var(--space-lg) 0;
+      padding: var(--space-md);
+      background: var(--white);
+      border: var(--border-width) solid var(--border-light);
+      border-radius: var(--radius-lg);
+      page-break-inside: avoid;
+    }
+
+    .area-section h3 {
+      color: var(--text-heading);
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: var(--space-xs);
+      margin-bottom: var(--space-sm);
+    }
+
+    .explanation-box {
+      background: #EFF6FF;
+      padding: var(--space-md);
+      margin: var(--space-sm) 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-light);
+    }
+
+    .insight-box {
+      background: #EFF6FF;
+      padding: var(--space-md);
+      margin: var(--space-sm) 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-light);
+      page-break-inside: avoid;
+    }
+
+    .gap-section {
+      background: var(--white);
+      padding: var(--space-md);
+      margin: var(--space-lg) 0;
+      border: var(--border-width) solid var(--border-light);
+      border-radius: var(--radius-lg);
+      page-break-inside: avoid;
+    }
+
+    .gap-section h3 {
+      color: var(--text-heading);
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: var(--space-xs);
+      margin-bottom: var(--space-sm);
+    }
+
+    .cta-section {
+      background: var(--white);
+      padding: var(--space-2xl);
+      border-radius: var(--radius-lg);
+      margin: var(--space-lg) 0;
+      text-align: center;
+      border: 1px solid var(--border-light);
+    }
+
+    .cta-section h2 {
+      color: var(--text-heading);
+      margin-top: 0;
+      margin-bottom: var(--space-lg);
+    }
+
+    .cta-section h3 {
+      color: var(--primary-blue);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+      font-size: var(--font-size-lg);
+    }
+
+    .cta-section p {
+      color: var(--text-body);
+      margin-bottom: var(--space-md);
+    }
+
+    .cta-box {
+      background: var(--bg-light);
+      padding: var(--space-lg);
+      border-radius: var(--radius);
+      margin: var(--space-md) 0;
+      border: 1px solid var(--border-light);
+    }
+
+    .cta-links {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      margin-top: var(--space-md);
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary-blue);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .cta-link:hover {
+      background: #1D4ED8;
+    }
+
+    .cta-link--secondary {
+      background: var(--white);
       color: var(--primary-blue);
       border: 2px solid var(--primary-blue);
     }
 
-    .readiness-ready {
-      background: var(--risk-low-bg);
-      color: var(--risk-low);
-      border: 2px solid var(--risk-low);
-    }
-
-    .insight-box {
-      background: #E5E7EB;
-      padding: var(--space-lg);
-      margin: var(--space-md) 0;
-      border-radius: var(--radius-lg);
-      border: 2px solid #CBD5E1;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      page-break-inside: avoid;
-      position: relative;
-    }
-
-    .insight-box:first-of-type {
-      background: #E5E7EB;
-      border: 2px solid #CBD5E1;
-    }
-
-    .insight-box:last-of-type {
-      background: #DBEAFE;
-      border: 2px solid #93C5FD;
-    }
-
-    .gap-section {
-      background: #F3F4F6;
-      padding: var(--space-lg);
-      margin: var(--space-md) 0;
-      border: 2px solid #D1D5DB;
-      border-radius: var(--radius-lg);
-      page-break-inside: avoid;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .gap-section h3 {
-      border-bottom: none;
-      color: var(--text-heading);
-      font-size: var(--font-size-lg);
-      margin-bottom: var(--space-sm);
-      padding-bottom: 0;
-    }
-
-    .cta-box {
-      background: linear-gradient(135deg, var(--primary-blue) 0%, #1D4ED8 100%);
-      color: var(--white);
-      padding: var(--space-2xl);
-      border-radius: var(--radius-lg);
-      margin: var(--space-xl) 0;
-      text-align: center;
-      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-box::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 40%;
-      height: 200%;
-      background: rgba(212, 255, 0, 0.1);
-      transform: rotate(35deg);
-    }
-
-    .cta-box h2, .cta-box h3 {
-      color: var(--white);
-      margin-top: 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-box p {
-      color: var(--white);
-      opacity: 0.95;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-box a {
-      display: inline-block;
-      padding: 12px 28px;
-      background: var(--lime-accent);
-      color: var(--dark-navy);
-      text-decoration: none;
-      border-radius: var(--radius);
-      font-weight: 700;
-      margin-top: var(--space-md);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-box a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    .cta-link--secondary:hover {
+      background: var(--bg-light);
     }
 
     /* Footer */
@@ -1084,19 +1115,24 @@ function generateBusinessReadinessHTML(data: any): string {
 
     .footer h3 {
       font-size: var(--font-size-base);
-      border-bottom: none;
       color: var(--text-heading);
       margin-bottom: var(--space-sm);
-      padding-bottom: 0;
+    }
+
+    .tagline {
+      margin-top: var(--space-lg);
+      text-align: center;
+      padding: var(--space-md);
+      background: var(--bg-light);
+      border-radius: var(--radius);
+      font-style: italic;
+      color: var(--text-body);
     }
 
     @media print {
       body { padding: 0; }
       .insight-box, .gap-section, .score-box, .cta-box { page-break-inside: avoid; }
       h2, h3, h4 { page-break-after: avoid; }
-      .cta-box::before { display: none; }
-      .score-box, .insight-box, .gap-section, .cta-box { box-shadow: none !important; }
-      .score-number { text-shadow: none !important; }
     }
   </style>
 </head>
@@ -1113,14 +1149,17 @@ function generateBusinessReadinessHTML(data: any): string {
   </div>
 
   <div class="introduction">
-    <strong>AI is reshaping business faster than any technology in history. Is your organisation ready?</strong> This diagnostic reveals where your business stands across five critical dimensions. It's not about the tools, it's about whether your leadership, governance, and capability are ready to turn AI from risk into advantage.
+    <h2>Understanding Your AI Readiness Position</h2>
+    <p>AI is reshaping business faster than any technology in history. Is your organisation ready? This diagnostic reveals where your business stands across five critical dimensions. It's not about the tools, it's about whether your leadership, governance, and capability are ready to turn AI from risk into advantage.</p>
+
+    <p>This report surfaces your readiness gaps and shows clear steps to move from uncertainty to strategic advantage.</p>
   </div>
 
-  <div class="score-box">
-    <div style="color: var(--text-body); font-size: var(--font-size-base); margin-bottom: var(--space-xs);">Your AI Readiness Score</div>
-    <div class="score-number">${scoreNum}<span style="font-size: 24px; color: var(--text-body);">/100</span></div>
-    <div class="readiness-badge readiness-${readinessClass}">${data.readiness_band}</div>
-    <p style="margin-top: var(--space-md); color: var(--text-body);">${data.readiness_band_narrative}</p>
+  <div class="score-section">
+    <h2>Your Business AI Readiness Profile</h2>
+    <div class="score-display score-medium">Your Business AI Readiness Score: ${scoreNum}/100</div>
+    <div class="maturity-badge maturity-${readinessClass}">${data.readiness_band}</div>
+    <p style="margin-top: var(--space-md);">${data.readiness_band_narrative}</p>
   </div>
 
   <h2>Shadow AI Exposure</h2>
@@ -1185,20 +1224,43 @@ function generateBusinessReadinessHTML(data: any): string {
 
   <p style="margin-top: var(--space-md);"><em>${data.gap_summary_blurb}</em></p>
 
-  <div class="cta-box">
+  <div class="cta-section">
     <h2>Next Step Recommendation</h2>
-    <h3 style="margin-top: var(--space-lg);">${data.next_step_cta}</h3>
     <p>${data.next_step_narrative}</p>
-    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz" style="color: var(--white); text-decoration: underline;"><strong>Book Your Session</strong></a></p>
+
+    <div class="cta-box">
+      <h3>${data.next_step_cta}</h3>
+      <p>Move from insights to action with a practical plan tailored to your organisation's specific situation and maturity level.</p>
+      <div class="cta-links">
+        <a href="https://www.generationai.co.nz" class="cta-link">Book Your Session</a>
+        <a href="https://www.generationai.co.nz" class="cta-link cta-link--secondary">Learn More</a>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <h3>Supporting Resources</h3>
+      <p>Access our guides and tools to support your AI readiness journey.</p>
+      <div class="cta-links">
+        <a href="https://www.generationai.co.nz/resources" class="cta-link">Explore Resources</a>
+      </div>
+    </div>
   </div>
 
-  <div class="footer">
-    <h3>Disclaimer</h3>
-    <p>This assessment reflects information provided at time of completion. It is not legal, technical, or compliance advice. GenerationAI does not assess risks not disclosed through the diagnostic.</p>
+  <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
+    Culture moves first. AI adoption only succeeds when your people are ready before your tools. GenerationAI specialises in helping organisations build the foundation for safe, strategic AI adoption that drives real business value.
+  </p>
 
-    <p style="margin-top: var(--space-lg); text-align: center; font-style: italic;">
-      GenerationAI helps NZ organisations build AI capability through proven frameworks, practical tools, and strategic guidance.
-    </p>
+  <div class="footer">
+    <h3>Important Disclaimers</h3>
+    <p>This assessment is based on information provided during completion and represents a point-in-time snapshot of your organisation's Business AI Readiness profile. Results depend on the accuracy and completeness of responses provided.</p>
+
+    <p>GenerationAI cannot assess risks or activities not disclosed during the diagnostic process. This diagnostic is designed to build awareness and guide strategic thinking about AI readiness and risk management.</p>
+
+    <p>This report does not constitute legal, compliance, or technical advice. Organisations should seek appropriate professional guidance for specific legal, regulatory, or technical requirements.</p>
+
+    <div class="tagline">
+      GenerationAI helps NZ organisations build AI capability through proven frameworks, practical tools, and strategic guidance. We specialise in moving businesses from AI exposure to AI advantage.
+    </div>
   </div>
 </body>
 </html>

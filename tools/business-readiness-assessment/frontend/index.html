@@ -417,175 +417,29 @@
                 </div>
 
                 <!-- SUBMIT -->
-                <div class="form__group" style="margin-top: var(--space-xxl);">
-                    <button type="submit" class="btn btn--primary btn--large btn--block">
+                <div class="form__group mt-xl">
+                    <button type="submit" id="submit-btn" class="btn btn--accent btn--large" disabled>
                         Get My Readiness Report
                     </button>
-                    <p class="text-muted text-center" style="margin-top: var(--space-md); font-size: var(--font-size-sm);">
+                    <p class="text-small text-muted text-center" style="margin-top: var(--space-md);">
                         Your personalised report will be emailed to you within 60 seconds
                     </p>
                 </div>
 
             </form>
-
-            <!-- SUCCESS STATE -->
-            <div id="success-state" class="success" style="display: none;">
-                <div class="success__icon">✓</div>
-                <h2>Assessment Complete!</h2>
-                <p class="text-muted">
-                    Your Business AI Readiness Report has been generated and sent to <strong id="success-email"></strong>.
-                </p>
-                <p class="text-muted">
-                    Check your inbox (and spam folder) for your personalised report with your readiness score and recommendations.
-                </p>
-                <div style="margin-top: var(--space-xl);">
-                    <a href="https://www.generationai.co.nz" class="btn btn--primary">
-                        Book a Strategy Session
-                    </a>
-                </div>
-            </div>
-
-            <!-- ERROR STATE -->
-            <div id="error-state" class="error" style="display: none;">
-                <div class="error__icon">⚠</div>
-                <h2>Something went wrong</h2>
-                <p class="text-muted" id="error-message">
-                    We couldn't process your assessment. Please try again or contact support@generationai.co.nz
-                </p>
-                <div style="margin-top: var(--space-xl);">
-                    <button onclick="location.reload()" class="btn btn--secondary">
-                        Try Again
-                    </button>
-                </div>
-            </div>
-
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <p class="text-center text-muted" style="font-size: var(--font-size-sm);">
-                © 2025 GenerationAI. This assessment does not constitute legal, compliance, or technical advice.
+    <footer class="section section--light">
+        <div class="container text-center">
+            <p class="text-small text-muted">
+                © 2025 GenerationAI Ltd. All rights reserved.<br>
+                This assessment is designed to build awareness about Business AI Readiness in your organisation.
             </p>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT -->
-    <script>
-        // Configuration
-        const API_ENDPOINT = 'https://generationai-business-readiness.azurewebsites.net/api/processAssessment';
-
-        // DOM Elements
-        const form = document.getElementById('assessment-form');
-        const loadingState = document.getElementById('loading-state');
-        const successState = document.getElementById('success-state');
-        const errorState = document.getElementById('error-state');
-        const progressText = document.getElementById('progress-text');
-        const progressFill = document.getElementById('progress-fill');
-
-        // Progress tracking
-        const totalQuestions = 13; // 3 contact fields + 10 assessment questions
-        let answeredQuestions = 0;
-
-        // Update progress on any input change
-        form.addEventListener('change', updateProgress);
-        form.addEventListener('input', updateProgress);
-
-        function updateProgress() {
-            const inputs = form.querySelectorAll('input[required]');
-            answeredQuestions = 0;
-
-            inputs.forEach(input => {
-                if (input.type === 'radio') {
-                    const name = input.name;
-                    if (form.querySelector(`input[name="${name}"]:checked`)) {
-                        answeredQuestions++;
-                    }
-                } else if (input.value.trim() !== '') {
-                    answeredQuestions++;
-                }
-            });
-
-            // Remove duplicates for radio groups
-            const radioGroups = new Set();
-            inputs.forEach(input => {
-                if (input.type === 'radio' && form.querySelector(`input[name="${input.name}"]:checked`)) {
-                    radioGroups.add(input.name);
-                }
-            });
-
-            // Count text inputs
-            const textInputs = Array.from(inputs).filter(i => i.type !== 'radio' && i.value.trim() !== '');
-            answeredQuestions = textInputs.length + radioGroups.size;
-
-            const percentage = (answeredQuestions / totalQuestions) * 100;
-            progressText.textContent = `${answeredQuestions} of ${totalQuestions} questions completed`;
-            progressFill.style.width = `${percentage}%`;
-        }
-
-        // Form submission
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(form);
-            const data = {
-                email: formData.get('email'),
-                contact_name: formData.get('contact_name'),
-                company_name: formData.get('company_name'),
-                q1_ownership: formData.get('q1_ownership'),
-                q2_strategy: formData.get('q2_strategy'),
-                q3_culture: formData.get('q3_culture'),
-                q4_enablement: formData.get('q4_enablement'),
-                q5_shadow_ai: formData.get('q5_shadow_ai'),
-                q6_governance: formData.get('q6_governance'),
-                q7_compliance: formData.get('q7_compliance'),
-                q8_resources: formData.get('q8_resources'),
-                q9_data_protection: formData.get('q9_data_protection'),
-                q10_opportunity: formData.get('q10_opportunity')
-            };
-
-            // Validate all questions answered
-            const missingFields = Object.entries(data).filter(([key, value]) => !value);
-            if (missingFields.length > 0) {
-                alert('Please answer all questions before submitting.');
-                return;
-            }
-
-            // Show loading state
-            form.style.display = 'none';
-            loadingState.style.display = 'block';
-
-            try {
-                const response = await fetch(API_ENDPOINT, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-
-                if (response.ok && result.success) {
-                    // Show success
-                    loadingState.style.display = 'none';
-                    successState.style.display = 'block';
-                    document.getElementById('success-email').textContent = data.email;
-                } else {
-                    throw new Error(result.error || 'Assessment processing failed');
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                loadingState.style.display = 'none';
-                errorState.style.display = 'block';
-                document.getElementById('error-message').textContent = error.message || 'An unexpected error occurred. Please try again.';
-            }
-        });
-
-        // Initialize progress
-        updateProgress();
-    </script>
+    <script src="/assets/js/form-handler.js"></script>
 </body>
 </html>
