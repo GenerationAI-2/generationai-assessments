@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Complete | GenerationAI</title>
+    <link rel="stylesheet" href="/assets/css/brand.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <a href="https://www.generationai.co.nz" class="nav__logo">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SUCCESS MESSAGE -->
+    <section class="section">
+        <div class="container text-center" style="max-width: 700px;">
+
+            <div style="width: 80px; height: 80px; background: var(--lime-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-xl); font-size: 40px;">
+                ✓
+            </div>
+
+            <h1>Diagnostic Complete!</h1>
+
+            <p class="text-muted" style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">
+                Thank you for completing the Personal AI Readiness Diagnostic.
+            </p>
+
+            <div class="alert alert--success mb-xl">
+                <strong>Report on its way</strong>
+                <p style="margin: var(--space-sm) 0 0;">
+                    Your confidential Personal AI Readiness report is being sent to your inbox now. It includes your readiness score, maturity level, productivity potential, priority development areas, and recommended next steps.
+                </p>
+            </div>
+
+            <div style="background: var(--bg-light); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-xl);">
+                <p class="text-muted mb-lg">
+                    <strong>Your AI Advantage Starts Here.</strong> Leaders using AI effectively are freeing up a full day per week while making better decisions with richer insights.
+                </p>
+                <p class="text-muted mb-lg">
+                    The difference between leaders who thrive and those who struggle isn't access to AI — it's knowing how to use it strategically.
+                </p>
+                <a href="https://www.generationai.co.nz" class="btn btn--primary btn--large">
+                    Build Your AI Capability
+                </a>
+            </div>
+
+            <div style="padding-top: var(--space-2xl); border-top: 1px solid var(--border-light);">
+                <p class="text-small text-muted">
+                    Didn't receive your report? Check your spam folder or contact
+                    <a href="mailto:support@generationai.co.nz">support@generationai.co.nz</a>
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="section section--light">
+        <div class="container text-center">
+            <p class="text-small text-muted">
+                © 2025 GenerationAI Ltd. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Optional: Display score from URL parameter if available
+        const urlParams = new URLSearchParams(window.location.search);
+        const score = urlParams.get('score');
+
+        if (score) {
+            console.log('Assessment score:', score);
+            // Could display the score here if desired
+        }
+    </script>
+</body>
+</html>

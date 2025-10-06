@@ -1,0 +1,64 @@
+name: Deploy Personal AI Readiness Assessment API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tools/personal-ai-readiness/api/**'
+      - '.github/workflows/deploy-personal-ai-readiness-api.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy API
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Install Azure Functions Core Tools
+        run: npm install -g azure-functions-core-tools@4 --unsafe-perm true
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build shared packages
+        run: |
+          cd shared/types
+          pnpm build
+          cd ../utils
+          pnpm build
+
+      - name: Build Personal AI Readiness API
+        run: |
+          cd tools/personal-ai-readiness/api
+          pnpm build
+
+      - name: Prepare deployment (fix workspace dependencies)
+        run: |
+          cd tools/personal-ai-readiness/api
+          chmod +x prepare-deploy.sh
+          ./prepare-deploy.sh
+
+      - name: Azure CLI Login
+        run: |
+          az login --service-principal \
+            -u ${{ secrets.AZURE_CLIENT_ID }} \
+            -p ${{ secrets.AZURE_CLIENT_SECRET }} \
+            --tenant ${{ secrets.AZURE_TENANT_ID }}
+          az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure Functions
+        run: |
+          cd tools/personal-ai-readiness/api
+          func azure functionapp publish generationai-personal-ai-readiness --javascript

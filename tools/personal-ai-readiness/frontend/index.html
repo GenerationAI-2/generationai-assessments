@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Assess your personal AI readiness in 5 minutes. For business leaders, executives, and managers driving AI adoption.">
+    <title>Personal AI Readiness Diagnostic | GenerationAI</title>
+    <link rel="stylesheet" href="/assets/css/brand.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <a href="https://www.generationai.co.nz" class="nav__logo">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="section section--light">
+        <div class="container text-center" style="max-width: 800px;">
+            <h1>Personal AI Readiness Diagnostic</h1>
+            <p class="text-muted" style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">
+                <strong>Working Smarter. Leading Better. Starting Now.</strong><br>
+                Complete this 5-minute diagnostic to understand your personal AI readiness and receive a confidential readiness report.
+            </p>
+            <div class="alert alert--info">
+                <strong>Your report will include:</strong> AI Readiness Score (0-100), your readiness level (AI Distant, Curious, Ready, or Leader), productivity potential (hours saved/week), role-relevant AI use cases, and recommended learning path.
+            </div>
+        </div>
+    </section>
+
+    <!-- ASSESSMENT FORM -->
+    <section class="section">
+        <div class="container" style="max-width: 800px;">
+
+            <!-- Progress Indicator -->
+            <div class="progress">
+                <div class="progress__text" id="progress-text">0 of 15 questions completed</div>
+                <div class="progress__bar">
+                    <div class="progress__fill" id="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Loading State (hidden by default) -->
+            <div id="loading-state" class="loading">
+                <div class="loading__spinner"></div>
+                <h3>Processing Your Assessment...</h3>
+                <p class="text-muted">Calculating your readiness score and generating your personalized report. This should take less than 60 seconds.</p>
+            </div>
+
+            <!-- Main Form -->
+            <form id="assessment-form">
+
+                <!-- CONTACT INFORMATION -->
+                <h2>Contact Information</h2>
+
+                <div class="form__group">
+                    <label for="email" class="form__label form__label--required">Your email address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form__input"
+                        placeholder="name@company.co.nz"
+                        required>
+                    <div id="email-error" class="form__error"></div>
+                </div>
+
+                <div class="form__group">
+                    <label for="contact_name" class="form__label form__label--required">Your name</label>
+                    <input
+                        type="text"
+                        id="contact_name"
+                        name="contact_name"
+                        class="form__input"
+                        placeholder="Your full name"
+                        required>
+                </div>
+
+                <div class="form__group">
+                    <label for="company_name" class="form__label form__label--required">Company / Organisation</label>
+                    <input
+                        type="text"
+                        id="company_name"
+                        name="company_name"
+                        class="form__input"
+                        placeholder="Your organisation"
+                        required>
+                </div>
+
+                <!-- ASSESSMENT QUESTIONS -->
+                <h2>AI Readiness Questions</h2>
+
+                <!-- Q1: Frequency -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How often do you currently use AI tools (e.g. ChatGPT, Claude, Copilot) for work tasks?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q1_frequency" value="multiple" required>
+                            <span class="form__radio-label">I use AI tools multiple times a day. They're part of how I work.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_frequency" value="daily">
+                            <span class="form__radio-label">I use them daily for specific tasks.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_frequency" value="weekly">
+                            <span class="form__radio-label">I use them a few times a week when needed.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_frequency" value="occasionally">
+                            <span class="form__radio-label">I use them occasionally, maybe once or twice a month.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_frequency" value="rarely">
+                            <span class="form__radio-label">I've tried them once or twice but don't use them regularly.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_frequency" value="never">
+                            <span class="form__radio-label">I haven't used AI tools for work yet.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q2: Approach -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How would you describe your current approach to using AI?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q2_approach" value="advanced" required>
+                            <span class="form__radio-label">I use AI to automate tasks, build prompts, and integrate it into workflows.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_approach" value="productive">
+                            <span class="form__radio-label">I regularly delegate work to AI using templates or repeatable tasks.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_approach" value="experimental">
+                            <span class="form__radio-label">I experiment with tools to see what works.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_approach" value="basic">
+                            <span class="form__radio-label">I mostly use it for simple Q&A or one-off tasks.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_approach" value="observing">
+                            <span class="form__radio-label">I observe others using AI but haven't tried much myself.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_approach" value="none">
+                            <span class="form__radio-label">I haven't engaged with AI tools at all.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q3: Repetitive Tasks -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Last time you faced a repetitive or time-consuming task, did you think about using AI?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q3_repetitive_task" value="used_ai" required>
+                            <span class="form__radio-label">Yes, and I used AI to help complete it faster.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_repetitive_task" value="thought_unsure">
+                            <span class="form__radio-label">Yes, but I wasn't sure how to apply it.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_repetitive_task" value="thought_traditional">
+                            <span class="form__radio-label">I thought about it, but did it the traditional way.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_repetitive_task" value="didnt_cross_mind">
+                            <span class="form__radio-label">No, it didn't cross my mind.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_repetitive_task" value="not_relevant">
+                            <span class="form__radio-label">I didn't think AI would be relevant.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_repetitive_task" value="no_repetitive_tasks">
+                            <span class="form__radio-label">I don't usually face repetitive tasks.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q4: Explain -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">If someone asked you to explain how tools like ChatGPT work and how they can be used in business, could you?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q4_explain" value="confident" required>
+                            <span class="form__radio-label">Yes, confidently and with examples from my own use.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_explain" value="explain">
+                            <span class="form__radio-label">Yes, I can explain the concept and give examples.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_explain" value="simple">
+                            <span class="form__radio-label">I can describe it simply but don't have personal examples.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_explain" value="lookup">
+                            <span class="form__radio-label">I'd need to look it up first.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_explain" value="struggle">
+                            <span class="form__radio-label">I'd struggle to explain it clearly.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_explain" value="refer">
+                            <span class="form__radio-label">I'd refer them to someone else.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q5: Lead -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How ready do you feel to lead AI adoption in your team or organisation?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q5_lead" value="already_leading" required>
+                            <span class="form__radio-label">I'm already leading AI adoption actively.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_lead" value="confident">
+                            <span class="form__radio-label">I feel confident and just need organisational support.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_lead" value="getting_ready">
+                            <span class="form__radio-label">I'm getting ready but want more personal experience first.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_lead" value="need_upskilling">
+                            <span class="form__radio-label">I'd need significant upskilling before I could lead.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_lead" value="prefer_others">
+                            <span class="form__radio-label">I'd prefer to let others take the lead.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_lead" value="not_considered">
+                            <span class="form__radio-label">This isn't something I've considered part of my role yet.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q6: Time Savings -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How many hours could AI save you per week if used effectively?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q6_time_savings" value="already_saving" required>
+                            <span class="form__radio-label">I'm already saving hours each week with AI.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_time_savings" value="5_to_10">
+                            <span class="form__radio-label">Probably 5–10 hours.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_time_savings" value="3_to_5">
+                            <span class="form__radio-label">Maybe 3–5 hours.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_time_savings" value="1_to_2">
+                            <span class="form__radio-label">1–2 hours at most.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_time_savings" value="not_sure">
+                            <span class="form__radio-label">Hard to say – I'm not sure what's possible yet.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_time_savings" value="doesnt_fit">
+                            <span class="form__radio-label">I don't think AI fits my work.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q7: Use Cases (Qualitative) -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">What kind of AI use cases would save you the most time?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q7_use_cases" value="summarising" required>
+                            <span class="form__radio-label">Summarising meetings, emails, or documents</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_use_cases" value="drafting">
+                            <span class="form__radio-label">Drafting content or comms (presentations, reports)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_use_cases" value="research">
+                            <span class="form__radio-label">Research and insights</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_use_cases" value="decision_support">
+                            <span class="form__radio-label">Decision support and analysis</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_use_cases" value="data_cleanup">
+                            <span class="form__radio-label">Data clean-up and reporting</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_use_cases" value="not_sure">
+                            <span class="form__radio-label">I'm not sure what would help most</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q8: Stay Informed -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How do you currently stay informed about AI developments relevant to your work?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q8_stay_informed" value="actively" required>
+                            <span class="form__radio-label">I take courses, test tools, and apply what I learn.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_stay_informed" value="regularly">
+                            <span class="form__radio-label">I follow newsletters, attend webinars, or join discussions.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_stay_informed" value="occasionally">
+                            <span class="form__radio-label">I read articles when I come across them.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_stay_informed" value="passively">
+                            <span class="form__radio-label">I only hear about AI when it comes up at work.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_stay_informed" value="rarely">
+                            <span class="form__radio-label">I rarely engage with AI news or trends.</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_stay_informed" value="not_at_all">
+                            <span class="form__radio-label">I'm not paying attention to AI developments right now.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q9: Learning Preference -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">If you were offered learning options to build your AI capability, which would you choose?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q9_learning_preference" value="workshop" required>
+                            <span class="form__radio-label">A half-day hands-on workshop with peers</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_learning_preference" value="self_paced">
+                            <span class="form__radio-label">Short self-paced online learning (1–2 hours/week)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_learning_preference" value="coaching">
+                            <span class="form__radio-label">One-on-one coaching or mentoring</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_learning_preference" value="lunch_learn">
+                            <span class="form__radio-label">Team-based lunch-and-learn sessions</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_learning_preference" value="reading">
+                            <span class="form__radio-label">Reading guides, articles or case studies</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_learning_preference" value="not_ready">
+                            <span class="form__radio-label">I'm not ready to commit time right now</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q10: Motivation -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">What would motivate you to invest more time in building your AI skills?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q10_motivation" value="already_motivated" required>
+                            <span class="form__radio-label">I'm already motivated – I just need the right program</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_motivation" value="team_expects">
+                            <span class="form__radio-label">My team expects me to set the direction</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_motivation" value="clear_roi">
+                            <span class="form__radio-label">Clear ROI for my specific role</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_motivation" value="competitors">
+                            <span class="form__radio-label">Seeing competitors or peers getting ahead</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_motivation" value="leadership_pressure">
+                            <span class="form__radio-label">Pressure or support from leadership/board</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_motivation" value="not_priority">
+                            <span class="form__radio-label">Honestly, it's not a priority for me right now</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q11: Next 90 Days -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Where could AI help you most over the next 90 days?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q11_next_90_days" value="already_integrated" required>
+                            <span class="form__radio-label">It's already integrated into my plans</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_next_90_days" value="know_opportunities">
+                            <span class="form__radio-label">I know some opportunities, just need time to apply them</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_next_90_days" value="few_ideas">
+                            <span class="form__radio-label">I have a few ideas but haven't started</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_next_90_days" value="need_help">
+                            <span class="form__radio-label">I'd need help identifying where to apply it</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_next_90_days" value="not_relevant">
+                            <span class="form__radio-label">I'm not sure it's relevant to what I'm focused on</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_next_90_days" value="not_near_term">
+                            <span class="form__radio-label">I don't see AI helping in the near term</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q12: Safety -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How confident are you that AI is being used safely and appropriately in your organisation?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q12_safety" value="very_confident" required>
+                            <span class="form__radio-label">Very confident – we have clear policies, training, and visibility</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_safety" value="mostly_confident">
+                            <span class="form__radio-label">Mostly confident – some guidance exists and people are mostly aware</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_safety" value="somewhat_confident">
+                            <span class="form__radio-label">Somewhat confident – it's patchy or inconsistent across teams</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_safety" value="not_confident">
+                            <span class="form__radio-label">Not confident – people are using AI, but I don't know how or where</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_safety" value="havent_thought">
+                            <span class="form__radio-label">I haven't thought about it – it's probably happening under the radar</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_safety" value="unsure">
+                            <span class="form__radio-label">I'm unsure – I have no visibility into what's going on</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form__actions">
+                    <button type="submit" class="btn btn--primary btn--large" id="submit-btn">
+                        Get My AI Readiness Report
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="text-muted" style="font-size: var(--font-size-sm);">
+                © 2025 Generation AI. Your information is confidential and will not be shared with third parties.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/form-handler.js"></script>
+</body>
+</html>
