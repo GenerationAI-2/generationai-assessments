@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate your AI ROI in 2 minutes. See the real financial impact of automating document processing with AI.">
+    <title>AI ROI Calculator | GenerationAI</title>
+    <link rel="stylesheet" href="/assets/css/brand.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <a href="https://www.generationai.co.nz" class="nav__logo">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="section section--light">
+        <div class="container text-center" style="max-width: 800px;">
+            <h1>Calculate Your AI ROI in 2 Minutes</h1>
+            <p class="text-muted" style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">
+                See the real financial impact of automating document processing with AI.
+                Based on 2025 research from McKinsey, PwC, and NZ AI Forum.
+            </p>
+            <div class="alert alert--info">
+                <strong>Conservative by design:</strong> Our calculator uses defensible, NZ-calibrated assumptions you can take to your CFO.
+            </div>
+        </div>
+    </section>
+
+    <!-- CALCULATOR FORM -->
+    <section class="section" id="calculator-section">
+        <div class="container" style="max-width: 800px;">
+
+            <form id="roi-form">
+                <h2>Your Business Details</h2>
+
+                <!-- Question 1: Staff Count -->
+                <div class="form__group">
+                    <label for="people" class="form__label form__label--required">
+                        How many people currently process documents?
+                    </label>
+                    <div class="form__help">Include anyone handling invoices, contracts, forms, reports</div>
+                    <input
+                        type="number"
+                        id="people"
+                        name="people"
+                        class="form__input"
+                        min="1"
+                        max="500"
+                        placeholder="e.g., 5"
+                        required>
+                </div>
+
+                <!-- Question 2: Time Allocation -->
+                <div class="form__group">
+                    <label for="time_percent" class="form__label form__label--required">
+                        What % of their time goes to document processing?
+                    </label>
+                    <div class="slider-container">
+                        <input
+                            type="range"
+                            id="time_percent"
+                            name="time_percent"
+                            min="10"
+                            max="100"
+                            step="5"
+                            value="30"
+                            class="form__slider"
+                            required>
+                        <div class="slider-value">
+                            <span id="time_percent_value">30</span>%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3: Average Salary -->
+                <div class="form__group">
+                    <label for="salary" class="form__label form__label--required">
+                        Average annual salary for these staff?
+                    </label>
+                    <div class="form__help">Enter fully loaded annual salary (incl. overheads)</div>
+                    <select id="salary" name="salary" class="form__input" required>
+                        <option value="">Select salary range...</option>
+                        <option value="50000">$50,000</option>
+                        <option value="60000">$60,000</option>
+                        <option value="70000" selected>$70,000</option>
+                        <option value="80000">$80,000</option>
+                        <option value="90000">$90,000</option>
+                        <option value="100000">$100,000</option>
+                        <option value="120000">$120,000</option>
+                    </select>
+                </div>
+
+                <!-- Question 4: AI Efficiency Gain -->
+                <div class="form__group">
+                    <label for="savings_percent" class="form__label form__label--required">
+                        Expected time savings from AI automation
+                    </label>
+                    <div class="form__help">Industry average: 25% | We recommend conservative: 20%</div>
+                    <div class="slider-container">
+                        <input
+                            type="range"
+                            id="savings_percent"
+                            name="savings_percent"
+                            min="10"
+                            max="40"
+                            step="5"
+                            value="20"
+                            class="form__slider"
+                            required>
+                        <div class="slider-value">
+                            <span id="savings_percent_value">20</span>%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5: AI Tool Cost -->
+                <div class="form__group">
+                    <label for="ai_monthly" class="form__label form__label--required">
+                        Monthly AI tool investment
+                    </label>
+                    <div class="form__help">
+                        Typical ranges by organisation size:<br>
+                        • 1–10 staff: $500–$1,000<br>
+                        • 11–50 staff: $1,000–$2,000<br>
+                        • 51–200 staff: $2,000–$5,000<br>
+                        • 200+ staff: $5,000–$10,000
+                    </div>
+                    <select id="ai_monthly" name="ai_monthly" class="form__input" required>
+                        <option value="">Select monthly cost...</option>
+                        <option value="500">$500/month</option>
+                        <option value="1000" selected>$1,000/month</option>
+                        <option value="2000">$2,000/month</option>
+                        <option value="3000">$3,000/month</option>
+                        <option value="5000">$5,000/month</option>
+                        <option value="10000">$10,000/month</option>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form__group mt-xl">
+                    <button type="submit" class="btn btn--accent btn--large">
+                        Calculate My ROI
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- RESULTS SECTION (Hidden by default) -->
+    <section class="section section--light" id="results-section" style="display: none;">
+        <div class="container" style="max-width: 900px;">
+            <div class="text-center" style="margin-bottom: var(--space-xl);">
+                <h2>Your AI ROI Results</h2>
+                <p class="text-muted">Based on your inputs and 2025 industry research</p>
+            </div>
+
+            <!-- Results Grid -->
+            <div class="results-grid">
+
+                <!-- Current Annual Cost -->
+                <div class="result-card">
+                    <div class="result-card__label">Current Annual Cost</div>
+                    <div class="result-card__value" id="result_annual_manual_cost">$0</div>
+                    <div class="result-card__description">What you're spending now on manual document processing</div>
+                </div>
+
+                <!-- Cost with AI -->
+                <div class="result-card">
+                    <div class="result-card__label">Cost with AI</div>
+                    <div class="result-card__value" id="result_annual_ai_cost">$0</div>
+                    <div class="result-card__description">Annual AI tool investment</div>
+                </div>
+
+                <!-- Annual Savings -->
+                <div class="result-card result-card--highlight">
+                    <div class="result-card__label">Annual Savings</div>
+                    <div class="result-card__value" id="result_annual_savings">$0</div>
+                    <div class="result-card__description">Productivity gains from automation</div>
+                </div>
+
+                <!-- Net Benefit Year 1 -->
+                <div class="result-card result-card--highlight">
+                    <div class="result-card__label">Net Benefit Year 1</div>
+                    <div class="result-card__value" id="result_net_benefit">$0</div>
+                    <div class="result-card__description">Savings minus AI costs</div>
+                </div>
+
+                <!-- Return Multiple -->
+                <div class="result-card">
+                    <div class="result-card__label">Return Multiple</div>
+                    <div class="result-card__value" id="result_roi_multiple">0×</div>
+                    <div class="result-card__description">Return for every dollar invested</div>
+                </div>
+
+                <!-- Payback Period -->
+                <div class="result-card">
+                    <div class="result-card__label">Payback Period</div>
+                    <div class="result-card__value" id="result_payback">0 months</div>
+                    <div class="result-card__description">Time to recover your investment</div>
+                </div>
+
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="alert alert--info" style="margin-top: var(--space-xl);">
+                <strong>Data Sources:</strong> All values shown in NZD. Based on 2025 research: McKinsey (20-45% typical productivity gains),
+                PwC (30-200% first-year ROI), NZ AI Forum (89% of businesses report efficiency improvements).<br><br>
+                <em>This is an indicative estimate in NZD, not financial advice. Actual results will vary by organisation, vendor pricing, and implementation.</em>
+            </div>
+
+            <!-- CTAs -->
+            <div class="cta-section">
+                <h3 class="text-center">Ready to take the next step?</h3>
+                <div class="cta-buttons">
+                    <a href="https://www.generationai.co.nz/business-readiness" class="btn btn--accent btn--large">
+                        Check Your AI Readiness →
+                    </a>
+                    <button id="calculate-again-btn" class="btn btn--secondary btn--large">
+                        Calculate Again
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="section section--light">
+        <div class="container text-center">
+            <p class="text-small text-muted">
+                © 2025 GenerationAI Ltd. All rights reserved.<br>
+                Pragmatic ROI for AI — grounded in NZ data.
+            </p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/calculator.js"></script>
+</body>
+</html>
