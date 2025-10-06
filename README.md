@@ -1,272 +1,226 @@
-# GenerationAI Tools - Monorepo
+# GenerationAI Assessment Tools
 
-Production-ready monorepo for AI risk assessment tools, built with TypeScript and Azure Functions.
+Production monorepo for AI assessment and diagnostic tools. Built with TypeScript, Azure Functions, and Azure Static Web Apps.
 
-## 🚀 Quick Start
+## 🚀 Assessment Tools
 
-```bash
-# Install dependencies
-pnpm install
-
-# Build all packages
-pnpm build
-
-# Start services locally
-# Terminal 1: PDF Generator (port 7072)
-cd services/pdf-generator && func start --port 7072
-
-# Terminal 2: Shadow AI Assessment API (port 7071)
-cd tools/shadow-ai-assessment/api && func start
-
-# Terminal 3: Frontend (port 8080)
-cd tools/shadow-ai-assessment/frontend && python3 -m http.server 8080
-```
-
-Visit: **http://localhost:8080**
+| Tool | Type | Status | Production URL |
+|------|------|--------|----------------|
+| **Shadow AI Risk Assessment** | Full Stack | ✅ Deployed | [proud-moss-0374e9300.1.azurestaticapps.net](https://proud-moss-0374e9300.1.azurestaticapps.net) |
+| **Business AI Readiness** | Full Stack | ✅ Deployed | [lively-bay-0fbbe1300.2.azurestaticapps.net](https://lively-bay-0fbbe1300.2.azurestaticapps.net) |
+| **Board Governance Assessment** | Full Stack | ✅ Deployed | [thankful-grass-030658000.2.azurestaticapps.net](https://thankful-grass-030658000.2.azurestaticapps.net) |
+| **Personal AI Readiness** | Full Stack | ✅ Deployed | [gentle-smoke-098f1d000.2.azurestaticapps.net](https://gentle-smoke-098f1d000.2.azurestaticapps.net) |
+| **ROI Calculator** | Frontend Only | ✅ Deployed | [wonderful-sky-09d539b10.2.azurestaticapps.net](https://wonderful-sky-09d539b10.2.azurestaticapps.net) |
 
 ## 📁 Project Structure
 
 ```
-generation-ai-tools/
-├── tools/                          # Assessment tools
-│   ├── shadow-ai-assessment/
-│   │   ├── api/                    # Azure Function API
-│   │   └── frontend/               # Static HTML/JS
-│   └── business-readiness-assessment/
-│       ├── api/                    # Azure Function API
-│       └── frontend/               # Static HTML/JS
+shadow-ai-assessment-1/
+├── tools/                              # Assessment tools
+│   ├── shadow-ai-assessment/           # Unauthorised AI risk tool
+│   │   ├── api/                        # Azure Function (scoring + orchestration)
+│   │   └── frontend/                   # Static Web App
+│   ├── business-readiness-assessment/  # AI adoption readiness
+│   │   ├── api/                        # Azure Function
+│   │   └── frontend/                   # Static Web App
+│   ├── board-governance-assessment/    # Board-level AI governance
+│   │   ├── api/                        # Azure Function
+│   │   └── frontend/                   # Static Web App
+│   ├── personal-ai-readiness/          # Individual AI skill assessment
+│   │   ├── api/                        # Azure Function
+│   │   └── frontend/                   # Static Web App
+│   └── roi-calculator/                 # AI ROI calculator (frontend only)
+│       └── frontend/                   # Client-side calculations
 │
-├── services/                       # Shared services
-│   └── pdf-generator/              # PDF generation service (reused by all tools)
+├── services/                           # Shared services
+│   └── pdf-generator/                  # PDF generation service (used by all tools)
 │
-├── shared/                         # Shared packages
-│   ├── types/                      # @generation-ai/types
-│   └── utils/                      # @generation-ai/utils
+├── shared/                             # Shared packages
+│   ├── types/                          # @generation-ai/types
+│   └── utils/                          # @generation-ai/utils
 │
-├── .github/workflows/              # CI/CD automation
+├── .github/workflows/                  # CI/CD automation
 │   ├── deploy-shadow-ai-api.yml
 │   ├── deploy-business-readiness-api.yml
-│   ├── deploy-pdf-generator.yml
-│   └── ...
+│   ├── deploy-board-governance-api.yml
+│   ├── deploy-personal-ai-readiness-api.yml
+│   ├── deploy-roi-calculator-frontend.yml
+│   └── deploy-pdf-generator.yml
 │
-└── docs/                           # Documentation
-    ├── DEPLOYMENT_PRODUCTION.md    # Production deployment guide
-    ├── DEPLOYMENT_CHECKLIST.md     # Pre-deployment checklist
-    ├── INFRASTRUCTURE.md            # Architecture diagrams
-    └── ADDING_NEW_ASSESSMENT.md    # How to add new tools
+└── docs/                               # Documentation
+    ├── FAST_TRACK_GUIDE.md             # Idea → Deployed in 1-2 hours
+    ├── PROJECT_STATUS.md               # Current deployment status
+    ├── DEVELOPER_ONBOARDING.md         # New developer setup
+    ├── DEPLOYMENT_PRODUCTION.md        # Azure deployment guide
+    ├── DEPLOYMENT_CHECKLIST.md         # Pre-deployment checklist
+    ├── INFRASTRUCTURE.md               # Architecture overview
+    └── ADDING_NEW_ASSESSMENT.md        # Adding new tools
+```
+
+## 🏗️ Architecture
+
+### Two Patterns
+
+**1. Full Stack Assessment (Shadow AI, Business Readiness, Board Governance, Personal AI)**
+```
+Frontend (Static Web App)
+    ↓ HTTPS POST
+Assessment API (Azure Function)
+    ├→ Scoring Engine
+    ├→ Airtable (data storage)
+    ├→ PDF Generator Service
+    └→ Email (Logic App)
+```
+
+**2. Frontend-Only Tool (ROI Calculator)**
+```
+Frontend (Static Web App)
+    ├→ Client-side calculations
+    └→ Instant results (no backend)
+```
+
+### Shared Services
+- **PDF Generator**: Reused by all full-stack tools (Puppeteer-based)
+- **Airtable**: Unified data storage (separate table per tool)
+- **Email Logic App**: Shared email delivery service
+
+## 🚀 Quick Start
+
+### For New Developers
+See [DEVELOPER_ONBOARDING.md](DEVELOPER_ONBOARDING.md) for complete setup guide.
+
+### Build Everything
+```bash
+pnpm install
+pnpm build
+```
+
+### Run Locally
+```bash
+# Start PDF service (required for full-stack tools)
+cd services/pdf-generator && pnpm start  # Port 7072
+
+# Start any assessment API
+cd tools/shadow-ai-assessment/api && pnpm start  # Port 7071
+
+# Serve frontend
+cd tools/shadow-ai-assessment/frontend && python3 -m http.server 8080
+```
+
+## 📊 Adding a New Tool
+
+See [FAST_TRACK_GUIDE.md](FAST_TRACK_GUIDE.md) for step-by-step instructions.
+
+**Quick summary:**
+
+**Frontend-Only Tool** (~30 minutes):
+1. Create `tools/new-tool/frontend/` with HTML/CSS/JS
+2. Add GitHub Actions workflow for deployment
+3. Deploy to Azure Static Web App
+
+**Full-Stack Assessment** (~2 hours):
+1. Copy template from `tools/shadow-ai-assessment/`
+2. Customize scoring logic and questions
+3. Create Airtable table
+4. Deploy API to Azure Function App
+5. Deploy frontend to Static Web App
+
+## 💰 Azure Costs
+
+Estimated monthly costs (NZD):
+
+| Service | Qty | Cost Each | Total |
+|---------|-----|-----------|-------|
+| PDF Generator (Premium EP1) | 1 | $75-150 | $75-150 |
+| Assessment APIs (Consumption) | 4 | $10-30 | $40-120 |
+| Static Web Apps (Free tier) | 5 | $0 | $0 |
+| Storage Account | 1 | $5 | $5 |
+| **Total** | | | **$120-275/month** |
+
+**Note**: Adding new frontend-only tools (like ROI Calculator) = $0 additional cost
+
+## 🔑 Key Features
+
+- ✅ **Monorepo architecture** - All tools in one repo
+- ✅ **Shared PDF service** - Reused across all assessments
+- ✅ **TypeScript** - Full type safety via shared packages
+- ✅ **Independent deployment** - Each tool deploys separately
+- ✅ **Auto-deployment** - GitHub Actions CI/CD
+- ✅ **Scalable** - Easy to add new tools
+- ✅ **Two patterns** - Full-stack or frontend-only
+
+## 📦 Package Manager
+
+This project uses **pnpm** for efficient monorepo management.
+
+```bash
+# Install pnpm globally
+npm install -g pnpm
+
+# Workspace commands
+pnpm build                                    # Build all
+pnpm --filter shadow-ai-assessment-api build  # Build specific
+pnpm -r clean                                 # Clean all
+```
+
+## 🧪 Testing
+
+```bash
+# Test PDF service
+curl http://localhost:7072/api/testPDF --output test.pdf
+
+# Test assessment submission
+curl -X POST http://localhost:7071/api/processAssessment \
+  -H "Content-Type: application/json" \
+  -d @test-submission.json
 ```
 
 ## 📚 Documentation
 
 | Document | Purpose |
 |----------|---------|
-| **[READY_FOR_DEPLOYMENT.md](READY_FOR_DEPLOYMENT.md)** | 👈 **START HERE** - Deployment overview |
-| [QUICK_START.md](QUICK_START.md) | Local development guide |
-| [MIGRATION_SUMMARY.md](MIGRATION_SUMMARY.md) | Monorepo migration details |
-| [MONOREPO_MIGRATION.md](MONOREPO_MIGRATION.md) | Complete architecture guide |
-| [docs/DEPLOYMENT_PRODUCTION.md](docs/DEPLOYMENT_PRODUCTION.md) | Step-by-step Azure deployment |
-| [docs/ADDING_NEW_ASSESSMENT.md](docs/ADDING_NEW_ASSESSMENT.md) | Adding new assessment tools |
+| [FAST_TRACK_GUIDE.md](FAST_TRACK_GUIDE.md) | Idea → Deployed in 1-2 hours |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current deployment status & URLs |
+| [DEVELOPER_ONBOARDING.md](DEVELOPER_ONBOARDING.md) | New developer setup guide |
+| [docs/DEPLOYMENT_PRODUCTION.md](docs/DEPLOYMENT_PRODUCTION.md) | Azure deployment guide |
+| [docs/INFRASTRUCTURE.md](docs/INFRASTRUCTURE.md) | Architecture & data flow |
+| [docs/ADDING_NEW_ASSESSMENT.md](docs/ADDING_NEW_ASSESSMENT.md) | Adding new tools |
 
-## 🏗️ Architecture
+## 🔧 Environment Variables
 
-### Components
-
-1. **Frontend** (Static Web App)
-   - HTML/CSS/JavaScript
-   - Assessment forms
-   - User interface
-
-2. **Assessment API** (Azure Function)
-   - Processes submissions
-   - Scoring engine
-   - Orchestrates PDF generation and email
-
-3. **PDF Generator Service** (Azure Function)
-   - Shared across all tools
-   - Puppeteer-based PDF generation
-   - Scales independently
-
-4. **Shared Packages**
-   - `@generation-ai/types` - TypeScript interfaces
-   - `@generation-ai/utils` - Common utilities
-
-### Data Flow
-
-```
-User → Frontend → Assessment API → PDF Service
-                        ↓
-                    Airtable
-                        ↓
-                    Email (Logic App)
-```
-
-## 🔧 Development
-
-### Prerequisites
-
-- Node.js 20+
-- pnpm 8+
-- Azure Functions Core Tools v4
-- Azure CLI (for deployment)
-
-### Local Development
-
+### Required for Full-Stack Tools
 ```bash
-# Install pnpm globally
-npm install -g pnpm
-
-# Install all dependencies
-pnpm install
-
-# Build shared packages first
-pnpm --filter @generation-ai/types build
-pnpm --filter @generation-ai/utils build
-
-# Build services
-pnpm --filter pdf-generator build
-pnpm --filter shadow-ai-assessment-api build
-
-# Or build everything
-pnpm build
+AIRTABLE_API_KEY=your_key
+AIRTABLE_BASE_ID=apptxnwqucezx8knv
+AIRTABLE_TABLE_NAME=Tool-Specific-Name
+LOGIC_APP_EMAIL_URL=your_url
+PDF_SERVICE_URL=https://generationai-pdf.azurewebsites.net/api/generatePDF
+PDF_SERVICE_KEY=your_key
 ```
 
-### Environment Variables
+### Required for Frontend-Only Tools
+None - all calculations are client-side.
 
-Create `local.settings.json` in each API:
+## 📈 Current Status
 
-**tools/shadow-ai-assessment/api/local.settings.json:**
-```json
-{
-  "Values": {
-    "AIRTABLE_API_KEY": "your_key",
-    "AIRTABLE_BASE_ID": "your_base",
-    "AIRTABLE_TABLE_NAME": "Shadow-AI-Submissions",
-    "LOGIC_APP_EMAIL_URL": "your_url",
-    "PDF_SERVICE_URL": "http://localhost:7072/api/generatePDF"
-  }
-}
-```
-
-## 📦 Available Commands
-
-```bash
-# Build all packages
-pnpm build
-
-# Build specific package
-pnpm --filter shadow-ai-assessment-api build
-pnpm --filter business-readiness-assessment-api build
-pnpm --filter pdf-generator build
-
-# Run development servers
-pnpm dev:shadow-ai           # Start Shadow AI Assessment API
-pnpm dev:business-readiness  # Start Business Readiness Assessment API
-pnpm dev:pdf                 # Start PDF Generator service
-
-# Clean build artifacts
-pnpm -r clean
-```
-
-## 🚢 Deployment
-
-See **[READY_FOR_DEPLOYMENT.md](READY_FOR_DEPLOYMENT.md)** for complete deployment guide.
-
-### Quick Deploy
-
-```bash
-# 1. Deploy PDF Generator (shared service)
-cd services/pdf-generator
-pnpm build
-func azure functionapp publish generationai-pdf-generator
-
-# 2. Deploy Shadow AI Assessment
-cd tools/shadow-ai-assessment/api
-pnpm build
-func azure functionapp publish generationai-shadow-ai
-# Frontend deploys automatically via GitHub Actions
-
-# 3. Deploy Business Readiness Assessment
-cd tools/business-readiness-assessment/api
-pnpm build
-func azure functionapp publish generationai-business-readiness
-# Frontend deploys automatically via GitHub Actions
-```
-
-## 🆕 Adding New Assessment Tools
-
-To add a new tool (e.g., Compliance Checker):
-
-```bash
-# 1. Copy template
-cp -r tools/shadow-ai-assessment tools/compliance-checker
-
-# 2. Update configuration
-# - Change AIRTABLE_TABLE_NAME
-# - Customize questions
-# - Update scoring logic
-
-# 3. Deploy
-# - New Azure Function App for API
-# - New Static Web App for frontend
-# - Reuse PDF Generator Service
-```
-
-See [docs/ADDING_NEW_ASSESSMENT.md](docs/ADDING_NEW_ASSESSMENT.md) for complete guide.
-
-## 💰 Azure Costs
-
-Estimated monthly costs (NZD):
-
-| Service | Cost |
-|---------|------|
-| PDF Generator (Premium EP1) | $75-150 |
-| Shadow AI API (Consumption) | $10-30 |
-| Business Readiness API (Consumption) | $10-30 |
-| Frontends (2x Static Web App Free) | $0 |
-| Storage | $5 |
-| Airtable (Pro Plan) | ~$27 |
-| **Total** | **$127-242/month** |
-
-**Scaling:** Each additional assessment tool adds ~$10-30/month (Consumption plan API only)
-
-## 🔑 Key Features
-
-- ✅ **Monorepo structure** - All tools in one repo
-- ✅ **Shared PDF service** - Reused across all assessment tools
-- ✅ **TypeScript** - Full type safety
-- ✅ **pnpm workspaces** - Efficient dependency management
-- ✅ **Independent deployment** - Each tool deploys separately
-- ✅ **Scalable** - Easy to add new assessment tools
-
-## 📊 Current Tools
-
-1. **Shadow AI Assessment** - AI risk assessment tool
-   - Frontend: `tools/shadow-ai-assessment/frontend/`
-   - API: `tools/shadow-ai-assessment/api/`
-   - Production URL: https://generationai-shadow-ai-frontend.azurestaticapps.net
-   - Status: ✅ Production ready
-
-2. **Business Readiness Assessment** - Business AI readiness evaluation tool
-   - Frontend: `tools/business-readiness-assessment/frontend/`
-   - API: `tools/business-readiness-assessment/api/`
-   - Production URL: https://lively-bay-0fbbe1300.2.azurestaticapps.net
-   - Status: ✅ Production ready
+**Active Tools**: 5 (4 full-stack, 1 frontend-only)
+**Last Deployment**: See [PROJECT_STATUS.md](PROJECT_STATUS.md)
+**Uptime**: Monitored via Azure Application Insights
 
 ## 🤝 Contributing
 
-When adding new assessment tools:
-1. Follow the template in `tools/shadow-ai-assessment/`
-2. Use shared types from `@generation-ai/types`
-3. Reuse PDF Generator Service
-4. Create separate Airtable table per tool
+1. Create feature branch from `main`
+2. Make changes
+3. Test locally
+4. Push - GitHub Actions auto-deploys on merge to `main`
 
 ## 📞 Support
 
-- **Documentation:** See `docs/` folder
-- **Issues:** Check Application Insights in Azure Portal
-- **Team:** dev@generationai.co.nz
+- **Documentation**: See `docs/` folder
+- **Issues**: Check Application Insights in Azure Portal
+- **Team**: dev@generationai.co.nz
 
 ---
 
 **Built with** ❤️ **by GenerationAI**
-**Last Updated:** October 2025
+**Last Updated**: October 2025
