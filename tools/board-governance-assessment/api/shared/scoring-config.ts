@@ -43,7 +43,7 @@ export const SCORING_CONFIG = {
         },
         "opt_4": {
           score: 4,
-          label: "Yes, with some variation",
+          label: "Yes, but with some variation between directors",
           playback: "You told us some directors can explain the risks, though consistency varies.",
           interpretation: "Inconsistent awareness leaves blind spots. Regulators and shareholders expect the whole board to demonstrate understanding."
         },
@@ -81,13 +81,13 @@ export const SCORING_CONFIG = {
       responses: {
         "opt_5": {
           score: 5,
-          label: "Board committee with clear charter",
+          label: "Board committee with clear charter (e.g., Risk, Audit, Technology)",
           playback: "You told us AI governance responsibility sits with a formal board committee.",
           interpretation: "Clear ownership at board level demonstrates maturity and accountability."
         },
         "opt_4": {
           score: 4,
-          label: "Assigned executive with reporting",
+          label: "Assigned executive with regular board reporting",
           playback: "You told us an executive reports regularly on AI governance.",
           interpretation: "Accountability is defined, but responsibility rests outside the board. This is good practice but needs formal oversight."
         },
@@ -99,7 +99,7 @@ export const SCORING_CONFIG = {
         },
         "opt_2": {
           score: 2,
-          label: "Responsibility unclear",
+          label: "Responsibility discussed but unclear",
           playback: "You told us AI governance responsibility is unclear and only occasionally discussed.",
           interpretation: "Lack of clarity fragments accountability, directors remain liable regardless."
         },
