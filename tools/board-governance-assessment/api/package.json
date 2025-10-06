@@ -1,0 +1,35 @@
+{
+  "name": "board-governance-assessment-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for AI Board Governance Diagnostic",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "dev": "npm run build && func start",
+    "clean": "rm -rf dist",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "@generation-ai/types": "workspace:*",
+    "@generation-ai/utils": "workspace:*",
+    "abort-controller": "^3.0.0",
+    "abortcontroller-polyfill": "^1.7.8",
+    "airtable": "^0.12.2",
+    "event-target-polyfill": "^0.0.4",
+    "event-target-shim": "^6.0.2",
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.7.0",
+    "punycode": "^2.3.1",
+    "tr46": "^6.0.0",
+    "webidl-conversions": "^8.0.0",
+    "whatwg-url": "^15.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/node-fetch": "^2.6.13",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Assess your board's AI governance maturity in under 5 minutes. Designed for directors, board chairs, and executives with fiduciary responsibilities.">
+    <title>AI Board Governance Diagnostic | GenerationAI</title>
+    <link rel="stylesheet" href="assets/css/brand.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <a href="https://www.generationai.co.nz" class="nav__logo">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="section section--light">
+        <div class="container text-center" style="max-width: 800px;">
+            <h1>AI Board Governance Diagnostic</h1>
+            <p class="text-muted" style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">
+                <strong>Directors are personally accountable for AI governance.</strong> "We didn't understand it" is not a defence.
+                Complete this 5-minute diagnostic to understand your board's oversight maturity and receive a confidential governance report.
+            </p>
+            <div class="alert alert--info">
+                <strong>Your report will include:</strong> Board AI Governance Score (0-100), director readiness level, your top 3 governance gaps requiring board attention, regulatory exposure indicators, and prioritised board actions.
+            </div>
+        </div>
+    </section>
+
+    <!-- ASSESSMENT FORM -->
+    <section class="section">
+        <div class="container" style="max-width: 800px;">
+
+            <!-- Progress Indicator -->
+            <div class="progress">
+                <div class="progress__text" id="progress-text">0 of 16 questions completed</div>
+                <div class="progress__bar">
+                    <div class="progress__fill" id="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Loading State (hidden by default) -->
+            <div id="loading-state" class="loading">
+                <div class="loading__spinner"></div>
+                <h3>Processing Your Assessment...</h3>
+                <p class="text-muted">Calculating your governance score and generating your confidential board report. This should take less than 60 seconds.</p>
+            </div>
+
+            <!-- Main Form -->
+            <form id="assessment-form">
+
+                <!-- CONTACT INFORMATION -->
+                <h2>Contact Information</h2>
+
+                <div class="form__group">
+                    <label for="email" class="form__label form__label--required">Your email address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form__input"
+                        placeholder="name@company.co.nz"
+                        required>
+                    <div id="email-error" class="form__error"></div>
+                </div>
+
+                <div class="form__group">
+                    <label for="contact_name" class="form__label form__label--required">Your name</label>
+                    <input
+                        type="text"
+                        id="contact_name"
+                        name="contact_name"
+                        class="form__input"
+                        placeholder="John Smith"
+                        required>
+                    <div id="contact_name-error" class="form__error"></div>
+                </div>
+
+                <div class="form__group">
+                    <label for="company_name" class="form__label form__label--required">Organisation name</label>
+                    <input
+                        type="text"
+                        id="company_name"
+                        name="company_name"
+                        class="form__input"
+                        placeholder="Your Company Ltd"
+                        required>
+                    <div id="company_name-error" class="form__error"></div>
+                </div>
+
+                <!-- BOARD GOVERNANCE QUESTIONS -->
+                <h2 class="mt-xl">Board AI Governance Assessment</h2>
+                <p class="text-muted" style="margin-bottom: var(--space-lg);">13 strategic questions designed for board-level oversight. No technical knowledge required.</p>
+
+                <!-- Q1: Board Risk Awareness -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Can your board clearly explain the top 3 AI risks specific to your business?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q1_board_risk" value="opt_5" required>
+                            <span class="form__radio-label">Yes, clearly and consistently</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_board_risk" value="opt_4">
+                            <span class="form__radio-label">Yes, but with some variation between directors</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_board_risk" value="opt_3">
+                            <span class="form__radio-label">Partially - some directors can, others can't</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_board_risk" value="opt_2">
+                            <span class="form__radio-label">Vague understanding only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_board_risk" value="opt_1">
+                            <span class="form__radio-label">Risks are generic, not specific to our business</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q1_board_risk" value="opt_0">
+                            <span class="form__radio-label">Haven't discussed AI risks at board level</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q2: Oversight & Accountability -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Who has formal responsibility for AI governance in your organisation?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q2_oversight" value="opt_5" required>
+                            <span class="form__radio-label">Board committee with clear charter (e.g., Risk, Audit, Technology)</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_oversight" value="opt_4">
+                            <span class="form__radio-label">Assigned executive with regular board reporting</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_oversight" value="opt_3">
+                            <span class="form__radio-label">Senior leader assigned, limited board visibility</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_oversight" value="opt_2">
+                            <span class="form__radio-label">Responsibility discussed but unclear</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_oversight" value="opt_1">
+                            <span class="form__radio-label">No one formally responsible</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q2_oversight" value="opt_0">
+                            <span class="form__radio-label">Never been discussed</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q3: Risk Appetite -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Has your board defined boundaries or principles for acceptable AI use?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q3_risk_appetite" value="opt_5" required>
+                            <span class="form__radio-label">Clear statement agreed and documented</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_risk_appetite" value="opt_4">
+                            <span class="form__radio-label">Formal boundaries in development</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_risk_appetite" value="opt_3">
+                            <span class="form__radio-label">Some informal boundaries agreed</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_risk_appetite" value="opt_2">
+                            <span class="form__radio-label">Initial discussions only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_risk_appetite" value="opt_1">
+                            <span class="form__radio-label">Not yet discussed at board level</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q3_risk_appetite" value="opt_0">
+                            <span class="form__radio-label">Don't know if this exists</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q4: Strategic Integration -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How is AI considered in your organisation's strategy?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q4_strategic" value="opt_5" required>
+                            <span class="form__radio-label">Embedded in business strategy with board oversight</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_strategic" value="opt_4">
+                            <span class="form__radio-label">Regular strategic discussions at board level</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_strategic" value="opt_3">
+                            <span class="form__radio-label">Emerging topic in strategy discussions</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_strategic" value="opt_2">
+                            <span class="form__radio-label">Treated as operational/IT matter only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_strategic" value="opt_1">
+                            <span class="form__radio-label">Aware we're behind competitors but no action</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q4_strategic" value="opt_0">
+                            <span class="form__radio-label">Not considered at all</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q5: Policy & Controls -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Which best describes your organisation's AI governance policy framework?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q5_policy" value="opt_5" required>
+                            <span class="form__radio-label">Comprehensive policies, reviewed regularly</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_policy" value="opt_4">
+                            <span class="form__radio-label">Formal policies in place, periodic review</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_policy" value="opt_3">
+                            <span class="form__radio-label">Basic/draft policy exists</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_policy" value="opt_2">
+                            <span class="form__radio-label">Informal guidelines only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_policy" value="opt_1">
+                            <span class="form__radio-label">Under development</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q5_policy" value="opt_0">
+                            <span class="form__radio-label">No policy or guidance</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q6: Risk Oversight -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How often does the board receive AI-related risk reporting?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q6_risk_reporting" value="opt_5" required>
+                            <span class="form__radio-label">Tracked and reported at least quarterly</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_risk_reporting" value="opt_4">
+                            <span class="form__radio-label">Regular reporting but less than quarterly</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_risk_reporting" value="opt_3">
+                            <span class="form__radio-label">Raised occasionally in discussions</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_risk_reporting" value="opt_2">
+                            <span class="form__radio-label">Only when issues occur</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_risk_reporting" value="opt_1">
+                            <span class="form__radio-label">Should be reported but isn't</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q6_risk_reporting" value="opt_0">
+                            <span class="form__radio-label">Never discussed at board level</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q7: Stakeholder Accountability -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">If a regulator, customer, or shareholder asked how AI is governed, how confident would your board be in responding?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q7_stakeholder" value="opt_5" required>
+                            <span class="form__radio-label">Very confident - clear framework and evidence</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_stakeholder" value="opt_4">
+                            <span class="form__radio-label">Confident - good documentation exists</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_stakeholder" value="opt_3">
+                            <span class="form__radio-label">Somewhat confident - partial answers only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_stakeholder" value="opt_2">
+                            <span class="form__radio-label">Limited confidence - would struggle</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_stakeholder" value="opt_1">
+                            <span class="form__radio-label">Not confident - couldn't answer adequately</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q7_stakeholder" value="opt_0">
+                            <span class="form__radio-label">Haven't considered this scenario</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q8: Incident Preparedness -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">If an AI decision caused material harm, could the board demonstrate it exercised reasonable oversight?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q8_incident" value="opt_5" required>
+                            <span class="form__radio-label">Yes - comprehensive documentation exists</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_incident" value="opt_4">
+                            <span class="form__radio-label">Yes - good oversight records in place</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_incident" value="opt_3">
+                            <span class="form__radio-label">Partially - some documentation exists</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_incident" value="opt_2">
+                            <span class="form__radio-label">Limited records available</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_incident" value="opt_1">
+                            <span class="form__radio-label">No evidence of oversight</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q8_incident" value="opt_0">
+                            <span class="form__radio-label">Haven't considered this scenario</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q9: Third-Party/Vendor AI Risk -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Does your board know which third parties use AI on your data or processes?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q9_vendor" value="opt_5" required>
+                            <span class="form__radio-label">Full visibility with risk assessment completed</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_vendor" value="opt_4">
+                            <span class="form__radio-label">Good visibility of major vendors</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_vendor" value="opt_3">
+                            <span class="form__radio-label">Partial awareness of some vendors</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_vendor" value="opt_2">
+                            <span class="form__radio-label">Limited visibility</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_vendor" value="opt_1">
+                            <span class="form__radio-label">Not tracked at all</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q9_vendor" value="opt_0">
+                            <span class="form__radio-label">Don't know</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q10: Board Development & Investment -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">What steps has the board taken to build its AI governance capability?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q10_development" value="opt_5" required>
+                            <span class="form__radio-label">Formal training with budget allocated</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_development" value="opt_4">
+                            <span class="form__radio-label">Regular education sessions provided</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_development" value="opt_3">
+                            <span class="form__radio-label">Informal learning opportunities</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_development" value="opt_2">
+                            <span class="form__radio-label">Occasional management updates only</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_development" value="opt_1">
+                            <span class="form__radio-label">Reactive - only when issues arise</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q10_development" value="opt_0">
+                            <span class="form__radio-label">No deliberate capability building</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q11: Forward-Looking Governance -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">Does the board receive forward-looking AI scenarios (investment, disruption, emerging risks)?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q11_forward" value="opt_5" required>
+                            <span class="form__radio-label">Regular scenario planning/horizon scanning</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_forward" value="opt_4">
+                            <span class="form__radio-label">Periodic strategic reviews include AI futures</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_forward" value="opt_3">
+                            <span class="form__radio-label">Sometimes discussed informally</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_forward" value="opt_2">
+                            <span class="form__radio-label">Rarely - only ad-hoc mentions</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_forward" value="opt_1">
+                            <span class="form__radio-label">No forward-looking discussions</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q11_forward" value="opt_0">
+                            <span class="form__radio-label">Not considered necessary</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q12: Competitive Risk Awareness -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">How exposed is your organisation to competitive disruption from AI-enabled competitors?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q12_competitive" value="opt_5" required>
+                            <span class="form__radio-label">Fully assessed with mitigation strategies</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_competitive" value="opt_4">
+                            <span class="form__radio-label">Risk understood and monitored</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_competitive" value="opt_3">
+                            <span class="form__radio-label">General awareness of competitive threats</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_competitive" value="opt_2">
+                            <span class="form__radio-label">Limited understanding of exposure</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_competitive" value="opt_1">
+                            <span class="form__radio-label">Know we're vulnerable but no assessment</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q12_competitive" value="opt_0">
+                            <span class="form__radio-label">Haven't considered competitive AI risk</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q13: Board Decision Evidence -->
+                <div class="form__group">
+                    <label class="form__label form__label--required">When did the board last reject, modify, or set conditions on an AI initiative?</label>
+                    <div class="form__radio-group">
+                        <label class="form__radio">
+                            <input type="radio" name="q13_decision" value="opt_5" required>
+                            <span class="form__radio-label">Within last 3 months</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q13_decision" value="opt_4">
+                            <span class="form__radio-label">Within last 6 months</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q13_decision" value="opt_3">
+                            <span class="form__radio-label">Within last year</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q13_decision" value="opt_2">
+                            <span class="form__radio-label">Over a year ago</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q13_decision" value="opt_1">
+                            <span class="form__radio-label">Never - all initiatives approved without modification</span>
+                        </label>
+                        <label class="form__radio">
+                            <input type="radio" name="q13_decision" value="opt_0">
+                            <span class="form__radio-label">Never - no AI initiatives presented to board</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SUBMIT -->
+                <div class="form__group mt-xl">
+                    <button type="submit" id="submit-btn" class="btn btn--accent btn--large" disabled>
+                        Get My Governance Report
+                    </button>
+                    <p class="text-small text-muted text-center" style="margin-top: var(--space-md);">
+                        Your confidential board governance report will be emailed to you within 60 seconds
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="section section--light">
+        <div class="container text-center">
+            <p class="text-small text-muted">
+                © 2025 GenerationAI Ltd. All rights reserved.<br>
+                This diagnostic provides governance insights for board-level decision making. It does not constitute legal advice.
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/form-handler.js"></script>
+</body>
+</html>

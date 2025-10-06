@@ -5,3 +5,4 @@
 
 export * from './assessment';
 export * from './pdf';
+export * from './board-governance';

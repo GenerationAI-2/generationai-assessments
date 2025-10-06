@@ -7,7 +7,12 @@ import { ReportData } from '@generation-ai/types';
 
 export function generatePDFHTML(data: any): string {
   // Route to correct template based on data structure
-  // Business Readiness has readiness_score, Shadow AI has total_score
+  // Board Governance has governance_score
+  if (data.governance_score !== undefined) {
+    return generateBoardGovernanceHTML(data);
+  }
+
+  // Business Readiness has readiness_score
   if (data.readiness_score !== undefined) {
     return generateBusinessReadinessHTML(data);
   }
@@ -1252,4 +1257,759 @@ function getReadinessClass(band: string): string {
   if (lower.includes('developing')) return 'developing';
   if (lower.includes('ad hoc') || lower.includes('adhoc')) return 'adhoc';
   return 'unmanaged';
+}
+
+/**
+ * Board AI Governance Diagnostic HTML Template
+ */
+function generateBoardGovernanceHTML(data: any): string {
+  const scoreNum = parseInt(data.governance_score) || 0;
+  const governanceClass = getGovernanceClass(data.band_name);
+
+  const assessmentDate = data.response_date || new Date().toLocaleDateString('en-NZ', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  // Helper to get risk badge styling
+  const getRiskBadge = (risk: string): string => {
+    const riskLower = (risk || '').toLowerCase();
+    if (riskLower.includes('critical')) {
+      return `<span class="risk-badge risk-badge--critical">${risk}</span>`;
+    } else if (riskLower.includes('high')) {
+      return `<span class="risk-badge risk-badge--high">${risk}</span>`;
+    } else if (riskLower.includes('medium')) {
+      return `<span class="risk-badge risk-badge--medium">${risk}</span>`;
+    } else {
+      return `<span class="risk-badge risk-badge--low">${risk}</span>`;
+    }
+  };
+
+  // Helper to get status badge
+  const getStatusBadge = (status: string): string => {
+    const statusLower = (status || '').toLowerCase();
+    if (statusLower.includes('strong') || statusLower.includes('good')) {
+      return `<span class="status-badge status-badge--good">${status}</span>`;
+    } else if (statusLower.includes('developing')) {
+      return `<span class="status-badge status-badge--developing">${status}</span>`;
+    } else if (statusLower.includes('weak') || statusLower.includes('poor')) {
+      return `<span class="status-badge status-badge--weak">${status}</span>`;
+    } else {
+      return `<span class="status-badge status-badge--absent">${status}</span>`;
+    }
+  };
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Board Governance Report - ${data.company_name}</title>
+  <style>
+    /* ============================================
+       GENERATIONAI BRAND DESIGN SYSTEM
+       Board Governance Report Template
+       ============================================ */
+
+    :root {
+      /* Brand Colours */
+      --primary-blue: #2563EB;
+      --dark-navy: #0F172A;
+      --lime-accent: #D4FF00;
+      --text-body: #6B7280;
+      --text-heading: #0F172A;
+      --border-light: #E5E7EB;
+      --bg-light: #F9FAFB;
+      --white: #FFFFFF;
+
+      /* Risk Colours */
+      --risk-critical: #DC2626;
+      --risk-critical-bg: #FEE2E2;
+      --risk-high: #DC2626;
+      --risk-high-bg: #FEE2E2;
+      --risk-medium: #F59E0B;
+      --risk-medium-bg: #FEF3C7;
+      --risk-low: #10B981;
+      --risk-low-bg: #D1FAE5;
+
+      /* Spacing System - 8px Grid */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 12px;
+      --space-lg: 16px;
+      --space-xl: 20px;
+      --space-2xl: 24px;
+      --space-3xl: 32px;
+
+      /* Typography */
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      --font-size-xs: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 2rem;
+      --line-height: 1.6;
+      --line-height-tight: 1.2;
+
+      /* Design Properties */
+      --radius: 8px;
+      --radius-lg: 12px;
+      --border-width: 1px;
+    }
+
+    /* Page setup for PDF */
+    @page {
+      size: A4;
+      margin: 15mm 20mm;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      color: var(--text-body);
+      background: var(--white);
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: var(--text-heading);
+      line-height: var(--line-height-tight);
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+    }
+
+    h1 { font-size: var(--font-size-3xl); }
+    h2 { font-size: var(--font-size-2xl); margin-top: var(--space-3xl); }
+    h3 { font-size: var(--font-size-xl); margin-top: var(--space-2xl); }
+    h4 { font-size: var(--font-size-lg); margin-top: var(--space-xl); }
+
+    p {
+      margin-bottom: var(--space-lg);
+    }
+
+    strong {
+      color: var(--text-heading);
+      font-weight: 600;
+    }
+
+    /* Cover Page */
+    .cover {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      page-break-after: always;
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: var(--white);
+      padding: var(--space-3xl);
+    }
+
+    .cover__accent {
+      width: 80px;
+      height: 8px;
+      background: var(--lime-accent);
+      margin: 0 auto var(--space-3xl);
+      border-radius: 4px;
+    }
+
+    .cover h1 {
+      color: var(--white);
+      font-size: 3rem;
+      margin-bottom: var(--space-xl);
+    }
+
+    .cover__company {
+      font-size: var(--font-size-2xl);
+      color: var(--lime-accent);
+      margin-bottom: var(--space-3xl);
+      font-weight: 600;
+    }
+
+    .cover__score {
+      background: rgba(212, 255, 0, 0.1);
+      border: 2px solid var(--lime-accent);
+      border-radius: var(--radius-lg);
+      padding: var(--space-3xl);
+      margin: var(--space-3xl) 0;
+      min-width: 300px;
+    }
+
+    .cover__score-label {
+      font-size: var(--font-size-base);
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: var(--space-sm);
+    }
+
+    .cover__score-value {
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--lime-accent);
+      line-height: 1;
+    }
+
+    .cover__score-band {
+      font-size: var(--font-size-xl);
+      color: var(--white);
+      margin-top: var(--space-lg);
+      font-weight: 600;
+    }
+
+    .cover__date {
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: var(--space-3xl);
+    }
+
+    /* Score Summary Box */
+    .score-summary {
+      background: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 100%);
+      border: 2px solid var(--primary-blue);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin: var(--space-2xl) 0;
+    }
+
+    .score-summary__title {
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: var(--space-lg);
+    }
+
+    .score-summary__content {
+      color: var(--text-body);
+      line-height: 1.8;
+    }
+
+    /* Governance Bands */
+    .governance-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: var(--font-size-xs);
+    }
+
+    .governance-badge--mature {
+      background: var(--risk-low-bg);
+      color: var(--risk-low);
+    }
+
+    .governance-badge--developing {
+      background: var(--risk-medium-bg);
+      color: #D97706;
+    }
+
+    .governance-badge--emerging {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .governance-badge--weak {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    /* Status & Risk Badges */
+    .status-badge,
+    .risk-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-badge--good {
+      background: var(--risk-low-bg);
+      color: var(--risk-low);
+    }
+
+    .status-badge--developing {
+      background: var(--risk-medium-bg);
+      color: #D97706;
+    }
+
+    .status-badge--weak {
+      background: var(--risk-high-bg);
+      color: var(--risk-high);
+    }
+
+    .status-badge--absent {
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+
+    .risk-badge--low {
+      background: var(--risk-low-bg);
+      color: var(--risk-low);
+    }
+
+    .risk-badge--medium {
+      background: var(--risk-medium-bg);
+      color: #D97706;
+    }
+
+    .risk-badge--high {
+      background: var(--risk-high-bg);
+      color: var(--risk-high);
+    }
+
+    .risk-badge--critical {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    /* Summary Table */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-2xl) 0;
+      font-size: var(--font-size-xs);
+    }
+
+    .summary-table th {
+      background: var(--dark-navy);
+      color: var(--white);
+      text-align: left;
+      padding: var(--space-md);
+      font-weight: 600;
+      border: 1px solid var(--border-light);
+    }
+
+    .summary-table td {
+      padding: var(--space-md);
+      border: 1px solid var(--border-light);
+    }
+
+    .summary-table tr:nth-child(even) {
+      background: var(--bg-light);
+    }
+
+    /* Finding Box */
+    .finding {
+      background: var(--bg-light);
+      border-left: 4px solid var(--primary-blue);
+      padding: var(--space-xl);
+      margin: var(--space-xl) 0;
+      page-break-inside: avoid;
+    }
+
+    .finding__title {
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: var(--space-md);
+    }
+
+    .finding__meta {
+      font-size: var(--font-size-xs);
+      color: var(--text-body);
+      font-style: italic;
+      margin-bottom: var(--space-lg);
+    }
+
+    .finding__answer {
+      background: var(--white);
+      padding: var(--space-lg);
+      border-radius: var(--radius);
+      margin: var(--space-md) 0;
+      border: 1px solid var(--border-light);
+    }
+
+    .finding__interpretation {
+      margin-top: var(--space-md);
+      color: var(--text-body);
+    }
+
+    /* Gap Box */
+    .gap {
+      background: #FEF3C7;
+      border-left: 4px solid #F59E0B;
+      padding: var(--space-xl);
+      margin: var(--space-lg) 0;
+      page-break-inside: avoid;
+    }
+
+    .gap strong {
+      color: #D97706;
+    }
+
+    /* CTA Box */
+    .cta {
+      background: var(--dark-navy);
+      color: var(--white);
+      padding: var(--space-3xl);
+      border-radius: var(--radius-lg);
+      margin: var(--space-3xl) 0;
+      text-align: center;
+    }
+
+    .cta h3 {
+      color: var(--lime-accent);
+      margin-bottom: var(--space-lg);
+    }
+
+    .cta p {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .cta__list {
+      list-style: none;
+      margin: var(--space-xl) 0;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta__list li {
+      padding: var(--space-sm) 0;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .cta__list li:before {
+      content: "✓ ";
+      color: var(--lime-accent);
+      font-weight: bold;
+      margin-right: var(--space-sm);
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      background: var(--bg-light);
+      padding: var(--space-xl);
+      border-radius: var(--radius);
+      margin-top: var(--space-3xl);
+      font-size: var(--font-size-xs);
+      color: var(--text-body);
+      page-break-inside: avoid;
+    }
+
+    .disclaimer h4 {
+      font-size: var(--font-size-base);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Utilities */
+    .page-break {
+      page-break-after: always;
+    }
+
+    .no-break {
+      page-break-inside: avoid;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-xl {
+      margin-top: var(--space-xl);
+    }
+
+    .mb-xl {
+      margin-bottom: var(--space-xl);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div class="cover__accent"></div>
+    <h1>AI Board Governance<br>Diagnostic Report</h1>
+    <div class="cover__company">${data.company_name}</div>
+
+    <div class="cover__score">
+      <div class="cover__score-label">Governance Score</div>
+      <div class="cover__score-value">${scoreNum}<span style="font-size: 2rem; opacity: 0.7;">/100</span></div>
+      <div class="cover__score-band">${data.band_name}</div>
+    </div>
+
+    <div class="cover__date">Assessment Date: ${assessmentDate}</div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <h2>Executive Summary</h2>
+
+  <div class="score-summary">
+    <div class="score-summary__title">
+      Directors are personally accountable for AI governance
+    </div>
+    <div class="score-summary__content">
+      <strong>"We didn't understand it" is not a defence.</strong> This diagnostic assesses your board's ability to demonstrate reasonable AI oversight across 13 critical governance areas.
+    </div>
+  </div>
+
+  <p><strong>Your Board's Governance Maturity: </strong><span class="governance-badge governance-badge--${governanceClass}">${data.band_name}</span></p>
+
+  <p>${data.band_narrative}</p>
+
+  <!-- SUMMARY TABLE -->
+  <h2>Governance Overview</h2>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th style="width: 40%;">Governance Area</th>
+        <th style="width: 30%;">Status</th>
+        <th style="width: 30%;">Risk Level</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Board Risk Awareness</strong></td>
+        <td>${getStatusBadge(data.q1_board_risk_status)}</td>
+        <td>${getRiskBadge(data.q1_board_risk_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Oversight & Accountability</strong></td>
+        <td>${getStatusBadge(data.q2_oversight_status)}</td>
+        <td>${getRiskBadge(data.q2_oversight_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Risk Appetite</strong></td>
+        <td>${getStatusBadge(data.q3_risk_appetite_status)}</td>
+        <td>${getRiskBadge(data.q3_risk_appetite_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Strategic Integration</strong></td>
+        <td>${getStatusBadge(data.q4_strategic_status)}</td>
+        <td>${getRiskBadge(data.q4_strategic_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Policy & Controls</strong></td>
+        <td>${getStatusBadge(data.q5_policy_status)}</td>
+        <td>${getRiskBadge(data.q5_policy_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Risk Oversight</strong></td>
+        <td>${getStatusBadge(data.q6_risk_reporting_status)}</td>
+        <td>${getRiskBadge(data.q6_risk_reporting_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Stakeholder Accountability</strong></td>
+        <td>${getStatusBadge(data.q7_stakeholder_status)}</td>
+        <td>${getRiskBadge(data.q7_stakeholder_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Incident Preparedness</strong></td>
+        <td>${getStatusBadge(data.q8_incident_status)}</td>
+        <td>${getRiskBadge(data.q8_incident_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Third-Party AI Risk</strong></td>
+        <td>${getStatusBadge(data.q9_vendor_status)}</td>
+        <td>${getRiskBadge(data.q9_vendor_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Board Development</strong></td>
+        <td>${getStatusBadge(data.q10_development_status)}</td>
+        <td>${getRiskBadge(data.q10_development_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Forward-Looking Governance</strong></td>
+        <td>${getStatusBadge(data.q11_forward_status)}</td>
+        <td>${getRiskBadge(data.q11_forward_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Competitive Risk Awareness</strong></td>
+        <td>${getStatusBadge(data.q12_competitive_status)}</td>
+        <td>${getRiskBadge(data.q12_competitive_risk)}</td>
+      </tr>
+      <tr>
+        <td><strong>Board Decision Evidence</strong></td>
+        <td>${getStatusBadge(data.q13_decision_status)}</td>
+        <td>${getRiskBadge(data.q13_decision_risk)}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- DETAILED FINDINGS -->
+  <h2>Detailed Findings</h2>
+
+  <p>The following areas represent critical governance questions where board-level oversight is essential.</p>
+
+  <!-- Q1: Board Risk Awareness -->
+  <div class="finding">
+    <div class="finding__title">Board Risk Awareness</div>
+    <div class="finding__meta">Can your board clearly explain the top 3 AI risks specific to your business?</div>
+    <div class="finding__answer">
+      <strong>Your Response:</strong><br>
+      ${data.q1_board_risk_answer}
+    </div>
+    <div class="finding__interpretation">
+      <strong>What this means:</strong><br>
+      ${data.q1_board_risk_blurb}
+    </div>
+  </div>
+
+  <!-- Q2: Oversight & Accountability -->
+  <div class="finding">
+    <div class="finding__title">Oversight & Accountability</div>
+    <div class="finding__meta">Who has formal responsibility for AI governance in your organisation?</div>
+    <div class="finding__answer">
+      <strong>Your Response:</strong><br>
+      ${data.q2_oversight_answer}
+    </div>
+    <div class="finding__interpretation">
+      <strong>What this means:</strong><br>
+      ${data.q2_oversight_blurb}
+    </div>
+  </div>
+
+  <!-- Q4: Strategic Integration -->
+  <div class="finding">
+    <div class="finding__title">Strategic Integration</div>
+    <div class="finding__meta">How is AI considered in your organisation's strategy?</div>
+    <div class="finding__answer">
+      <strong>Your Response:</strong><br>
+      ${data.q4_strategic_answer}
+    </div>
+    <div class="finding__interpretation">
+      <strong>What this means:</strong><br>
+      ${data.q4_strategic_blurb}
+    </div>
+  </div>
+
+  <!-- Q8: Incident Preparedness -->
+  <div class="finding">
+    <div class="finding__title">Incident Preparedness</div>
+    <div class="finding__meta">If an AI decision caused material harm, could the board demonstrate it exercised reasonable oversight?</div>
+    <div class="finding__answer">
+      <strong>Your Response:</strong><br>
+      ${data.q8_incident_answer}
+    </div>
+    <div class="finding__interpretation">
+      <strong>What this means:</strong><br>
+      ${data.q8_incident_blurb}
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- Q9: Third-Party AI Risk -->
+  <div class="finding">
+    <div class="finding__title">Third-Party/Vendor AI Risk</div>
+    <div class="finding__meta">Does your board know which third parties use AI on your data or processes?</div>
+    <div class="finding__answer">
+      <strong>Your Response:</strong><br>
+      ${data.q9_vendor_answer}
+    </div>
+    <div class="finding__interpretation">
+      <strong>What this means:</strong><br>
+      ${data.q9_vendor_blurb}
+    </div>
+  </div>
+
+  <!-- Q10: Board Development -->
+  <div class="finding">
+    <div class="finding__title">Board Development & Investment</div>
+    <div class="finding__meta">What steps has the board taken to build its AI governance capability?</div>
+    <div class="finding__answer">
+      <strong>Your Response:</strong><br>
+      ${data.q10_development_answer}
+    </div>
+    <div class="finding__interpretation">
+      <strong>What this means:</strong><br>
+      ${data.q10_development_blurb}
+    </div>
+  </div>
+
+  <!-- Q13: Board Decision Evidence -->
+  <div class="finding">
+    <div class="finding__title">Board Decision Evidence</div>
+    <div class="finding__meta">When did the board last reject, modify, or set conditions on an AI initiative?</div>
+    <div class="finding__answer">
+      <strong>Your Response:</strong><br>
+      ${data.q13_decision_answer}
+    </div>
+    <div class="finding__interpretation">
+      <strong>What this means:</strong><br>
+      ${data.q13_decision_blurb}
+    </div>
+  </div>
+
+  <!-- PRIORITY GAPS -->
+  <h2>Your Priority Governance Gaps</h2>
+
+  <p>Based on your responses, the following three areas require immediate board attention:</p>
+
+  <div class="gap">
+    <strong>Gap 1:</strong> ${data.gap_1}
+  </div>
+
+  <div class="gap">
+    <strong>Gap 2:</strong> ${data.gap_2}
+  </div>
+
+  <div class="gap">
+    <strong>Gap 3:</strong> ${data.gap_3}
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="cta">
+    <h3>Next Steps</h3>
+    <p><strong>Talk to us about strengthening your board's AI governance.</strong></p>
+
+    <ul class="cta__list">
+      <li>Clarify accountability for AI oversight</li>
+      <li>Build board-level capability and awareness</li>
+      <li>Develop practical governance frameworks that reduce director liability and build stakeholder trust</li>
+    </ul>
+
+    <p style="margin-top: var(--space-2xl);">
+      <strong>Contact:</strong> GenerationAI<br>
+      Email: info@generationai.co.nz<br>
+      Web: www.generationai.co.nz
+    </p>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <h4>Important Notice</h4>
+    <p>
+      This assessment reflects information provided at the time of completion and represents a point-in-time snapshot
+      of your board's AI governance maturity. Results depend on the accuracy and completeness of responses provided.
+    </p>
+    <p>
+      This diagnostic provides governance insights and is not legal advice. Boards should seek appropriate legal
+      counsel regarding director duties and liability. Generation AI cannot assess governance practices not disclosed
+      during the diagnostic process.
+    </p>
+    <p style="margin-top: var(--space-lg);">
+      <strong>About GenerationAI:</strong> Generation AI helps NZ boards and executives build AI governance capability
+      through practical frameworks and strategic guidance. We focus on protecting director liability while enabling
+      competitive advantage.
+    </p>
+    <p style="margin-top: var(--space-lg); text-align: center; color: var(--text-body);">
+      © ${new Date().getFullYear()} GenerationAI Ltd. All rights reserved.
+    </p>
+  </div>
+
+</body>
+</html>
+  `.trim();
+}
+
+function getGovernanceClass(band: string): string {
+  const lower = (band || '').toLowerCase();
+  if (lower.includes('mature')) return 'mature';
+  if (lower.includes('developing')) return 'developing';
+  if (lower.includes('emerging')) return 'emerging';
+  return 'weak';
 }
