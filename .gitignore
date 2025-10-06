@@ -59,8 +59,10 @@ Desktop.ini
 *.tmp
 *.temp
 
-# Business Readiness Assessment
+# Tool-specific ignores
 tools/business-readiness-assessment/api/local.settings.json
 tools/business-readiness-assessment/api/pdfs/
 tools/business-readiness-assessment/api/dist/
 tools/business-readiness-assessment/api/node_modules/
+
+tools/board-governance-assessment/api/pdfs/
