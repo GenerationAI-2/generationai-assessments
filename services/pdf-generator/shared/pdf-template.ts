@@ -12,6 +12,11 @@ export function generatePDFHTML(data: any): string {
     return generateBoardGovernanceHTML(data);
   }
 
+  // Personal AI Readiness has usage_insight (unique to Personal AI)
+  if (data.usage_insight !== undefined) {
+    return generatePersonalAIReadinessHTML(data);
+  }
+
   // Business Readiness has readiness_score
   if (data.readiness_score !== undefined) {
     return generateBusinessReadinessHTML(data);
@@ -2014,4 +2019,488 @@ function getGovernanceScoreClass(score: number): string {
   if (score >= 70) return 'low';
   if (score >= 40) return 'medium';
   return 'high';
+}
+
+/**
+ * Personal AI Readiness Diagnostic HTML Template
+ */
+function generatePersonalAIReadinessHTML(data: any): string {
+  const scoreNum = parseInt(data.readiness_score) || 0;
+  const readinessClass = getPersonalReadinessClass(data.band_name);
+  const scoreClass = getPersonalScoreClass(scoreNum);
+
+  const assessmentDate = data.response_date || new Date().toLocaleDateString('en-NZ', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal AI Readiness Diagnostic Report - ${data.company_name}</title>
+  <style>
+    /* ============================================
+       GENERATIONAI BRAND DESIGN SYSTEM
+       Personal AI Readiness Report Template
+       ============================================ */
+
+    :root {
+      /* Brand Colours */
+      --primary-blue: #2563EB;
+      --dark-navy: #0F172A;
+      --lime-accent: #D4FF00;
+      --text-body: #6B7280;
+      --text-heading: #0F172A;
+      --border-light: #E5E7EB;
+      --bg-light: #F9FAFB;
+      --white: #FFFFFF;
+
+      /* Status Colours */
+      --success-green: #10B981;
+      --success-green-bg: #D1FAE5;
+      --warning-orange: #F59E0B;
+      --warning-orange-bg: #FEF3C7;
+      --info-blue-bg: #EFF6FF;
+
+      /* Spacing System - 8px Grid */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 12px;
+      --space-lg: 16px;
+      --space-xl: 20px;
+      --space-2xl: 24px;
+      --space-3xl: 32px;
+
+      /* Typography */
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      --font-size-xs: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 2rem;
+      --line-height: 1.6;
+      --line-height-tight: 1.2;
+
+      /* Design Properties */
+      --radius: 8px;
+      --radius-lg: 12px;
+      --border-width: 1px;
+    }
+
+    @page { size: A4; margin: 1.5cm; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      color: var(--text-body);
+      background: var(--white);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-md);
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--text-heading);
+      font-weight: 700;
+      line-height: var(--line-height-tight);
+    }
+
+    h1 {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 3px solid var(--primary-blue);
+    }
+
+    h2 {
+      font-size: var(--font-size-2xl);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+      color: var(--text-heading);
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: var(--space-xs);
+    }
+
+    h3 {
+      font-size: var(--font-size-xl);
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-sm);
+      color: var(--text-heading);
+    }
+
+    h4 {
+      font-size: var(--font-size-lg);
+      margin-top: var(--space-sm);
+      margin-bottom: var(--space-xs);
+    }
+
+    p { margin-bottom: var(--space-sm); }
+    strong { font-weight: 600; color: var(--text-heading); }
+
+    .report-header {
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--border-width) solid var(--border-light);
+    }
+
+    .report-header img {
+      height: 50px;
+      width: auto;
+      margin-bottom: var(--space-md);
+    }
+
+    .report-meta {
+      font-size: var(--font-size-base);
+      color: var(--text-body);
+      line-height: 1.8;
+    }
+
+    /* Hero Introduction */
+    .hero-intro {
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      padding: var(--space-2xl);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-xl);
+      border: 2px solid var(--primary-blue);
+    }
+
+    .hero-intro h1 {
+      color: var(--primary-blue);
+      border: none;
+      margin-bottom: var(--space-md);
+      font-size: var(--font-size-3xl);
+    }
+
+    .hero-intro p {
+      color: var(--text-heading);
+      font-size: var(--font-size-base);
+      line-height: 1.7;
+    }
+
+    /* Score Section */
+    .score-section {
+      text-align: center;
+      margin: var(--space-xl) 0;
+      padding: var(--space-2xl);
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+    }
+
+    .score-section h2 {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-top: 0;
+    }
+
+    .score-display {
+      font-size: 48px;
+      font-weight: 700;
+      margin: var(--space-md) 0;
+      color: var(--primary-blue);
+    }
+
+    .readiness-badge {
+      display: inline-block;
+      padding: var(--space-sm) var(--space-2xl);
+      border-radius: 20px;
+      font-weight: 600;
+      margin-top: var(--space-md);
+      font-size: var(--font-size-xl);
+    }
+
+    .readiness-leader {
+      background: var(--success-green-bg);
+      color: var(--success-green);
+    }
+
+    .readiness-ready {
+      background: #E0E7FF;
+      color: var(--primary-blue);
+    }
+
+    .readiness-curious {
+      background: var(--warning-orange-bg);
+      color: var(--warning-orange);
+    }
+
+    .readiness-distant {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    /* Profile Sections */
+    .profile-section {
+      margin: var(--space-xl) 0;
+      padding: var(--space-lg);
+      background: var(--white);
+      border: var(--border-width) solid var(--border-light);
+      border-radius: var(--radius-lg);
+      page-break-inside: avoid;
+    }
+
+    .profile-section h3 {
+      color: var(--primary-blue);
+      margin-top: 0;
+      margin-bottom: var(--space-md);
+    }
+
+    .what-you-told-us {
+      background: var(--info-blue-bg);
+      padding: var(--space-md);
+      margin: var(--space-sm) 0;
+      border-radius: var(--radius);
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .what-this-means {
+      background: var(--bg-light);
+      padding: var(--space-md);
+      margin: var(--space-sm) 0;
+      border-radius: var(--radius);
+      border-left: 4px solid var(--success-green);
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: #FFFBEB;
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+      border-radius: var(--radius);
+      border-left: 4px solid var(--warning-orange);
+    }
+
+    /* Gap Sections */
+    .gap-section {
+      background: var(--white);
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+      border: var(--border-width) solid var(--border-light);
+      border-radius: var(--radius-lg);
+      page-break-inside: avoid;
+    }
+
+    .gap-section h4 {
+      color: var(--text-heading);
+      margin-top: 0;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      padding: var(--space-2xl);
+      border-radius: var(--radius-lg);
+      margin: var(--space-xl) 0;
+      border: 2px solid var(--primary-blue);
+      text-align: center;
+      page-break-inside: avoid;
+    }
+
+    .cta-section h3 {
+      color: var(--primary-blue);
+      font-size: var(--font-size-2xl);
+      margin-top: 0;
+      margin-bottom: var(--space-md);
+    }
+
+    .cta-section p {
+      color: var(--text-heading);
+      margin-bottom: var(--space-md);
+      font-size: var(--font-size-base);
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--primary-blue);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: var(--font-size-base);
+      transition: background 0.2s ease;
+    }
+
+    .cta-link:hover {
+      background: #1D4ED8;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-lg);
+      border-top: 2px solid var(--border-light);
+      font-size: var(--font-size-xs);
+      color: var(--text-body);
+    }
+
+    .footer h3 {
+      font-size: var(--font-size-base);
+      color: var(--text-heading);
+      margin-bottom: var(--space-sm);
+    }
+
+    .tagline {
+      margin-top: var(--space-lg);
+      text-align: center;
+      padding: var(--space-md);
+      background: var(--bg-light);
+      border-radius: var(--radius);
+      font-style: italic;
+      color: var(--text-body);
+    }
+
+    ul {
+      margin-left: var(--space-lg);
+      margin-top: var(--space-sm);
+    }
+
+    li {
+      margin-bottom: var(--space-xs);
+    }
+
+    @media print {
+      body { padding: 0; }
+      .hero-intro, .profile-section, .gap-section, .cta-section, .footer { page-break-inside: avoid; }
+      h2, h3, h4 { page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-header">
+    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+         alt="GenerationAI">
+    <div class="report-meta">
+      <strong>Prepared for:</strong> ${data.company_name}<br>
+      <strong>Assessment Completed By:</strong> ${data.contact_name}<br>
+      <strong>Date:</strong> ${assessmentDate}
+    </div>
+  </div>
+
+  <div class="hero-intro">
+    <h1>Your AI Advantage Starts Here</h1>
+    <p><strong>The difference between leaders who thrive and those who struggle isn't access to AI — it's knowing how to use it strategically.</strong></p>
+
+    <p>Leaders using AI effectively are freeing up a full day per week while making better decisions with richer insights.</p>
+
+    <p>Organisations don't adopt AI successfully when leaders don't understand it themselves. Teams look up, not down. When leadership demonstrates AI capability, transformation accelerates.</p>
+
+    <p>This diagnostic reveals where you stand and shows the gap between where you are and where your competitors likely already are.</p>
+  </div>
+
+  <div class="score-section">
+    <h2>Your AI Readiness Score</h2>
+    <div class="score-display">${scoreNum}/100</div>
+    <div class="readiness-badge readiness-${readinessClass}">${data.band_name}</div>
+    <p style="margin-top: var(--space-lg); font-size: var(--font-size-base);">${data.band_narrative}</p>
+  </div>
+
+  <h2>Your Readiness Profile</h2>
+
+  <div class="profile-section">
+    <h3>How You Currently Use AI</h3>
+    <div class="what-you-told-us">
+      <strong>What you told us:</strong> You use AI tools ${data.q1_frequency.toLowerCase()} and your approach is ${data.q2_approach.toLowerCase()}.
+    </div>
+    <div class="what-this-means">
+      <strong>What this means:</strong> ${data.usage_insight}
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <h3>Your Leadership Position</h3>
+    <div class="what-you-told-us">
+      <strong>What you told us:</strong> ${data.leadership_insight}
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <h3>Your Learning Readiness</h3>
+    <div class="what-you-told-us">
+      <strong>What you told us:</strong> ${data.learning_insight}
+    </div>
+  </div>
+
+  <h2>Your Productivity Potential</h2>
+
+  <div class="highlight-box">
+    <p><strong>Time Recovery:</strong> You estimated AI could save you <strong>${data.hours_saved}</strong>. Leaders at your readiness level typically achieve this within 60-90 days of focused application.</p>
+
+    <p style="margin-top: var(--space-md);"><strong>Starting Point:</strong> You identified "<strong>${data.top_use_case}</strong>" as your biggest pain point. This is exactly where AI excels — we recommend starting here.</p>
+  </div>
+
+  <p style="margin-top: var(--space-md); font-size: var(--font-size-base); font-style: italic;">
+    <strong>The real advantage isn't just doing things faster — it's doing better things.</strong> AI enhances decision quality, expands analytical capacity, and amplifies your ability to lead at scale.
+  </p>
+
+  <h2>Your Priority Development Areas</h2>
+  <p>Based on your assessment, focus on these three areas:</p>
+
+  <div class="gap-section">
+    <h4>1. ${data.gap_1.split(':')[0]}</h4>
+    <p>${data.gap_1.split(':').slice(1).join(':').trim()}</p>
+  </div>
+
+  <div class="gap-section">
+    <h4>2. ${data.gap_2.split(':')[0]}</h4>
+    <p>${data.gap_2.split(':').slice(1).join(':').trim()}</p>
+  </div>
+
+  <div class="gap-section">
+    <h4>3. ${data.gap_3.split(':')[0]}</h4>
+    <p>${data.gap_3.split(':').slice(1).join(':').trim()}</p>
+  </div>
+
+  <p style="margin-top: var(--space-md); font-style: italic;">${data.gap_summary}</p>
+
+  <div class="cta-section">
+    <h3>Your Recommended Next Step</h3>
+    <p><strong>AI capability isn't just another business skill — it's the skill that amplifies all others.</strong> Every week you wait is a week your competitors gain ground.</p>
+
+    <p style="margin-top: var(--space-lg);"><strong>Based on your ${data.band_name} level:</strong></p>
+    <h4 style="color: var(--primary-blue); margin-top: var(--space-md);">${data.next_step_cta}</h4>
+    <p>${data.next_step_narrative}</p>
+
+    <p style="margin-top: var(--space-xl);"><a href="https://www.generationai.co.nz" class="cta-link">Book Your Next Step</a></p>
+  </div>
+
+  <div class="footer">
+    <h3>About Generation AI</h3>
+    <p>Generation AI helps NZ business leaders master AI for competitive advantage. Our programs help executives free up one day per week while enhancing strategic decision-making.</p>
+
+    <h3 style="margin-top: var(--space-lg);">Disclaimer</h3>
+    <p>This assessment reflects information provided at time of completion and represents a point-in-time snapshot of your personal AI readiness. Results depend on the accuracy and completeness of your responses.</p>
+
+    <p>This diagnostic provides educational insights and suggested development paths. It does not constitute professional advice. Individual results from AI adoption vary based on commitment, organisational context, and implementation approach.</p>
+
+    <div class="tagline">
+      GenerationAI helps individuals and organisations move from AI exposure to AI advantage.
+    </div>
+  </div>
+</body>
+</html>
+  `.trim();
+}
+
+function getPersonalReadinessClass(band: string): string {
+  const lower = (band || '').toLowerCase();
+  if (lower.includes('leader')) return 'leader';
+  if (lower.includes('ready')) return 'ready';
+  if (lower.includes('curious')) return 'curious';
+  return 'distant';
+}
+
+function getPersonalScoreClass(score: number): string {
+  if (score >= 76) return 'leader';
+  if (score >= 51) return 'ready';
+  if (score >= 26) return 'curious';
+  return 'distant';
 }
