@@ -61,7 +61,10 @@ export async function processAssessment(
       context.log(`Calling PDF service: ${pdfServiceUrl}`);
 
       const pdfRequest: PDFGenerationRequest = {
-        reportData: scoringResult.data
+        reportData: {
+          ...scoringResult.data,
+          template_name: scoringResult.templateName
+        }
       };
 
       const headers: any = {
