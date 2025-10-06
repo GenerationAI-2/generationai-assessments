@@ -26,7 +26,7 @@ export async function sendAssessmentEmail(options: EmailOptions): Promise<void> 
     const htmlBody = generateEmailHTML(options);
 
     // Format attachment for Logic App
-    const attachmentName = `Board-Governance-Report-${options.companyName.replace(/\s+/g, '-')}.pdf`;
+    const attachmentName = `Personal-AI-Readiness-Report-${options.companyName.replace(/\s+/g, '-')}.pdf`;
 
     const payload: any = {
       to: options.to,
@@ -83,7 +83,7 @@ function generateEmailHTML(options: EmailOptions): string {
           <!-- Header -->
           <tr>
             <td align="center" style="padding: 32px 32px 24px 32px;">
-              <h1 style="color: #0F172A; font-size: 24px; margin: 0; font-weight: 700;">Your Board AI Governance Report</h1>
+              <h1 style="color: #0F172A; font-size: 24px; margin: 0; font-weight: 700;">Your Personal AI Readiness Report</h1>
             </td>
           </tr>
 
@@ -91,8 +91,8 @@ function generateEmailHTML(options: EmailOptions): string {
           <tr>
             <td style="padding: 0 32px; color: #6B7280; font-size: 15px; line-height: 1.6;">
               <p style="margin: 24px 0;">Hi ${options.recipientName},</p>
-              <p style="margin: 24px 0;">Your board AI governance diagnostic for <strong style="color: #0F172A;">${options.companyName}</strong> is complete. The full report is attached to this email.</p>
-              <p style="margin: 24px 0;"><strong style="color: #0F172A;">Directors are personally accountable for AI governance.</strong> This report reveals whether your board can demonstrate reasonable AI oversight.</p>
+              <p style="margin: 24px 0;">Your Personal AI Readiness assessment is complete. Your confidential report is attached to this email.</p>
+              <p style="margin: 24px 0;"><strong style="color: #0F172A;">Your AI Advantage Starts Here.</strong> Leaders using AI effectively are freeing up a full day per week while making better decisions with richer insights.</p>
             </td>
           </tr>
 
@@ -102,9 +102,9 @@ function generateEmailHTML(options: EmailOptions): string {
               <table role="presentation" width="100%" cellpadding="24" cellspacing="0" style="background-color: #DBEAFE; border: 2px solid #2563EB; border-radius: 12px; margin: 24px 0;">
                 <tr>
                   <td align="center">
-                    <div style="color: #6B7280; font-size: 14px; margin-bottom: 4px;">Governance Score</div>
+                    <div style="color: #6B7280; font-size: 14px; margin-bottom: 4px;">AI Readiness Score</div>
                     <div style="font-size: 48px; font-weight: 800; color: #2563EB; margin: 8px 0;">${options.score}/100</div>
-                    <div style="color: #0F172A; font-size: 16px; font-weight: 600; margin-top: 8px;">Governance Maturity: ${options.maturityBand}</div>
+                    <div style="color: #0F172A; font-size: 16px; font-weight: 600; margin-top: 8px;">Readiness Level: ${options.maturityBand}</div>
                   </td>
                 </tr>
               </table>
@@ -116,10 +116,10 @@ function generateEmailHTML(options: EmailOptions): string {
             <td style="padding: 0 32px; color: #6B7280; font-size: 15px; line-height: 1.6;">
               <p style="margin: 24px 0;">Your report includes:</p>
               <p style="margin: 24px 0 24px 20px; line-height: 1.8;">
-                ✓ Board governance score across 13 critical areas<br>
-                ✓ Your top 3 governance gaps requiring board attention<br>
-                ✓ Regulatory exposure indicators<br>
-                ✓ Prioritised board-level actions
+                ✓ Your AI Readiness Score (0-100) and maturity level<br>
+                ✓ Productivity potential and time savings estimate<br>
+                ✓ Personalized insights across Usage, Leadership, and Learning<br>
+                ✓ Priority development areas and recommended next steps
               </p>
             </td>
           </tr>
@@ -128,14 +128,14 @@ function generateEmailHTML(options: EmailOptions): string {
           <tr>
             <td align="center" style="padding: 32px;">
               <a href="https://www.generationai.co.nz"
-                 style="display: inline-block; background-color: #D4FF00; color: #0F172A; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px;">Book a Governance Session</a>
+                 style="display: inline-block; background-color: #D4FF00; color: #0F172A; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px;">Explore AI Development Programs</a>
             </td>
           </tr>
 
           <!-- Bottom Content -->
           <tr>
             <td style="padding: 0 32px; color: #6B7280; font-size: 14px; line-height: 1.6;">
-              <p style="margin: 24px 0;">We help NZ boards strengthen AI governance, reduce director liability, and build stakeholder trust through practical frameworks and strategic guidance.</p>
+              <p style="margin: 24px 0;">We help NZ leaders and executives build AI capability through practical programs, peer learning, and hands-on application—turning AI from an idea into a daily advantage.</p>
             </td>
           </tr>
 
