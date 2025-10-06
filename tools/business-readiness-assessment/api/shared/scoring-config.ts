@@ -53,8 +53,8 @@ export const SCORING_CONFIG = {
         "opt_3": {
           score: 3,
           label: "Shared interest across leaders but no single owner",
-          playback: "You told us ownership currently sits with a technical or innovation team, not the business.",
-          interpretation: "This is the classic mistake, treating AI as IT's problem. When technology teams own transformation, you get impressive pilots that never scale. Business leaders avoid accountability while IT struggles for relevance. Reassign to someone who owns P&L."
+          playback: "You told us AI has shared interest across leaders but no single person owns it.",
+          interpretation: "Shared interest without ownership means endless discussion but no decisions. Everyone agrees AI matters, but nobody drives it forward. Without a single accountable owner, AI remains trapped in committee. Assign one leader with clear authority, budget, and mandate."
         },
         "opt_2": {
           score: 2,
@@ -263,26 +263,26 @@ export const SCORING_CONFIG = {
         "opt_3": {
           score: 3,
           label: "Basic rules or principles communicated",
-          playback: "You told us governance has been discussed, but there's nothing formal in place.",
-          interpretation: "Governance by rumour is dangerous. Some staff think AI is banned, others think it's encouraged, most don't know. This confusion guarantees inconsistent behaviour and hidden risk. Document the basics immediately, even a one-page guide beats nothing."
+          playback: "You told us basic rules or principles have been communicated to staff.",
+          interpretation: "Basic guidance is a start, but without formal policy, interpretation varies widely. Some staff think AI is banned, others think it's encouraged, most aren't sure. This confusion guarantees inconsistent behaviour and hidden risk. Document formal guardrails immediately, even a one-page policy beats informal guidance."
         },
         "opt_2": {
           score: 2,
           label: "Informal expectations only",
-          playback: "You said AI use is allowed, but governance hasn't yet been considered.",
-          interpretation: "This is the worst position: permission without protection. Teams assume it's safe to use AI but have no guidance on what's acceptable. You're one client complaint away from discovering what's been shared, and by whom. Start by defining what's in bounds."
+          playback: "You said there are informal expectations but no formal governance in place.",
+          interpretation: "This is the worst position: permission without protection. Teams assume it's safe to use AI but have no guidance on what's acceptable. Informal expectations shift between teams and managers. You're one client complaint away from discovering what's been shared, and by whom. Start by defining what's in bounds."
         },
         "opt_1": {
           score: 1,
           label: "Told not to use AI, no guidance or support",
-          playback: "You told us there's been no discussion of AI governance at all.",
-          interpretation: "The first incident will be your wake-up call — an AI hallucination in a client report, sensitive data showing up in model training, or a compliance inquiry you can't answer. This isn't just a policy gap, it's a leadership exposure."
+          playback: "You told us staff have been told not to use AI, with no guidance or approved alternatives.",
+          interpretation: "Prohibition without provision drives behaviour underground. Staff who need productivity tools will find them anyway, just without your knowledge or control. This approach guarantees Shadow AI. The first incident will be your wake-up call — provide safe alternatives or accept hidden risk."
         },
         "opt_0": {
           score: 0,
           label: "No guardrails or discussion at all",
-          playback: "You said you don't know whether your business has any AI governance in place.",
-          interpretation: "This suggests risk isn't even on the radar. Without visibility, policy, or ownership, you have no ability to detect, contain, or respond to incidents. Begin with a discovery process and a conversation at leadership level."
+          playback: "You said there's been no discussion of AI governance or guardrails at all.",
+          interpretation: "AI governance isn't on the radar. Without visibility, policy, or ownership, you have no ability to detect, contain, or respond to incidents. The first incident — an AI hallucination in a client report, sensitive data exposure, or compliance inquiry — will force this conversation. Begin with discovery and leadership alignment."
         }
       }
     },
