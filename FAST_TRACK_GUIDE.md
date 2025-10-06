@@ -202,7 +202,7 @@ jobs:
 az staticwebapp create \
   --name generationai-my-new-tool \
   --resource-group rg-assessments-prod-nzn \
-  --source https://github.com/GenerationAI-2/shadow-ai-assessment \
+  --source https://github.com/GenerationAI-2/generationai-assessments \
   --location eastasia \
   --branch main \
   --app-location "/tools/my-new-tool/frontend" \
@@ -409,7 +409,7 @@ az functionapp config appsettings set \
 az staticwebapp create \
   --name generationai-my-new-assessment-frontend \
   --resource-group rg-assessments-prod-nzn \
-  --source https://github.com/GenerationAI-2/shadow-ai-assessment \
+  --source https://github.com/GenerationAI-2/generationai-assessments \
   --location eastasia \
   --branch main \
   --app-location "/tools/my-new-assessment/frontend" \

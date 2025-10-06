@@ -7,8 +7,8 @@ Welcome! This guide will get you from zero to productive in **15 minutes**.
 ### Step 1: Clone Repository (1 min)
 
 ```bash
-git clone https://github.com/GenerationAI-2/shadow-ai-assessment.git
-cd shadow-ai-assessment-1
+git clone https://github.com/GenerationAI-2/generationai-assessments.git
+cd generationai-assessments
 ```
 
 ### Step 2: Install Dependencies (3 min)
@@ -42,7 +42,7 @@ pnpm list --depth 0
 ## 📁 Understanding the Project Structure
 
 ```
-shadow-ai-assessment-1/
+generationai-assessments/
 │
 ├── tools/                      # All assessment tools
 │   ├── shadow-ai-assessment/   # Example full-stack tool

@@ -15,7 +15,7 @@ Production monorepo for AI assessment and diagnostic tools. Built with TypeScrip
 ## 📁 Project Structure
 
 ```
-shadow-ai-assessment-1/
+generationai-assessments/
 ├── tools/                              # Assessment tools
 │   ├── shadow-ai-assessment/           # Unauthorised AI risk tool
 │   │   ├── api/                        # Azure Function (scoring + orchestration)
