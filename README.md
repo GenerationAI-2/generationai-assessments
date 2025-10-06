@@ -79,7 +79,8 @@ Frontend (Static Web App)
     └→ Instant results (no backend)
 ```
 
-### Shared Services
+### Shared Infrastructure
+- **AustraliaEastLinuxDynamicPlan**: Single consumption plan hosting all 5 Function Apps (4 assessment APIs + PDF generator)
 - **PDF Generator**: Reused by all full-stack tools (Puppeteer-based)
 - **Airtable**: Unified data storage (separate table per tool)
 - **Email Logic App**: Shared email delivery service
@@ -131,11 +132,12 @@ Estimated monthly costs (NZD):
 
 | Service | Qty | Cost Each | Total |
 |---------|-----|-----------|-------|
-| PDF Generator (Premium EP1) | 1 | $75-150 | $75-150 |
+| Linux Consumption Plan | 1 | Shared | ~$0 |
 | Assessment APIs (Consumption) | 4 | $10-30 | $40-120 |
+| PDF Generator (Consumption) | 1 | $10-30 | $10-30 |
 | Static Web Apps (Free tier) | 5 | $0 | $0 |
 | Storage Account | 1 | $5 | $5 |
-| **Total** | | | **$120-275/month** |
+| **Total** | | | **$55-155/month** |
 
 **Note**: Adding new frontend-only tools (like ROI Calculator) = $0 additional cost
 
