@@ -85,10 +85,6 @@ class AssessmentForm {
             }
         }
 
-        // Check at least one risk concern is selected
-        const riskCheckboxes = this.form.querySelectorAll('input[name="risk_concerns"]:checked');
-        if (riskCheckboxes.length === 0) return false;
-
         return true;
     }
 
