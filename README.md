@@ -10,7 +10,7 @@ Production monorepo for AI assessment and diagnostic tools. Built with TypeScrip
 | **Business AI Readiness** | Full Stack | ✅ Deployed | [lively-bay-0fbbe1300.2.azurestaticapps.net](https://lively-bay-0fbbe1300.2.azurestaticapps.net) |
 | **Board Governance Assessment** | Full Stack | ✅ Deployed | [thankful-grass-030658000.2.azurestaticapps.net](https://thankful-grass-030658000.2.azurestaticapps.net) |
 | **Personal AI Readiness** | Full Stack | ✅ Deployed | [gentle-smoke-098f1d000.2.azurestaticapps.net](https://gentle-smoke-098f1d000.2.azurestaticapps.net) |
-| **ROI Calculator** | Frontend Only | ✅ Deployed | [wonderful-sky-09d539b10.2.azurestaticapps.net](https://wonderful-sky-09d539b10.2.azurestaticapps.net) |
+| **ROI Calculator** | Frontend Only | ✅ Deployed | [orange-wave-0ba8d4200.1.azurestaticapps.net](https://orange-wave-0ba8d4200.1.azurestaticapps.net) |
 
 ## 📁 Project Structure
 

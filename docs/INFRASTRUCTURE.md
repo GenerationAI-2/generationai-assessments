@@ -110,7 +110,7 @@ We use two distinct patterns depending on the tool's requirements:
 | Business Readiness | Full-Stack | lively-bay-0fbbe1300.2.azurestaticapps.net | generationai-business-readiness.azurewebsites.net |
 | Board Governance | Full-Stack | thankful-grass-030658000.2.azurestaticapps.net | board-governance-api.azurewebsites.net |
 | Personal AI Readiness | Full-Stack | gentle-smoke-098f1d000.2.azurestaticapps.net | personal-ai-readiness-api.azurewebsites.net |
-| ROI Calculator | Frontend-Only | wonderful-sky-09d539b10.2.azurestaticapps.net | N/A |
+| ROI Calculator | Frontend-Only | orange-wave-0ba8d4200.1.azurestaticapps.net | N/A |
 
 ---
 

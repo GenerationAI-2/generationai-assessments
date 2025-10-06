@@ -76,10 +76,12 @@
 **Type**: Frontend Only
 **Status**: ✅ Production
 **Deployment Date**: October 7, 2025
+**Location**: East Asia
+**Resource Group**: generationai-rg
 
 | Component | URL | Resource Name |
 |-----------|-----|---------------|
-| Frontend | https://wonderful-sky-09d539b10.2.azurestaticapps.net | generationai-roi-calculator |
+| Frontend | https://orange-wave-0ba8d4200.1.azurestaticapps.net | generationai-roi-calculator |
 
 **Features**:
 - Client-side calculations only
