@@ -2163,26 +2163,28 @@ function generatePersonalAIReadinessHTML(data: any): string {
       line-height: 1.8;
     }
 
-    /* Hero Introduction */
+    /* Hero Introduction - matches Shadow AI introduction box */
     .hero-intro {
-      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-      padding: var(--space-2xl);
+      background: var(--bg-light);
+      padding: var(--space-lg);
       border-radius: var(--radius-lg);
       margin-bottom: var(--space-xl);
-      border: 2px solid var(--primary-blue);
+      border: 1px solid var(--border-light);
     }
 
-    .hero-intro h1 {
-      color: var(--primary-blue);
+    .hero-intro h2 {
+      color: var(--text-heading);
       border: none;
       margin-bottom: var(--space-md);
-      font-size: var(--font-size-3xl);
+      margin-top: 0;
+      padding-bottom: 0;
     }
 
     .hero-intro p {
-      color: var(--text-heading);
+      color: var(--text-body);
       font-size: var(--font-size-base);
-      line-height: 1.7;
+      line-height: var(--line-height);
+      margin-bottom: var(--space-sm);
     }
 
     /* Score Section */
@@ -2237,10 +2239,10 @@ function generatePersonalAIReadinessHTML(data: any): string {
       color: #DC2626;
     }
 
-    /* Profile Sections */
+    /* Profile Sections - matches Shadow AI area-section */
     .profile-section {
-      margin: var(--space-xl) 0;
-      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+      padding: var(--space-md);
       background: var(--white);
       border: var(--border-width) solid var(--border-light);
       border-radius: var(--radius-lg);
@@ -2248,17 +2250,19 @@ function generatePersonalAIReadinessHTML(data: any): string {
     }
 
     .profile-section h3 {
-      color: var(--primary-blue);
+      color: var(--text-heading);
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: var(--space-xs);
+      margin-bottom: var(--space-sm);
       margin-top: 0;
-      margin-bottom: var(--space-md);
     }
 
     .what-you-told-us {
-      background: var(--info-blue-bg);
+      background: #EFF6FF;
       padding: var(--space-md);
       margin: var(--space-sm) 0;
       border-radius: var(--radius);
-      border-left: 4px solid var(--primary-blue);
+      border: 1px solid var(--border-light);
     }
 
     .what-this-means {
@@ -2266,19 +2270,19 @@ function generatePersonalAIReadinessHTML(data: any): string {
       padding: var(--space-md);
       margin: var(--space-sm) 0;
       border-radius: var(--radius);
-      border-left: 4px solid var(--success-green);
+      border: 1px solid var(--border-light);
     }
 
-    /* Highlight Box */
+    /* Highlight Box - matches Shadow AI context-box */
     .highlight-box {
-      background: #FFFBEB;
+      background: var(--bg-light);
       padding: var(--space-md);
       margin: var(--space-md) 0;
       border-radius: var(--radius);
-      border-left: 4px solid var(--warning-orange);
+      border: var(--border-width) solid var(--border-light);
     }
 
-    /* Gap Sections */
+    /* Gap Sections - matches Shadow AI area-section */
     .gap-section {
       background: var(--white);
       padding: var(--space-md);
@@ -2291,41 +2295,56 @@ function generatePersonalAIReadinessHTML(data: any): string {
     .gap-section h4 {
       color: var(--text-heading);
       margin-top: 0;
+      margin-bottom: var(--space-sm);
     }
 
-    /* CTA Section */
+    .gap-section p {
+      color: var(--text-body);
+    }
+
+    /* CTA Section - matches Shadow AI cta-section */
     .cta-section {
-      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      background: var(--white);
       padding: var(--space-2xl);
       border-radius: var(--radius-lg);
-      margin: var(--space-xl) 0;
-      border: 2px solid var(--primary-blue);
+      margin: var(--space-lg) 0;
       text-align: center;
+      border: 1px solid var(--border-light);
       page-break-inside: avoid;
+    }
+
+    .cta-section h2 {
+      color: var(--text-heading);
+      margin-top: 0;
+      margin-bottom: var(--space-lg);
     }
 
     .cta-section h3 {
       color: var(--primary-blue);
-      font-size: var(--font-size-2xl);
-      margin-top: 0;
+      margin-top: var(--space-xl);
       margin-bottom: var(--space-md);
+      font-size: var(--font-size-lg);
+    }
+
+    .cta-section h4 {
+      color: var(--primary-blue);
+      margin-top: var(--space-md);
     }
 
     .cta-section p {
-      color: var(--text-heading);
+      color: var(--text-body);
       margin-bottom: var(--space-md);
       font-size: var(--font-size-base);
     }
 
     .cta-link {
       display: inline-block;
-      padding: 14px 32px;
+      padding: 12px 24px;
       background: var(--primary-blue);
       color: var(--white);
       text-decoration: none;
       border-radius: var(--radius);
-      font-weight: 700;
-      font-size: var(--font-size-base);
+      font-weight: 600;
       transition: background 0.2s ease;
     }
 
@@ -2386,7 +2405,7 @@ function generatePersonalAIReadinessHTML(data: any): string {
   </div>
 
   <div class="hero-intro">
-    <h1>Your AI Advantage Starts Here</h1>
+    <h2>Your AI Advantage Starts Here</h2>
     <p><strong>The difference between leaders who thrive and those who struggle isn't access to AI — it's knowing how to use it strategically.</strong></p>
 
     <p>Leaders using AI effectively are freeing up a full day per week while making better decisions with richer insights.</p>
