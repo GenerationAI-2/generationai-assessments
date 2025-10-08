@@ -147,7 +147,7 @@ function generateEmailHTML(options: EmailOptions): string {
                 <a href="https://www.generationai.co.nz" style="color: #2563EB; text-decoration: none;">www.generationai.co.nz</a>
               </p>
               <p style="margin: 12px 0 0 0; font-size: 11px;">
-                This diagnostic provides governance insights and is not legal advice. Boards should seek appropriate legal counsel regarding director duties and liability.
+                This assessment provides educational insights for personal development and does not constitute professional advice.
               </p>
             </td>
           </tr>
