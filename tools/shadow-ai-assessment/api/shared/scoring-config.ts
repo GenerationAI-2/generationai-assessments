@@ -187,6 +187,7 @@ export const SCORING_CONFIG = {
         "0DltiMQi9Zrh": { score: 0, label: "Agriculture" },
         "23QVdYXEys7M": { score: 0, label: "Construction" },
         "dkkqAATx7sGN": { score: 0, label: "Government" },
+        "mK9pLxRt2Yq7": { score: 0, label: "Media / Communications" },
         "xAYyxFqGCMnN": { score: 0, label: "Other" }
       }
     }
@@ -221,7 +222,7 @@ export const SCORING_CONFIG = {
       min_score: 51,
       max_score: 75,
       label: "Ad Hoc",
-      description: "AI is likely being used without oversight, with pockets of policy or access but little consistency. This is a high-risk state. Begin with internal discovery, publish basic guidance, and provide staff with safe tools to replace informal use.",
+      description: "Your organisation has minimal AI governance. AI usage is largely unmanaged and exposed, with significant gaps in policy, visibility, and controls. Immediate action is recommended.",
       recommendations: [
         "Run internal discovery (usage & exposure)",
         "Publish basic AI usage policy",

@@ -558,12 +558,10 @@ function generateShadowAIHTML(data: ReportData): string {
   </div>
 
   <div class="introduction">
-    <h2>Understanding What's Already Happening</h2>
-    <p>AI is already active in your organisation, whether you've approved it or not. Staff are experimenting with tools like ChatGPT, Claude, and others to solve real problems faster. This hidden, unsanctioned use is known as Shadow AI.</p>
+    <h2>Shadow AI: What's Happening Behind the Scenes</h2>
+    <p>AI is already being used in your organisation, often without approval or oversight. Shadow AI isn't rebellion - it's initiative - but it carries real risks to data, security and trust.</p>
 
-    <p>This isn't rebellion, it's initiative. But when AI is used without leadership visibility, four serious risks emerge: sensitive data exposure, quality and accuracy issues, cybersecurity vulnerabilities, and a breakdown of trust between teams and leadership.</p>
-
-    <p>This diagnostic surfaces your hidden risks and shows clear steps to move from exposure to control.</p>
+    <p><strong>Here's how your organisation measures up, based on what you've told us.</strong></p>
   </div>
 
   <div class="context-box">
@@ -691,17 +689,17 @@ function generateShadowAIHTML(data: ReportData): string {
   <div class="score-section">
     <h2>Your Shadow AI Risk Profile</h2>
     ${data.incident_banner ? `<div class="critical-banner">${data.incident_banner}</div>` : ''}
-    <div class="explanation-box">
-      <strong>Previous Incidents:</strong> ${data.incidents_blurb}
-    </div>
     <div class="score-display score-${scoreClass}">Your Shadow AI Risk Score: ${scoreNum}/100</div>
+    <div style="margin-top: var(--space-lg); text-align: left;">
+      <p style="margin-bottom: var(--space-sm);"><strong>Where you stand today:</strong> <span style="color: ${data.maturity_label === 'Ad Hoc' || data.maturity_label === 'Unmanaged' ? 'var(--risk-high)' : 'inherit'}; font-weight: 700;">${data.maturity_label}</span></p>
+      <p style="margin-bottom: var(--space-md);"><strong>What this means:</strong> ${maturityDescription}${data.maturity_label === 'Ad Hoc' || data.maturity_label === 'Unmanaged' ? ' <span style="color: var(--risk-high); font-weight: 700;">Immediate action is recommended.</span>' : ''}</p>
+    </div>
   </div>
 
   <div class="next-steps">
     <h2>Your Next Steps: From Shadow to Strategy</h2>
-    <p>Regardless of your current maturity level, strong AI governance rests on four foundations:</p>
 
-    <h3>Core Foundations:</h3>
+    <h3>Core Foundations</h3>
     <ul>
       <li><strong>Clear ownership</strong> - Someone must be accountable for AI strategy and risk</li>
       <li><strong>Visible guidelines</strong> - Staff need to know what's approved and what's not</li>
@@ -709,13 +707,18 @@ function generateShadowAIHTML(data: ReportData): string {
       <li><strong>Staff capability</strong> - Training and support turn policy into practice</li>
     </ul>
 
-    <p style="margin-top: var(--space-lg);"><strong>Where you stand today:</strong> ${data.maturity_label}</p>
-    <p><strong>What this means:</strong> ${maturityDescription}</p>
+    <p style="margin-top: var(--space-lg);">Your organisation shows '<strong>${data.maturity_label}</strong>' AI use, which is ${data.maturity_label === 'Ad Hoc' ? 'opening you up to exposure and leaking competitive potential' : data.maturity_label === 'Unmanaged' ? 'creating significant risk exposure across your entire organisation' : data.maturity_label === 'Developing' ? 'showing progress but still leaving gaps that need to be closed' : 'positioning you well for the future'}.</p>
+
+    <div class="explanation-box" style="margin-top: var(--space-md);">
+      <strong>Previous Incidents:</strong> ${data.incidents_blurb}
+    </div>
+
+    <p style="margin-top: var(--space-lg); font-weight: 600;">Here's what we recommend to help you seal the cracks and start the gains.</p>
   </div>
 
   <div class="cta-section">
-    <h2>Ready to Take Action?</h2>
-    <p>Whether you're starting from scratch or optimising what's working, we can help.</p>
+    <h2>Your Path to AI Clarity and Control</h2>
+    <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">Here's where you can make the difference in your organisation and cement your legacy as a leader building for tomorrow.</p>
 
     <div class="cta-box">
       <h3>AI Readiness Assessment & 90-Day Roadmap</h3>
@@ -726,13 +729,9 @@ function generateShadowAIHTML(data: ReportData): string {
       </div>
     </div>
 
-    <div class="cta-box">
-      <h3>Supporting Resources</h3>
-      <p>Access our guides and tools to support your AI readiness journey.</p>
-      <div class="cta-links">
-        <a href="https://www.generationai.co.nz/resources" class="cta-link">Explore Resources</a>
-      </div>
-    </div>
+    <p style="margin-top: var(--space-xl); text-align: center; font-size: var(--font-size-base); color: var(--text-body);">
+      Keen to learn more? Check out our <a href="https://www.generationai.co.nz/resources" style="color: var(--primary-blue); text-decoration: underline;">Knowledge Hub</a> to access insights, guides and tools to support your AI readiness journey.
+    </p>
   </div>
 
   <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
@@ -745,10 +744,10 @@ function generateShadowAIHTML(data: ReportData): string {
 
     <p>GenerationAI cannot assess risks or activities not disclosed during the diagnostic process. This diagnostic is designed to build awareness and guide strategic thinking about AI readiness and risk management.</p>
 
-    <p>This report does not constitute legal, compliance, or technical advice. Organisations should seek appropriate professional guidance for specific legal, regulatory, or technical requirements.</p>
+    <p>This report does not constitute legal, compliance or technical advice. Organisations should seek appropriate professional guidance for specific legal, regulatory or technical requirements. GenerationAI helps NZ organisations build AI capability through proven frameworks, practical tools and strategic guidance.</p>
 
     <div class="tagline">
-      GenerationAI helps NZ organisations build AI capability through proven frameworks, practical tools, and strategic guidance. We specialise in moving businesses from AI exposure to AI advantage.
+      We specialise in moving businesses from AI exposure to AI advantage.
     </div>
   </div>
 </body>

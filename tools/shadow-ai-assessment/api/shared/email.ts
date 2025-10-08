@@ -115,9 +115,9 @@ function generateEmailHTML(options: EmailOptions): string {
             <td style="padding: 0 32px; color: #6B7280; font-size: 15px; line-height: 1.6;">
               <p style="margin: 24px 0;">Your report includes:</p>
               <p style="margin: 24px 0 24px 20px; line-height: 1.8;">
-                ✓ Assessment across 9 risk areas<br>
-                ✓ Personalised recommendations<br>
-                ✓ 30-90 day action plan
+                ✓ A comprehensive risk analysis covering 8 critical areas<br>
+                ✓ Your AI maturity band<br>
+                ✓ Prioritised action plan
               </p>
             </td>
           </tr>
