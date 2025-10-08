@@ -1995,10 +1995,10 @@ function generateBoardGovernanceHTML(data: any): string {
 
     <p>GenerationAI cannot assess governance practices not disclosed during the diagnostic process. This diagnostic is designed to build awareness and guide strategic thinking about AI governance and board accountability.</p>
 
-    <p>This report does not constitute legal, compliance, or technical advice. Boards should seek appropriate professional legal counsel regarding director duties, liability, and regulatory requirements.</p>
+    <p>This report does not constitute legal, compliance or technical advice. Boards should seek appropriate professional legal counsel regarding director duties, liability and regulatory requirements.</p>
 
     <div class="tagline">
-      GenerationAI helps NZ boards and executives build AI governance capability through proven frameworks, practical tools, and strategic guidance. We specialise in protecting director liability while enabling organisations to move from AI risk to AI advantage.
+      GenerationAI helps NZ boards and executives build AI governance capability through proven frameworks, practical tools and strategic guidance. We specialise in protecting director liability while enabling organisations to move from AI risk to AI advantage.
     </div>
   </div>
 </body>
