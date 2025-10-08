@@ -222,7 +222,7 @@ export const SCORING_CONFIG = {
       min_score: 51,
       max_score: 75,
       label: "Ad Hoc",
-      description: "Your organisation has minimal AI governance. AI usage is largely unmanaged and exposed, with significant gaps in policy, visibility, and controls. Immediate action is recommended.",
+      description: "Your organisation has minimal AI governance. AI usage is largely unmanaged and exposed, with significant gaps in policy, visibility, and controls.",
       recommendations: [
         "Run internal discovery (usage & exposure)",
         "Publish basic AI usage policy",

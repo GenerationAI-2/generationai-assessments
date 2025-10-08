@@ -29,7 +29,7 @@ export function generatePDFHTML(data: any): string {
 function generateShadowAIHTML(data: ReportData): string {
   const scoreNum = parseInt(data.total_score) || 0;
   const maturityClass = getMaturityClass(data.maturity_label);
-  const maturityDescription = getMaturityDescription(data.maturity_label);
+  const maturityDescription = data.maturity_blurb || getMaturityDescription(data.maturity_label);
   const scoreClass = getScoreClass(scoreNum);
 
   // Helper to convert risk level to CSS class
@@ -773,7 +773,7 @@ function getScoreClass(score: number): string {
 function getMaturityDescription(maturity: string): string {
   const lower = maturity.toLowerCase();
   if (lower.includes('unmanaged')) {
-    return 'Your organisation has little to no AI governance in place. There is high risk exposure from unauthorised AI usage. Urgent action is required to establish basic controls and awareness.';
+    return 'Your organisation has little to no AI governance in place. There is high risk exposure from unauthorised AI usage.';
   }
   if (lower.includes('managed')) {
     return 'Your organisation demonstrates strong AI governance practices with formal policies, training, and technical controls in place. Focus on continuous improvement and staying ahead of emerging risks.';
@@ -782,9 +782,9 @@ function getMaturityDescription(maturity: string): string {
     return 'Your organisation has foundational AI governance elements but gaps remain. You have some policies and awareness, but need more comprehensive controls and processes.';
   }
   if (lower.includes('ad hoc') || lower.includes('adhoc')) {
-    return 'Your organisation has minimal AI governance. AI usage is largely unmanaged, with significant gaps in policy, visibility, and controls. Immediate action is recommended.';
+    return 'Your organisation has minimal AI governance. AI usage is largely unmanaged and exposed, with significant gaps in policy, visibility, and controls.';
   }
-  return 'Your organisation has little to no AI governance in place. There is high risk exposure from unauthorised AI usage. Urgent action is required to establish basic controls and awareness.';
+  return 'Your organisation has little to no AI governance in place. There is high risk exposure from unauthorised AI usage.';
 }
 
 /**
