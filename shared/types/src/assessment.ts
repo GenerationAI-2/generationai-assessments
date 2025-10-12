@@ -6,6 +6,7 @@ export interface AssessmentSubmission {
   email: string;
   contact_name: string;
   company_name: string;
+  opt_in_marketing?: boolean;
   org_size: string;
   sector: string;
   access: string;
