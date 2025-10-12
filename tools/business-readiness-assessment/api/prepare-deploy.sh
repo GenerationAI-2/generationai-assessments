@@ -10,7 +10,7 @@ cd ../../../shared/types && npm run build
 cd ../utils && npm run build
 
 # Go back to API directory
-cd ../../tools/shadow-ai-assessment/api
+cd ../../tools/business-readiness-assessment/api
 
 # Remove existing symlinks
 rm -rf node_modules/@generation-ai
