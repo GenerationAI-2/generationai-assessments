@@ -9,7 +9,7 @@ import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine, AssessmentSubmission } from "../shared/scoring-engine";
 // import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable"; // Disabled
 import { sendAssessmentEmail } from "../shared/email";
-import { logSubmissionToCSV } from "../shared/csv-logger";
+// import { logSubmissionToCSV } from "../shared/csv-logger"; // TEMP DISABLED - deployment issue
 import fetch from "node-fetch";
 
 export async function processAssessment(
@@ -188,32 +188,33 @@ export async function processAssessment(
       // Don't fail the request if team notification fails
     }
 
-    // 7.5. Log submission to CSV in blob storage
-    try {
-      await logSubmissionToCSV('business-readiness', {
-        timestamp: new Date().toISOString(),
-        email: submission.email,
-        contact_name: submission.contact_name,
-        company_name: submission.company_name,
-        opt_in_marketing: (submission as any).opt_in_marketing || false,
-        score: scoringResult.metadata.final_score,
-        maturity_band: scoringResult.data.readiness_band,
-        q1_ownership: submission.q1_ownership,
-        q2_strategy: submission.q2_strategy,
-        q3_culture: submission.q3_culture,
-        q4_enablement: submission.q4_enablement,
-        q5_shadow_ai: submission.q5_shadow_ai,
-        q6_governance: submission.q6_governance,
-        q7_compliance: submission.q7_compliance,
-        q8_resources: submission.q8_resources,
-        q9_data_protection: submission.q9_data_protection,
-        q10_opportunity: submission.q10_opportunity
-      });
-      context.log('CSV logged successfully');
-    } catch (csvError) {
-      context.log('CSV logging failed:', csvError);
-      // Don't fail the request if CSV logging fails
-    }
+    // 7.5. Log submission to CSV in blob storage - TEMP DISABLED
+    // TODO: Fix deployment to include @azure/storage-blob dependency
+    // try {
+    //   await logSubmissionToCSV('business-readiness', {
+    //     timestamp: new Date().toISOString(),
+    //     email: submission.email,
+    //     contact_name: submission.contact_name,
+    //     company_name: submission.company_name,
+    //     opt_in_marketing: (submission as any).opt_in_marketing || false,
+    //     score: scoringResult.metadata.final_score,
+    //     maturity_band: scoringResult.data.readiness_band,
+    //     q1_ownership: submission.q1_ownership,
+    //     q2_strategy: submission.q2_strategy,
+    //     q3_culture: submission.q3_culture,
+    //     q4_enablement: submission.q4_enablement,
+    //     q5_shadow_ai: submission.q5_shadow_ai,
+    //     q6_governance: submission.q6_governance,
+    //     q7_compliance: submission.q7_compliance,
+    //     q8_resources: submission.q8_resources,
+    //     q9_data_protection: submission.q9_data_protection,
+    //     q10_opportunity: submission.q10_opportunity
+    //   });
+    //   context.log('CSV logged successfully');
+    // } catch (csvError) {
+    //   context.log('CSV logging failed:', csvError);
+    //   // Don't fail the request if CSV logging fails
+    // }
 
     // 8. Return success response
     context.res = {
