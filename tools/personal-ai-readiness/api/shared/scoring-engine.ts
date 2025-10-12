@@ -18,6 +18,7 @@ export interface AssessmentSubmission {
   email: string;
   contact_name: string;
   company_name: string;
+  opt_in_marketing?: boolean;
   q1_frequency: string;
   q2_approach: string;
   q3_repetitive_task: string;

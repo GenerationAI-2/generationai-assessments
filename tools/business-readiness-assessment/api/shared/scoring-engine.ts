@@ -10,6 +10,7 @@ export interface AssessmentSubmission {
   email: string;
   contact_name: string;
   company_name: string;
+  opt_in_marketing?: boolean;
   q1_ownership: string;
   q2_strategy: string;
   q3_culture: string;
