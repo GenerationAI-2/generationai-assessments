@@ -131,6 +131,7 @@ class AssessmentForm {
             email: this.form.elements['email'].value.trim(),
             contact_name: this.form.elements['contact_name'].value.trim(),
             company_name: this.form.elements['company_name'].value.trim(),
+            opt_in_marketing: this.form.elements['opt_in_marketing']?.checked || false,
             q1_board_risk: this.getRadioValue('q1_board_risk'),
             q2_oversight: this.getRadioValue('q2_oversight'),
             q3_risk_appetite: this.getRadioValue('q3_risk_appetite'),

@@ -9,6 +9,7 @@ import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine, AssessmentSubmission } from "../shared/scoring-engine";
 // import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable"; // Disabled
 import { sendAssessmentEmail } from "../shared/email";
+import { logSubmissionToCSV } from "../shared/csv-logger";
 import fetch from "node-fetch";
 
 export async function processAssessment(
@@ -191,6 +192,35 @@ export async function processAssessment(
     } catch (notifyError) {
       context.log('Team notification failed:', notifyError);
       // Don't fail the request if team notification fails
+    }
+
+    // 7.5. Log submission to CSV in blob storage
+    try {
+      await logSubmissionToCSV('personal-ai-readiness', {
+        timestamp: new Date().toISOString(),
+        email: submission.email,
+        contact_name: submission.contact_name,
+        company_name: submission.company_name,
+        opt_in_marketing: (submission as any).opt_in_marketing || false,
+        score: scoringResult.metadata.final_score,
+        maturity_band: scoringResult.data.band_name,
+        q1_frequency: submission.q1_frequency,
+        q2_approach: submission.q2_approach,
+        q3_repetitive_task: submission.q3_repetitive_task,
+        q4_explain: submission.q4_explain,
+        q5_lead: submission.q5_lead,
+        q6_time_savings: submission.q6_time_savings,
+        q7_use_cases: submission.q7_use_cases,
+        q8_stay_informed: submission.q8_stay_informed,
+        q9_learning_preference: submission.q9_learning_preference,
+        q10_motivation: submission.q10_motivation,
+        q11_next_90_days: submission.q11_next_90_days,
+        q12_safety: submission.q12_safety
+      });
+      context.log('CSV logged successfully');
+    } catch (csvError) {
+      context.log('CSV logging failed:', csvError);
+      // Don't fail the request if CSV logging fails
     }
 
     // 8. Return success response

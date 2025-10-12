@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
+    "@azure/storage-blob": "^12.17.0",
     "@generation-ai/types": "workspace:*",
     "@generation-ai/utils": "workspace:*",
     "abort-controller": "^3.0.0",

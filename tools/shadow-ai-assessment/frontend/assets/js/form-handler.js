@@ -137,6 +137,7 @@ class AssessmentForm {
             email: this.form.elements['email'].value.trim(),
             contact_name: this.form.elements['contact_name'].value.trim(),
             company_name: this.form.elements['company_name'].value.trim(),
+            opt_in_marketing: this.form.elements['opt_in_marketing']?.checked || false,
             org_size: this.getRadioValue('org_size'),
             sector: this.getRadioValue('sector'),
             access: this.getRadioValue('access'),

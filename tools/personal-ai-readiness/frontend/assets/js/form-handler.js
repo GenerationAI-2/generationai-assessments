@@ -129,6 +129,7 @@ class AssessmentForm {
             email: this.form.elements['email'].value.trim(),
             contact_name: this.form.elements['contact_name'].value.trim(),
             company_name: this.form.elements['company_name'].value.trim(),
+            opt_in_marketing: this.form.elements['opt_in_marketing']?.checked || false,
             q1_frequency: this.getRadioValue('q1_frequency'),
             q2_approach: this.getRadioValue('q2_approach'),
             q3_repetitive_task: this.getRadioValue('q3_repetitive_task'),

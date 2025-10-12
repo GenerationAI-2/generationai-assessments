@@ -9,6 +9,7 @@ import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine } from "../shared/scoring-engine";
 // import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable"; // Disabled
 import { sendAssessmentEmail } from "../shared/email";
+import { logSubmissionToCSV } from "../shared/csv-logger";
 import fetch from "node-fetch";
 
 export async function processAssessment(
@@ -188,6 +189,36 @@ export async function processAssessment(
     } catch (notifyError) {
       context.log('Team notification failed:', notifyError);
       // Don't fail the request if team notification fails
+    }
+
+    // 7.5. Log submission to CSV in blob storage
+    try {
+      await logSubmissionToCSV('shadow-ai', {
+        timestamp: new Date().toISOString(),
+        email: submission.email,
+        contact_name: submission.contact_name,
+        company_name: submission.company_name,
+        opt_in_marketing: submission.opt_in_marketing || false,
+        score: scoringResult.metadata.score,
+        maturity_band: scoringResult.data.maturity_label,
+        org_size: submission.org_size,
+        sector: submission.sector,
+        access: submission.access,
+        incidents: submission.incidents,
+        approval: submission.approval,
+        usage_visibility: submission.usage_visibility,
+        detection: submission.detection,
+        policy: submission.policy,
+        training: submission.training,
+        risk_concerns: submission.risk_concerns.join('; '),
+        exposure: submission.exposure,
+        traceability: submission.traceability,
+        compliance_awareness: submission.compliance_awareness
+      });
+      context.log('CSV logged successfully');
+    } catch (csvError) {
+      context.log('CSV logging failed:', csvError);
+      // Don't fail the request if CSV logging fails
     }
 
     // 8. Return success response
