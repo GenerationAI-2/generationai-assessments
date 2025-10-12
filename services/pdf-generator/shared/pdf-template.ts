@@ -724,8 +724,7 @@ function generateShadowAIHTML(data: ReportData): string {
       <h3>AI Readiness Assessment & 90-Day Roadmap</h3>
       <p>Move from insights to action with a practical plan tailored to your organisation's specific situation and maturity level.</p>
       <div class="cta-links">
-        <a href="https://www.generationai.co.nz" class="cta-link">Book Your Session</a>
-        <a href="https://www.generationai.co.nz" class="cta-link cta-link--secondary">Learn More</a>
+        <a href="https://www.generationai.co.nz/solution/ai-readiness-roadmap" class="cta-link">Get Your AI Readiness Roadmap</a>
       </div>
     </div>
 
@@ -1231,7 +1230,7 @@ function generateBusinessReadinessHTML(data: any): string {
   <div class="cta-section">
     <h3>${data.next_step_cta}</h3>
     <p>${data.next_step_narrative}</p>
-    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz" class="cta-link">Book Your Session</a></p>
+    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz/solution/ai-readiness-roadmap" class="cta-link">Get Your AI Readiness Roadmap</a></p>
   </div>
 
   <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
@@ -1971,8 +1970,7 @@ function generateBoardGovernanceHTML(data: any): string {
       <h3>Board AI Governance Advisory</h3>
       <p>Move from reactive oversight to defensible, proactive AI governance with tailored support for your board's specific context and maturity level.</p>
       <div class="cta-links">
-        <a href="https://www.generationai.co.nz" class="cta-link">Book a Briefing</a>
-        <a href="https://www.generationai.co.nz" class="cta-link cta-link--secondary">Learn More</a>
+        <a href="https://www.generationai.co.nz/solution/ai-governance-workshop" class="cta-link">Register for AI Governance Workshop</a>
       </div>
     </div>
 
@@ -1980,7 +1978,7 @@ function generateBoardGovernanceHTML(data: any): string {
       <h3>Board Education & Capability Building</h3>
       <p>Build board-level AI literacy through executive briefings, governance workshops, and strategic guidance.</p>
       <div class="cta-links">
-        <a href="https://www.generationai.co.nz/resources" class="cta-link">Explore Resources</a>
+        <a href="https://www.generationai.co.nz/solution/ai-governance-workshop" class="cta-link">Register for AI Governance Workshop</a>
       </div>
     </div>
   </div>
@@ -2487,7 +2485,7 @@ function generatePersonalAIReadinessHTML(data: any): string {
     <h4 style="color: var(--primary-blue); margin-top: var(--space-md);">${data.next_step_cta}</h4>
     <p>${data.next_step_narrative}</p>
 
-    <p style="margin-top: var(--space-xl);"><a href="https://www.generationai.co.nz" class="cta-link">Book Your Next Step</a></p>
+    <p style="margin-top: var(--space-xl);"><a href="https://www.generationai.co.nz/solution/ai-essentials-for-business-leaders" class="cta-link">Book AI Essentials Workshop</a></p>
   </div>
 
   <div class="footer">

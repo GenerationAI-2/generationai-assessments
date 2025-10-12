@@ -127,8 +127,8 @@ function generateEmailHTML(options: EmailOptions): string {
           <!-- CTA Button -->
           <tr>
             <td align="center" style="padding: 32px;">
-              <a href="https://www.generationai.co.nz"
-                 style="display: inline-block; background-color: #D4FF00; color: #0F172A; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px;">Book a Governance Session</a>
+              <a href="https://www.generationai.co.nz/solution/ai-governance-workshop"
+                 style="display: inline-block; background-color: #D4FF00; color: #0F172A; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px;">Register for AI Governance Workshop</a>
             </td>
           </tr>
 

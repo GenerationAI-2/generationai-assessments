@@ -207,7 +207,7 @@ export async function processAssessment(
       headers: getCorsHeaders(),
       body: {
         success: false,
-        error: "Failed to process assessment. Please try again or contact support@generationai.co.nz",
+        error: "Failed to process assessment. Please try again or contact team@generationai.co.nz",
         details: process.env.NODE_ENV === 'development' ? error.message : undefined
       }
     };

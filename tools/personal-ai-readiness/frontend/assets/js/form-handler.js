@@ -233,7 +233,7 @@ class AssessmentForm {
         const alertHtml = `
             <div class="alert alert--error" id="submission-error">
                 <strong>Submission Failed</strong>
-                <p>We couldn't process your assessment. Please try again or contact support@generationai.co.nz</p>
+                <p>We couldn't process your assessment. Please try again or contact team@generationai.co.nz</p>
             </div>
         `;
 
