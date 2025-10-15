@@ -61,4 +61,4 @@ jobs:
       - name: Deploy to Azure Functions
         run: |
           cd tools/personal-ai-readiness/api
-          func azure functionapp publish generationai-personal-ai-readiness --javascript
+          func azure functionapp publish generationai-personal-ai-readiness --javascript --nozip

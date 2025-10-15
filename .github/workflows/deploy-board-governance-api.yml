@@ -61,4 +61,4 @@ jobs:
       - name: Deploy to Azure Functions
         run: |
           cd tools/board-governance-assessment/api
-          func azure functionapp publish generationai-board-governance --javascript
+          func azure functionapp publish generationai-board-governance --javascript --nozip
