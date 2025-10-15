@@ -9,7 +9,7 @@ import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine, AssessmentSubmission } from "../shared/scoring-engine";
 // import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable"; // Disabled
 import { sendAssessmentEmail } from "../shared/email";
-import { logSubmissionToCSV } from "../shared/csv-logger";
+// import { logSubmissionToCSV } from "../shared/csv-logger"; // Temporarily disabled - deployment issue
 import fetch from "node-fetch";
 
 export async function processAssessment(
@@ -191,35 +191,37 @@ export async function processAssessment(
       // Don't fail the request if team notification fails
     }
 
-    // 7.5. Log submission to CSV in blob storage
-    try {
-      await logSubmissionToCSV('board-governance', {
-        timestamp: new Date().toISOString(),
-        email: submission.email,
-        contact_name: submission.contact_name,
-        company_name: submission.company_name,
-        opt_in_marketing: (submission as any).opt_in_marketing || false,
-        score: scoringResult.metadata.final_score,
-        maturity_band: scoringResult.data.band_name,
-        q1_board_risk: submission.q1_board_risk,
-        q2_oversight: submission.q2_oversight,
-        q3_risk_appetite: submission.q3_risk_appetite,
-        q4_strategic: submission.q4_strategic,
-        q5_policy: submission.q5_policy,
-        q6_risk_reporting: submission.q6_risk_reporting,
-        q7_stakeholder: submission.q7_stakeholder,
-        q8_incident: submission.q8_incident,
-        q9_vendor: submission.q9_vendor,
-        q10_development: submission.q10_development,
-        q11_forward: submission.q11_forward,
-        q12_competitive: submission.q12_competitive,
-        q13_decision: submission.q13_decision
-      });
-      context.log('CSV logged successfully');
-    } catch (csvError) {
-      context.log('CSV logging failed:', csvError);
-      // Don't fail the request if CSV logging fails
-    }
+    // 7.5. Log submission to CSV in blob storage - TEMPORARILY DISABLED
+    // The @azure/storage-blob dependency isn't being installed correctly during deployment
+    // Disabling until deployment pipeline is fixed
+    // try {
+    //   await logSubmissionToCSV('board-governance', {
+    //     timestamp: new Date().toISOString(),
+    //     email: submission.email,
+    //     contact_name: submission.contact_name,
+    //     company_name: submission.company_name,
+    //     opt_in_marketing: (submission as any).opt_in_marketing || false,
+    //     score: scoringResult.metadata.final_score,
+    //     maturity_band: scoringResult.data.band_name,
+    //     q1_board_risk: submission.q1_board_risk,
+    //     q2_oversight: submission.q2_oversight,
+    //     q3_risk_appetite: submission.q3_risk_appetite,
+    //     q4_strategic: submission.q4_strategic,
+    //     q5_policy: submission.q5_policy,
+    //     q6_risk_reporting: submission.q6_risk_reporting,
+    //     q7_stakeholder: submission.q7_stakeholder,
+    //     q8_incident: submission.q8_incident,
+    //     q9_vendor: submission.q9_vendor,
+    //     q10_development: submission.q10_development,
+    //     q11_forward: submission.q11_forward,
+    //     q12_competitive: submission.q12_competitive,
+    //     q13_decision: submission.q13_decision
+    //   });
+    //   context.log('CSV logged successfully');
+    // } catch (csvError) {
+    //   context.log('CSV logging failed:', csvError);
+    //   // Don't fail the request if CSV logging fails
+    // }
 
     // 8. Return success response
     context.res = {
