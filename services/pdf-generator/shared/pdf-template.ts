@@ -7,6 +7,12 @@ import { ReportData } from '@generation-ai/types';
 
 export function generatePDFHTML(data: any): string {
   // Route to correct template based on data structure
+
+  // Shadow AI V2 has insight_1_title (unique to V2)
+  if (data.insight_1_title !== undefined) {
+    return generateShadowAIV2HTML(data);
+  }
+
   // Board Governance has governance_score
   if (data.governance_score !== undefined) {
     return generateBoardGovernanceHTML(data);
@@ -22,7 +28,7 @@ export function generatePDFHTML(data: any): string {
     return generateBusinessReadinessHTML(data);
   }
 
-  // Default to Shadow AI template
+  // Default to Shadow AI V1 template
   return generateShadowAIHTML(data);
 }
 
@@ -2424,7 +2430,11 @@ function generatePersonalAIReadinessHTML(data: any): string {
   <div class="profile-section">
     <h3>How You Currently Use AI</h3>
     <div class="what-you-told-us">
-      <strong>What you told us:</strong> You use AI tools ${data.q1_frequency.toLowerCase()} and your approach is ${data.q2_approach.toLowerCase()}.
+      <strong>What you told us:</strong>
+      <ul style="margin: 8px 0 0 20px;">
+        <li><strong>Frequency:</strong> ${data.q1_frequency}</li>
+        <li><strong>Approach:</strong> ${data.q2_approach}</li>
+      </ul>
     </div>
     <div class="what-this-means">
       <strong>What this means:</strong> ${data.usage_insight}
@@ -2519,4 +2529,492 @@ function getPersonalScoreClass(score: number): string {
   if (score >= 51) return 'ready';
   if (score >= 26) return 'curious';
   return 'distant';
+}
+
+/**
+ * Shadow AI Assessment V2 - 3-Page PDF Template
+ * Page 1: Score + Interpretation
+ * Page 2: Three Insights
+ * Page 3: Next Steps (Dynamic Routing)
+ */
+function generateShadowAIV2HTML(data: any): string {
+  const scoreNum = parseInt(data.total_score) || 0;
+  const maturityLabel = data.maturity_label || 'Unknown';
+  const maturityDescription = data.maturity_description || '';
+  const assessmentDate = data.response_date || new Date().toLocaleDateString('en-NZ');
+
+  // Get maturity color
+  const getMaturityColor = (label: string) => {
+    const lower = label.toLowerCase();
+    if (lower.includes('managed')) return { bg: '#D1FAE5', border: '#10B981', text: '#065F46' };
+    if (lower.includes('developing')) return { bg: '#FEF3C7', border: '#F59E0B', text: '#92400E' };
+    if (lower.includes('ad hoc')) return { bg: '#FED7AA', border: '#F97316', text: '#9A3412' };
+    return { bg: '#FEE2E2', border: '#DC2626', text: '#991B1B' }; // Unmanaged
+  };
+
+  const colors = getMaturityColor(maturityLabel);
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shadow AI Discovery Report - ${data.company_name}</title>
+  <style>
+    :root {
+      --primary-blue: #2563EB;
+      --dark-navy: #0F172A;
+      --lime-accent: #D4FF00;
+      --text-body: #6B7280;
+      --text-heading: #0F172A;
+      --border-light: #E5E7EB;
+      --bg-light: #F9FAFB;
+      --white: #FFFFFF;
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      color: var(--text-body);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 20mm;
+      background: white;
+      page-break-after: always;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+    }
+
+    /* Header */
+    .header {
+      border-bottom: 2px solid var(--dark-navy);
+      padding-bottom: 16px;
+      margin-bottom: 32px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--dark-navy);
+    }
+
+    .report-title {
+      color: var(--text-body);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    /* Headings */
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--dark-navy);
+      margin: 32px 0 16px 0;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin: 24px 0 12px 0;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--dark-navy);
+      margin: 20px 0 8px 0;
+    }
+
+    p {
+      margin: 12px 0;
+      line-height: 1.7;
+    }
+
+    /* Score Display */
+    .score-container {
+      background: ${colors.bg};
+      border: 3px solid ${colors.border};
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 32px 0;
+    }
+
+    .speedometer {
+      margin: 0 auto 30px auto;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .score-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: ${colors.border};
+      line-height: 1;
+      margin-top: 10px;
+    }
+
+    .score-label {
+      font-size: 20px;
+      font-weight: 600;
+      color: ${colors.text};
+      margin-top: 12px;
+    }
+
+    /* Insight Cards */
+    .insight-card {
+      background: var(--bg-light);
+      border-left: 4px solid var(--primary-blue);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .insight-number {
+      display: inline-block;
+      background: var(--primary-blue);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    .insight-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 8px;
+    }
+
+    /* CTA Boxes */
+    .cta-box {
+      background: white;
+      border: 2px solid var(--border-light);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+
+    .cta-primary {
+      background: var(--lime-accent);
+      border-color: var(--lime-accent);
+    }
+
+    .cta-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 8px;
+    }
+
+    .cta-price {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary-blue);
+      margin: 4px 0;
+    }
+
+    ul {
+      margin: 12px 0 12px 20px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-light);
+      font-size: 11px;
+      color: var(--text-body);
+      text-align: center;
+    }
+
+    .page-number {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 11px;
+      color: var(--text-body);
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1: THE BIG REVEAL -->
+<div class="page">
+  <div class="header">
+    <div class="logo">GenerationAI</div>
+    <div class="report-title">Shadow AI Discovery Assessment</div>
+  </div>
+
+  <p><strong>Prepared for:</strong> ${data.company_name}<br>
+  <strong>Completed by:</strong> ${data.contact_name}<br>
+  <strong>Date:</strong> ${assessmentDate}</p>
+
+  <h1>Your Shadow AI Readiness Score</h1>
+
+  <div class="score-container">
+    ${generateSpeedometer(scoreNum, maturityLabel)}
+    <div class="score-number">${scoreNum}/100</div>
+    <div class="score-label">Maturity Level: ${maturityLabel}</div>
+  </div>
+
+  <h2>What This Means</h2>
+  <p>${maturityDescription}</p>
+
+  <h2>Recommended Next Steps</h2>
+  <ul>
+    ${data.maturity_recommendations ? data.maturity_recommendations.map((rec: string) => `<li>${rec}</li>`).join('') : ''}
+  </ul>
+
+  <div class="page-number">Page 1 of 3</div>
+</div>
+
+<!-- PAGE 2: THREE INSIGHTS -->
+<div class="page">
+  <div class="header">
+    <div class="logo">GenerationAI</div>
+    <div class="report-title">Shadow AI Discovery Assessment</div>
+  </div>
+
+  <h1>Three Things You Need to Know</h1>
+  <p>Based on your responses, here are your critical gaps:</p>
+
+  <div class="insight-card">
+    <div>
+      <span class="insight-number">1</span>
+      <span class="insight-title">${data.insight_1_title}</span>
+    </div>
+    <p>${data.insight_1_content}</p>
+  </div>
+
+  <div class="insight-card">
+    <div>
+      <span class="insight-number">2</span>
+      <span class="insight-title">${data.insight_2_title}</span>
+    </div>
+    <p>${data.insight_2_content}</p>
+  </div>
+
+  <div class="insight-card">
+    <div>
+      <span class="insight-number">3</span>
+      <span class="insight-title">${data.insight_3_title}</span>
+    </div>
+    <p>${data.insight_3_content}</p>
+  </div>
+
+  <div class="page-number">Page 2 of 3</div>
+</div>
+
+<!-- PAGE 3: YOUR NEXT STEPS (Dynamic based on routing) -->
+<div class="page">
+  <div class="header">
+    <div class="logo">GenerationAI</div>
+    <div class="report-title">Shadow AI Discovery Assessment</div>
+  </div>
+
+  <h1>Your Path Forward</h1>
+
+  ${generatePage3Content(data)}
+
+  <div class="footer">
+    <p><strong>GenerationAI</strong> | Auckland, New Zealand | www.generationai.co.nz</p>
+    <p style="margin-top: 8px; font-size: 10px;">This assessment does not constitute legal, compliance, or technical advice.</p>
+  </div>
+
+  <div class="page-number">Page 3 of 3</div>
+</div>
+
+</body>
+</html>
+  `.trim();
+}
+
+/**
+ * Generate Page 3 content based on routing decision
+ */
+function generatePage3Content(data: any): string {
+  const routeType = data.route_type || 'ROUTE_3_NURTURE';
+
+  if (routeType === 'ROUTE_1_BOARD') {
+    return `
+      <p>As a board member or director, you're personally accountable for AI risks in your organisation. Here's how to build confidence and capability:</p>
+
+      <div class="cta-box cta-primary">
+        <div class="cta-title">AI Governance Workshop</div>
+        <div class="cta-price">$395 + GST</div>
+        <p>Half-day workshop designed for directors and board members:</p>
+        <ul>
+          <li>Meet your personal duties around AI oversight</li>
+          <li>Board-level questions to ask management</li>
+          <li>Tools to spot risks before they become liabilities</li>
+          <li>Strengthened credibility and trust in the boardroom</li>
+        </ul>
+        <p><strong>Next Step:</strong> generationai.co.nz/governance-workshop</p>
+      </div>
+
+      <div class="cta-box">
+        <div class="cta-title">AI Readiness Roadmap</div>
+        <div class="cta-price">$2,495 + GST</div>
+        <p>Get a 90-day execution plan tailored to your organisation.</p>
+        <p><strong>Learn more:</strong> generationai.co.nz/roadmap</p>
+      </div>
+
+      <p><strong>Not sure which is right for you?</strong><br>
+      Book a free 15-minute Shadow AI Clarity Call: generationai.co.nz/clarity-call</p>
+    `;
+  }
+
+  if (routeType === 'ROUTE_2_URGENT') {
+    return `
+      <p>Your assessment reveals critical gaps that need immediate attention. Here's how to move from uncertainty to execution:</p>
+
+      <div class="cta-box cta-primary">
+        <div class="cta-title">AI Readiness Roadmap</div>
+        <div class="cta-price">$2,495 + GST</div>
+        <p>Get clarity, direction, and a 90-day execution plan:</p>
+        <ul>
+          <li>Online assessment (completed ✓)</li>
+          <li>Board-ready report (within 2 business days)</li>
+          <li>45-minute strategy session with your leadership team</li>
+          <li>90-day Roadmap with clear milestones and owners</li>
+        </ul>
+        <p>Walk away with leadership consensus on risks, opportunities, and next steps—aligned to your business goals.</p>
+        <p><strong>Next Step:</strong> generationai.co.nz/roadmap</p>
+      </div>
+
+      <div class="cta-box">
+        <div class="cta-title">Or: AI Governance Workshop</div>
+        <div class="cta-price">$395 pp + GST</div>
+        <p>Half-day workshop for your leadership team or board.</p>
+        <p><strong>Learn more:</strong> generationai.co.nz/governance-workshop</p>
+      </div>
+
+      <p><strong>Not sure which is right?</strong><br>
+      Book a free 15-minute Shadow AI Clarity Call: generationai.co.nz/clarity-call</p>
+    `;
+  }
+
+  // Default: ROUTE_3_NURTURE
+  return `
+    <h2>Free Resources to Get Started</h2>
+
+    <div class="cta-box cta-primary">
+      <div class="cta-title">📄 White Paper: The Hidden Risks of Shadow AI</div>
+      <p>Why transparency must come before control</p>
+      <p><strong>Download:</strong> generationai.co.nz/shadow-ai-whitepaper</p>
+    </div>
+
+    <div class="cta-box">
+      <div class="cta-title">📧 AI Insights Newsletter</div>
+      <p>Monthly updates on AI governance, Shadow AI trends, and best practices for NZ organisations</p>
+      <p><strong>Subscribe:</strong> generationai.co.nz/insights</p>
+    </div>
+
+    <h2 style="margin-top: 32px;">When You're Ready to Build Capability</h2>
+
+    <div class="cta-box">
+      <div class="cta-title">AI Governance Workshop</div>
+      <div class="cta-price">$395 pp + GST</div>
+      <p>Half-day workshop for directors and leaders. Walk away with practical tools to govern AI with confidence.</p>
+      <p><strong>Explore Workshop:</strong> generationai.co.nz/governance-workshop</p>
+    </div>
+
+    <h2 style="margin-top: 24px;">Assess Your Broader AI Readiness</h2>
+    <p>This assessment focused on Shadow AI risks. To evaluate your organisation's overall AI capability and maturity:</p>
+    <p><strong>Take Our Business Readiness Assessment:</strong> generationai.co.nz/business-readiness</p>
+  `;
+}
+
+/**
+ * Generate SVG speedometer gauge
+ * Color-coded by maturity band:
+ * - Red (0-25): Unmanaged
+ * - Orange (26-50): Ad Hoc
+ * - Yellow (51-75): Developing
+ * - Green (76-100): Managed
+ */
+function generateSpeedometer(score: number, maturityLabel: string): string {
+  // Speedometer arc goes from 180° (left) to 0° (right) = 180° total
+  // Score 100 = 180° (far left), Score 0 = 0° (far right)
+  const angle = 180 - (score * 1.8); // Convert score to angle
+
+  // Calculate needle position
+  const needleAngle = angle * (Math.PI / 180);
+  const needleLength = 90;
+  const centerX = 200;
+  const centerY = 200;
+  const needleX = centerX + needleLength * Math.cos(needleAngle - Math.PI);
+  const needleY = centerY + needleLength * Math.sin(needleAngle - Math.PI);
+
+  return `
+    <svg class="speedometer" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer radius: 100, Inner radius: 70, Center: (200, 200) -->
+      <!-- Each segment is exactly 45 degrees -->
+      <!-- Color progression: Red (bad) → Orange → Yellow → Green (good) -->
+
+      <!-- Segment 1: 180° to 135° (left side) - Green (76-100) -->
+      <path d="M 100 200
+               A 100 100 0 0 1 129.29 129.29
+               L 149.29 149.29
+               A 70 70 0 0 0 130 200 Z"
+            fill="#22C55E"/>
+
+      <!-- Segment 2: 135° to 90° (top left) - Yellow (51-75) -->
+      <path d="M 129.29 129.29
+               A 100 100 0 0 1 200 100
+               L 200 130
+               A 70 70 0 0 0 149.29 149.29 Z"
+            fill="#EAB308"/>
+
+      <!-- Segment 3: 90° to 45° (top right) - Orange (26-50) -->
+      <path d="M 200 100
+               A 100 100 0 0 1 270.71 129.29
+               L 250.71 149.29
+               A 70 70 0 0 0 200 130 Z"
+            fill="#F97316"/>
+
+      <!-- Segment 4: 45° to 0° (right side) - Red (0-25) -->
+      <path d="M 270.71 129.29
+               A 100 100 0 0 1 300 200
+               L 270 200
+               A 70 70 0 0 0 250.71 149.29 Z"
+            fill="#EF4444"/>
+
+      <!-- Score labels -->
+      <text x="80" y="225" font-size="16" fill="#0F172A" font-weight="600">100</text>
+      <text x="315" y="225" font-size="16" fill="#0F172A" font-weight="600">0</text>
+
+      <!-- Needle -->
+      <line x1="200" y1="200" x2="${needleX}" y2="${needleY}"
+            stroke="#0F172A"
+            stroke-width="5"
+            stroke-linecap="round" />
+
+      <!-- Center dot -->
+      <circle cx="200" cy="200" r="12" fill="#0F172A" />
+    </svg>
+  `;
 }
