@@ -730,7 +730,7 @@ function generateShadowAIHTML(data: ReportData): string {
       <h3>AI Readiness Assessment & 90-Day Roadmap</h3>
       <p>Move from insights to action with a practical plan tailored to your organisation's specific situation and maturity level.</p>
       <div class="cta-links">
-        <a href="https://www.generationai.co.nz/solution/ai-readiness-roadmap" class="cta-link">Get Your AI Readiness Roadmap</a>
+        <a href="https://www.generationai.co.nz/solutions/ai-readiness-roadmap" class="cta-link">Get Your AI Readiness Roadmap</a>
       </div>
     </div>
 
@@ -1236,7 +1236,7 @@ function generateBusinessReadinessHTML(data: any): string {
   <div class="cta-section">
     <h3>${data.next_step_cta}</h3>
     <p>${data.next_step_narrative}</p>
-    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz/solution/ai-readiness-roadmap" class="cta-link">Get Your AI Readiness Roadmap</a></p>
+    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz/solutions/ai-readiness-roadmap" class="cta-link">Get Your AI Readiness Roadmap</a></p>
   </div>
 
   <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
