@@ -290,14 +290,14 @@ export class ScoringEngine {
 
       case "AI Curious":
         return {
-          nextStepCta: "Enrol in our AI Essentials Program",
-          nextStepNarrative: "You've started exploring AI but need structure and consistency. Our AI Essentials Program is designed for leaders like you, combining practical techniques, peer learning, and guided application. You'll move from curiosity to confident use in 4-6 weeks."
+          nextStepCta: "Book AI Essentials Workshop",
+          nextStepNarrative: "You've started exploring AI but need structure and consistency. Our AI Essentials Workshop is designed for leaders like you, combining practical techniques, peer learning, and guided application. You'll move from curiosity to confident use in 4-6 weeks."
         };
 
       case "AI Ready":
         return {
-          nextStepCta: "Join our AI Mastery Workshop",
-          nextStepNarrative: "You're using AI regularly and ready to scale your impact. Our AI Mastery Workshop helps leaders like you build advanced workflows, lead team adoption, and integrate AI into strategic decision-making. This is where AI becomes a competitive advantage."
+          nextStepCta: "Book AI Essentials Workshop",
+          nextStepNarrative: "You're using AI regularly and ready to scale your impact. Our AI Essentials Workshop helps leaders like you build advanced workflows, lead team adoption, and integrate AI into strategic decision-making. This is where AI becomes a competitive advantage."
         };
 
       case "AI Leader":
