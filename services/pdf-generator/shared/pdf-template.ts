@@ -1810,6 +1810,13 @@ function generateBoardGovernanceHTML(data: any): string {
     As a <strong>${data.company_name}</strong> board completing this governance diagnostic, your AI oversight maturity has been assessed based on current practices, accountability structures, and risk management capabilities.
   </div>
 
+  <div class="score-section">
+    <h2>Your Board's Governance Maturity</h2>
+    <div class="score-display score-${scoreClass}">Board Governance Score: ${scoreNum}/100</div>
+    <div class="maturity-badge maturity-${governanceClass}">${data.band_name}</div>
+    <p style="margin-top: var(--space-md);">${data.band_narrative}</p>
+  </div>
+
   <h2>Board AI Governance Assessment</h2>
 
   <table class="risk-table">
@@ -1945,13 +1952,6 @@ function generateBoardGovernanceHTML(data: any): string {
     <div class="explanation-box">
       <strong>What you told us:</strong> ${data.q13_decision_blurb}
     </div>
-  </div>
-
-  <div class="score-section">
-    <h2>Your Board's Governance Maturity</h2>
-    <div class="score-display score-${scoreClass}">Board Governance Score: ${scoreNum}/100</div>
-    <div class="maturity-badge maturity-${governanceClass}">${data.band_name}</div>
-    <p style="margin-top: var(--space-md);">${data.band_narrative}</p>
   </div>
 
   <div class="next-steps">
