@@ -723,20 +723,12 @@ function generateShadowAIHTML(data: ReportData): string {
   </div>
 
   <div class="cta-section">
-    <h2>Your Path to AI Clarity and Control</h2>
-    <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-xl);">Here's where you can make the difference in your organisation and cement your legacy as a leader building for tomorrow.</p>
+    <h2>Ready to Take the Next Step?</h2>
+    <p style="font-size: var(--font-size-base); margin-bottom: var(--space-xl);">Book a free 15-minute consultation to discuss your assessment results and explore how we can help you turn AI uncertainty into strategic advantage.</p>
 
-    <div class="cta-box">
-      <h3>AI Readiness Assessment & 90-Day Roadmap</h3>
-      <p>Move from insights to action with a practical plan tailored to your organisation's specific situation and maturity level.</p>
-      <div class="cta-links">
-        <a href="https://www.generationai.co.nz/solutions/ai-readiness-roadmap" class="cta-link">Get Your AI Readiness Roadmap</a>
-      </div>
+    <div class="cta-links">
+      <a href="https://7bboe8.share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA" class="cta-link">Book Your Free Consultation</a>
     </div>
-
-    <p style="margin-top: var(--space-xl); text-align: center; font-size: var(--font-size-base); color: var(--text-body);">
-      Keen to learn more? Check out our <a href="https://www.generationai.co.nz/resources" style="color: var(--primary-blue); text-decoration: underline;">Knowledge Hub</a> to access insights, guides and tools to support your AI readiness journey.
-    </p>
   </div>
 
   <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
@@ -1231,12 +1223,11 @@ function generateBusinessReadinessHTML(data: any): string {
 
   <p style="margin-top: var(--space-md);"><em>${data.gap_summary_blurb}</em></p>
 
-  <h2>Next Step Recommendation</h2>
+  <h2>Ready to Take the Next Step?</h2>
 
   <div class="cta-section">
-    <h3>${data.next_step_cta}</h3>
-    <p>${data.next_step_narrative}</p>
-    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz/solutions/ai-readiness-roadmap" class="cta-link">Get Your AI Readiness Roadmap</a></p>
+    <p style="font-size: var(--font-size-base); margin-bottom: var(--space-xl);">Book a free 15-minute consultation to discuss your assessment results and explore how we can help you turn AI uncertainty into strategic advantage.</p>
+    <p style="margin-top: var(--space-lg);"><a href="https://7bboe8.share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA" class="cta-link">Book Your Free Consultation</a></p>
   </div>
 
   <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
@@ -1969,23 +1960,11 @@ function generateBoardGovernanceHTML(data: any): string {
   </div>
 
   <div class="cta-section">
-    <h2>Strengthen Your Board's AI Governance</h2>
-    <p>Boards don't need to become AI experts. You need practical frameworks that reduce director liability, build stakeholder trust, and enable competitive advantage through informed AI oversight.</p>
+    <h2>Ready to Take the Next Step?</h2>
+    <p style="font-size: var(--font-size-base); margin-bottom: var(--space-xl);">Book a free 15-minute consultation to discuss your assessment results and explore how we can help you turn AI uncertainty into strategic advantage.</p>
 
-    <div class="cta-box">
-      <h3>Board AI Governance Advisory</h3>
-      <p>Move from reactive oversight to defensible, proactive AI governance with tailored support for your board's specific context and maturity level.</p>
-      <div class="cta-links">
-        <a href="https://www.generationai.co.nz/solution/ai-governance-workshop" class="cta-link">Register for AI Governance Workshop</a>
-      </div>
-    </div>
-
-    <div class="cta-box">
-      <h3>Board Education & Capability Building</h3>
-      <p>Build board-level AI literacy through executive briefings, governance workshops, and strategic guidance.</p>
-      <div class="cta-links">
-        <a href="https://www.generationai.co.nz/solution/ai-governance-workshop" class="cta-link">Register for AI Governance Workshop</a>
-      </div>
+    <div class="cta-links">
+      <a href="https://7bboe8.share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA" class="cta-link">Book Your Free Consultation</a>
     </div>
   </div>
 
@@ -2488,14 +2467,10 @@ function generatePersonalAIReadinessHTML(data: any): string {
   <p style="margin-top: var(--space-md); font-style: italic;">${data.gap_summary}</p>
 
   <div class="cta-section">
-    <h3>Your Recommended Next Step</h3>
-    <p><strong>AI capability isn't just another business skill — it's the skill that amplifies all others.</strong> Every week you wait is a week your competitors gain ground.</p>
+    <h2>Ready to Take the Next Step?</h2>
+    <p style="font-size: var(--font-size-base); margin-bottom: var(--space-xl);">Book a free 15-minute consultation to discuss your assessment results and explore how we can help you turn AI uncertainty into strategic advantage.</p>
 
-    <p style="margin-top: var(--space-lg);"><strong>Based on your ${data.band_name} level:</strong></p>
-    <h4 style="color: var(--primary-blue); margin-top: var(--space-md);">${data.next_step_cta}</h4>
-    <p>${data.next_step_narrative}</p>
-
-    <p style="margin-top: var(--space-xl);"><a href="https://www.generationai.co.nz/solution/ai-essentials-for-business-leaders" class="cta-link">Book AI Essentials Workshop</a></p>
+    <p style="margin-top: var(--space-xl);"><a href="https://7bboe8.share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA" class="cta-link">Book Your Free Consultation</a></p>
   </div>
 
   <div class="footer">
@@ -2860,91 +2835,43 @@ function generatePage3Content(data: any): string {
 
   if (routeType === 'ROUTE_1_BOARD') {
     return `
-      <p>As a board member or director, you're personally accountable for AI risks in your organisation. Here's how to build confidence and capability:</p>
+      <h2>Ready to Take the Next Step?</h2>
+      <p>Book a free 15-minute consultation to discuss your assessment results and explore how we can help you turn AI uncertainty into strategic advantage.</p>
 
-      <div class="cta-box cta-primary">
-        <div class="cta-title">AI Governance Workshop</div>
-        <div class="cta-price">$395 + GST</div>
-        <p>Half-day workshop designed for directors and board members:</p>
-        <ul>
-          <li>Meet your personal duties around AI oversight</li>
-          <li>Board-level questions to ask management</li>
-          <li>Tools to spot risks before they become liabilities</li>
-          <li>Strengthened credibility and trust in the boardroom</li>
-        </ul>
-        <p><strong>Next Step:</strong> generationai.co.nz/governance-workshop</p>
+      <div class="cta-box cta-primary" style="text-align: center; padding: 32px;">
+        <a href="https://7bboe8.share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA"
+           style="display: inline-block; padding: 16px 48px; background: #2563EB; color: white; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 18px;">
+           Book Your Free Consultation
+        </a>
       </div>
-
-      <div class="cta-box">
-        <div class="cta-title">AI Readiness Roadmap</div>
-        <div class="cta-price">$2,495 + GST</div>
-        <p>Get a 90-day execution plan tailored to your organisation.</p>
-        <p><strong>Learn more:</strong> generationai.co.nz/roadmap</p>
-      </div>
-
-      <p><strong>Not sure which is right for you?</strong><br>
-      Book a free 15-minute Shadow AI Clarity Call: generationai.co.nz/clarity-call</p>
     `;
   }
 
   if (routeType === 'ROUTE_2_URGENT') {
     return `
-      <p>Your assessment reveals critical gaps that need immediate attention. Here's how to move from uncertainty to execution:</p>
+      <h2>Ready to Take the Next Step?</h2>
+      <p>Book a free 15-minute consultation to discuss your assessment results and explore how we can help you turn AI uncertainty into strategic advantage.</p>
 
-      <div class="cta-box cta-primary">
-        <div class="cta-title">AI Readiness Roadmap</div>
-        <div class="cta-price">$2,495 + GST</div>
-        <p>Get clarity, direction, and a 90-day execution plan:</p>
-        <ul>
-          <li>Online assessment (completed ✓)</li>
-          <li>Board-ready report (within 2 business days)</li>
-          <li>45-minute strategy session with your leadership team</li>
-          <li>90-day Roadmap with clear milestones and owners</li>
-        </ul>
-        <p>Walk away with leadership consensus on risks, opportunities, and next steps—aligned to your business goals.</p>
-        <p><strong>Next Step:</strong> generationai.co.nz/roadmap</p>
+      <div class="cta-box cta-primary" style="text-align: center; padding: 32px;">
+        <a href="https://7bboe8.share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA"
+           style="display: inline-block; padding: 16px 48px; background: #2563EB; color: white; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 18px;">
+           Book Your Free Consultation
+        </a>
       </div>
-
-      <div class="cta-box">
-        <div class="cta-title">Or: AI Governance Workshop</div>
-        <div class="cta-price">$395 pp + GST</div>
-        <p>Half-day workshop for your leadership team or board.</p>
-        <p><strong>Learn more:</strong> generationai.co.nz/governance-workshop</p>
-      </div>
-
-      <p><strong>Not sure which is right?</strong><br>
-      Book a free 15-minute Shadow AI Clarity Call: generationai.co.nz/clarity-call</p>
     `;
   }
 
   // Default: ROUTE_3_NURTURE
   return `
-    <h2>Free Resources to Get Started</h2>
+    <h2>Ready to Take the Next Step?</h2>
+    <p>Book a free 15-minute consultation to discuss your assessment results and explore how we can help you turn AI uncertainty into strategic advantage.</p>
 
-    <div class="cta-box cta-primary">
-      <div class="cta-title">📄 White Paper: The Hidden Risks of Shadow AI</div>
-      <p>Why transparency must come before control</p>
-      <p><strong>Download:</strong> generationai.co.nz/shadow-ai-whitepaper</p>
+    <div class="cta-box cta-primary" style="text-align: center; padding: 32px;">
+      <a href="https://7bboe8.share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA"
+         style="display: inline-block; padding: 16px 48px; background: #2563EB; color: white; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 18px;">
+         Book Your Free Consultation
+      </a>
     </div>
-
-    <div class="cta-box">
-      <div class="cta-title">📧 AI Insights Newsletter</div>
-      <p>Monthly updates on AI governance, Shadow AI trends, and best practices for NZ organisations</p>
-      <p><strong>Subscribe:</strong> generationai.co.nz/insights</p>
-    </div>
-
-    <h2 style="margin-top: 32px;">When You're Ready to Build Capability</h2>
-
-    <div class="cta-box">
-      <div class="cta-title">AI Governance Workshop</div>
-      <div class="cta-price">$395 pp + GST</div>
-      <p>Half-day workshop for directors and leaders. Walk away with practical tools to govern AI with confidence.</p>
-      <p><strong>Explore Workshop:</strong> generationai.co.nz/governance-workshop</p>
-    </div>
-
-    <h2 style="margin-top: 24px;">Assess Your Broader AI Readiness</h2>
-    <p>This assessment focused on Shadow AI risks. To evaluate your organisation's overall AI capability and maturity:</p>
-    <p><strong>Take Our Business Readiness Assessment:</strong> generationai.co.nz/business-readiness</p>
   `;
 }
 
