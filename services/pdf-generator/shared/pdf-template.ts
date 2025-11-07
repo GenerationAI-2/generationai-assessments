@@ -1024,6 +1024,33 @@ function generateBusinessReadinessHTML(data: any): string {
       color: var(--risk-low);
     }
 
+    /* Journey Signpost */
+    .journey-signpost {
+      text-align: center;
+      padding: var(--space-lg) 0;
+      margin-bottom: var(--space-lg);
+      color: var(--text-body);
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.05em;
+    }
+
+    .journey-signpost-label {
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+      color: var(--text-body);
+    }
+
+    .journey-signpost-path {
+      text-transform: uppercase;
+      font-size: var(--font-size-base);
+    }
+
+    .journey-signpost-path strong {
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+
     /* Area Sections */
     .area-section {
       margin: var(--space-lg) 0;
@@ -1156,6 +1183,12 @@ function generateBusinessReadinessHTML(data: any): string {
       <strong>Assessment Completed By:</strong> ${data.contact_name}<br>
       <strong>Date:</strong> ${assessmentDate}
     </div>
+  </div>
+
+  <!-- Journey Signpost -->
+  <div class="journey-signpost">
+    <div class="journey-signpost-label">You are here</div>
+    <div class="journey-signpost-path"><strong>Assess</strong> → Learn → Grow → Transform</div>
   </div>
 
   <div class="score-section">

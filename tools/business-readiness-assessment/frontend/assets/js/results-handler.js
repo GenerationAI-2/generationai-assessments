@@ -85,7 +85,7 @@ class ResultsHandler {
         this.renderScoreSection();
         this.renderTensionLine();
         this.renderPlaybook();
-        this.renderDetailedFeedback();
+        this.renderCriticalAreas();
         this.renderPriorityGaps();
         this.renderScheduler();
         this.renderUserEmail();
@@ -134,26 +134,17 @@ class ResultsHandler {
         }
     }
 
-    renderDetailedFeedback() {
-        const container = document.getElementById('detailed-feedback');
+    renderCriticalAreas() {
+        const container = document.getElementById('critical-areas');
         
         // Debug: Log the scores to see what we're getting
-        console.log('Question scores:', {
-            q1: this.data.q1_score,
+        console.log('Critical area scores:', {
             q5: this.data.q5_score,
-            q6: this.data.q6_score,
-            q9: this.data.q9_score,
-            q10: this.data.q10_score
+            q1: this.data.q1_score
         });
         
-        // Key questions to display (based on scoring engine)
+        // Show only the two most critical areas: Shadow AI (Q5) and Leadership (Q1)
         const feedbackItems = [
-            {
-                title: 'Leadership & Ownership',
-                playback: this.data.q1_answer_playback,
-                interpretation: this.data.q1_interpretation_blurb,
-                score: this.data.q1_score || 0
-            },
             {
                 title: 'Shadow AI Exposure',
                 playback: this.data.q5_answer_playback,
@@ -161,22 +152,10 @@ class ResultsHandler {
                 score: this.data.q5_score || 0
             },
             {
-                title: 'Governance & Risk Management',
-                playback: this.data.q6_answer_playback,
-                interpretation: this.data.q6_interpretation_blurb,
-                score: this.data.q6_score || 0
-            },
-            {
-                title: 'Data & IP Protection',
-                playback: this.data.q9_answer_playback,
-                interpretation: this.data.q9_interpretation_blurb,
-                score: this.data.q9_score || 0
-            },
-            {
-                title: 'Opportunity Mapping',
-                playback: this.data.q10_answer_playback,
-                interpretation: this.data.q10_interpretation_blurb,
-                score: this.data.q10_score || 0
+                title: 'Leadership & Ownership',
+                playback: this.data.q1_answer_playback,
+                interpretation: this.data.q1_interpretation_blurb,
+                score: this.data.q1_score || 0
             }
         ];
 
