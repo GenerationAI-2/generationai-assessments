@@ -292,51 +292,45 @@ class ResultsHandler {
     }
 
     renderScheduler() {
-        // Build HubSpot scheduler URL with prefill and UTM params
-        const baseUrl = 'https://meetings-ap1.hubspot.com/caleb-lucas1';
-        const params = new URLSearchParams();
+        // HubSpot form will be embedded via the script in results.html
+        // We can optionally prefill form fields using the HubSpot Forms API
 
-        // Prefill contact information
-        if (this.data.contact_name) {
-            params.append('firstName', this.data.contact_name.split(' ')[0] || '');
-            params.append('lastName', this.data.contact_name.split(' ').slice(1).join(' ') || '');
-        }
-        if (this.data.email) {
-            params.append('email', this.data.email);
-        }
-        if (this.data.company_name) {
-            params.append('company', this.data.company_name);
-        }
+        // Wait for HubSpot forms API to be ready
+        if (window.hbspt && window.hbspt.forms) {
+            this.prefillHubSpotForm();
+        } else {
+            // Wait for the HubSpot forms script to load
+            const checkHubSpot = setInterval(() => {
+                if (window.hbspt && window.hbspt.forms) {
+                    clearInterval(checkHubSpot);
+                    this.prefillHubSpotForm();
+                }
+            }, 100);
 
-        // Add UTM parameters
-        Object.entries(this.utmParams).forEach(([key, value]) => {
-            params.append(key, value);
-        });
-
-        const schedulerUrl = `${baseUrl}?${params.toString()}`;
-
-        // Update the HubSpot embed iframe with prefilled data
-        const embedContainer = document.querySelector('.meetings-iframe-container');
-        if (embedContainer) {
-            embedContainer.setAttribute('data-src', `${baseUrl}?embed=true&${params.toString()}`);
+            // Timeout after 5 seconds
+            setTimeout(() => clearInterval(checkHubSpot), 5000);
         }
 
-        // Update fallback link
-        const linkEl = document.getElementById('scheduler-link');
-        if (linkEl) {
-            linkEl.href = schedulerUrl;
-            
-            // Add click tracking
-            linkEl.addEventListener('click', () => {
-                this.trackEvent('cta_clicked', {
-                    submission_id: this.submissionId,
-                    scheduler_url: schedulerUrl
-                });
-            });
-        }
-
-        this.trackEvent('booking_loaded', {
+        this.trackEvent('form_loaded', {
             submission_id: this.submissionId
+        });
+    }
+
+    prefillHubSpotForm() {
+        // Listen for form ready event to prefill fields
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormReady') {
+                // Form is ready, fields will be auto-filled by HubSpot if available
+                this.trackEvent('form_ready', {
+                    submission_id: this.submissionId
+                });
+            }
+
+            if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmit') {
+                this.trackEvent('form_submitted', {
+                    submission_id: this.submissionId
+                });
+            }
         });
     }
 

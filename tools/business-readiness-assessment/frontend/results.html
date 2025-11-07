@@ -366,41 +366,13 @@
             opacity: 0.9;
         }
 
-        .scheduler-embed {
+        .hubspot-form-embed {
             margin-top: var(--space-xl);
             padding: var(--space-lg);
             background: var(--white);
             border-radius: var(--radius-lg);
             border: 1px solid var(--border-light);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Style the HubSpot iframe container */
-        .meetings-iframe-container {
-            min-height: 700px;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-        }
-
-        .scheduler-fallback {
-            margin-top: var(--space-md);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--border-light);
-        }
-
-        .scheduler-fallback a {
-            display: inline-block;
-            padding: 14px 32px;
-            background: var(--lime-accent);
-            color: var(--dark-navy);
-            text-decoration: none;
-            border-radius: var(--radius);
-            font-weight: 700;
-            transition: transform 0.2s;
-        }
-
-        .scheduler-fallback a:hover {
-            transform: translateY(-2px);
         }
 
         /* Loading state */
@@ -659,22 +631,33 @@
                         You'll walk away with a clear next action, whether you work with us or not.
                     </p>
 
-                    <!-- HubSpot Scheduler Embed -->
+                    <!-- HubSpot Form Embed -->
                     <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md); text-align: center; color: white;">
                         Pick a time that works for you
                     </h3>
-                    <div class="scheduler-embed" id="scheduler-embed">
-                        <!-- Start of Meetings Embed Script -->
-                        <div class="meetings-iframe-container" data-src="https://meetings-ap1.hubspot.com/caleb-lucas1?embed=true"></div>
-                        <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
-                        <!-- End of Meetings Embed Script -->
-                    </div>
-
-                    <!-- Fallback Link -->
-                    <div class="scheduler-fallback">
-                        <a href="https://meetings-ap1.hubspot.com/caleb-lucas1" id="scheduler-link" target="_blank">
-                            Book Your Discovery Call →
-                        </a>
+                    <div class="hubspot-form-embed" id="hubspot-form-embed">
+                        <script charset="utf-8" type="text/javascript" src="//js-ap1.hsforms.net/forms/embed/v2.js"></script>
+                        <script>
+                          hbspt.forms.create({
+                            region: "ap1",
+                            portalId: "144919046",
+                            formId: "214JDII1-nQGu-3Vfx-n_-IrYA7bboe8",
+                            onFormReady: function($form) {
+                              // Form is ready
+                              window.postMessage({
+                                type: 'hsFormCallback',
+                                eventName: 'onFormReady'
+                              }, '*');
+                            },
+                            onFormSubmit: function($form) {
+                              // Form submitted
+                              window.postMessage({
+                                type: 'hsFormCallback',
+                                eventName: 'onFormSubmit'
+                              }, '*');
+                            }
+                          });
+                        </script>
                     </div>
                 </div>
             </div>
