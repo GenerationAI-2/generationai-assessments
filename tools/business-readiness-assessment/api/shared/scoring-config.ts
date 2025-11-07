@@ -26,6 +26,7 @@ export interface MaturityBand {
 export interface GapDescription {
   title: string;
   description: string;
+  recommendation: string;
 }
 
 export const SCORING_CONFIG = {
@@ -208,7 +209,7 @@ export const SCORING_CONFIG = {
       responses: {
         "opt_5": {
           score: 5,
-          label: "No unauthorised use – strong controls in place",
+          label: "No unauthorised use, strong controls in place",
           playback: "You told us your staff are not using unapproved AI tools, and you have controls in place to ensure that.",
           interpretation: "You've established clear expectations, approved tools, and strong oversight. Shadow AI isn't just low, it's actively prevented. This reflects mature policy, communication, and trust."
         },
@@ -239,7 +240,7 @@ export const SCORING_CONFIG = {
         "opt_0": {
           score: 0,
           label: "Don't know what's being used",
-          playback: "You said you don't know whether staff are using AI tools — or to what extent.",
+          playback: "You said you don't know whether staff are using AI tools, or to what extent.",
           interpretation: "You can't protect what you can't see. Shadow AI is definitely active, and data is likely exposed. Start with a discovery exercise to understand your true exposure before incidents occur."
         }
       }
@@ -276,13 +277,13 @@ export const SCORING_CONFIG = {
           score: 1,
           label: "Told not to use AI, no guidance or support",
           playback: "You told us staff have been told not to use AI, with no guidance or approved alternatives.",
-          interpretation: "Prohibition without provision drives behaviour underground. Staff who need productivity tools will find them anyway, just without your knowledge or control. This approach guarantees Shadow AI. The first incident will be your wake-up call — provide safe alternatives or accept hidden risk."
+          interpretation: "Prohibition without provision drives behaviour underground. Staff who need productivity tools will find them anyway, just without your knowledge or control. This approach guarantees Shadow AI. The first incident will be your wake up call. Provide safe alternatives or accept hidden risk."
         },
         "opt_0": {
           score: 0,
           label: "No guardrails or discussion at all",
           playback: "You said there's been no discussion of AI governance or guardrails at all.",
-          interpretation: "AI governance isn't on the radar. Without visibility, policy, or ownership, you have no ability to detect, contain, or respond to incidents. The first incident — an AI hallucination in a client report, sensitive data exposure, or compliance inquiry — will force this conversation. Begin with discovery and leadership alignment."
+          interpretation: "AI governance isn't on the radar. Without visibility, policy, or ownership, you have no ability to detect, contain, or respond to incidents. The first incident (an AI hallucination in a client report, sensitive data exposure, or compliance inquiry) will force this conversation. Begin with discovery and leadership alignment."
         }
       }
     },
@@ -292,25 +293,25 @@ export const SCORING_CONFIG = {
       responses: {
         "opt_5": {
           score: 5,
-          label: "Fully confident — legal obligations mapped and controls in place",
+          label: "Fully confident, legal obligations mapped and controls in place",
           playback: "You told us you're fully confident, with legal obligations mapped and controls actively enforced.",
           interpretation: "You've done the work others avoid. Mapping obligations to controls means compliance by design, not luck. This positions you to respond confidently to regulators, auditors, or clients. Maintain this through regular reviews as AI regulations evolve rapidly."
         },
         "opt_4": {
           score: 4,
-          label: "Mostly confident — risks understood and mitigated",
+          label: "Mostly confident, risks understood and mitigated",
           playback: "You said you're mostly confident, with key risks identified and mitigation in place.",
           interpretation: "You understand the landscape but haven't mapped every detail. \"Mostly confident\" often means known unknowns remain. The gap between mostly and fully confident is where incidents hide. Close those gaps before they close on you."
         },
         "opt_3": {
           score: 3,
-          label: "Somewhat confident — partial understanding and oversight",
+          label: "Somewhat confident, partial understanding and oversight",
           playback: "You told us you're somewhat confident, with partial understanding of obligations.",
           interpretation: "This uncertainty is common but dangerous. \"Somewhat confident\" in legal compliance is like being \"somewhat pregnant\", you either comply or you don't. Partial understanding leads to partial protection. Get legal clarity before an incident forces it."
         },
         "opt_2": {
           score: 2,
-          label: "Not confident — limited awareness or checks",
+          label: "Not confident, limited awareness or checks",
           playback: "You said you're not confident, with limited awareness of legal obligations.",
           interpretation: "You know enough to be worried, but not enough to be safe. This honesty is valuable, it's better than false confidence. But worry without action is just anxiety. Map your obligations urgently; ignorance isn't a legal defence."
         },
@@ -376,13 +377,13 @@ export const SCORING_CONFIG = {
       responses: {
         "opt_5": {
           score: 5,
-          label: "Fully confident – technical controls prevent it",
+          label: "Fully confident, technical controls prevent it",
           playback: "You said you're fully confident that strong technical controls are in place to prevent data exposure through AI tools.",
           interpretation: "This reflects a mature security posture. Approved tools, usage monitoring, and clear controls are working together to protect sensitive data. You're treating AI as a data processor, and managing the risks accordingly."
         },
         "opt_4": {
           score: 4,
-          label: "Confident – strong policies and monitoring",
+          label: "Confident, strong policies and monitoring",
           playback: "You told us you're confident data is protected through a combination of policies, training, and monitoring.",
           interpretation: "You've built solid protection, but policy without enforcement can drift. Stay proactive. Periodic audits and tighter controls on new tools will help maintain this confidence over time."
         },
@@ -394,7 +395,7 @@ export const SCORING_CONFIG = {
         },
         "opt_2": {
           score: 2,
-          label: "Not confident — some exposure likely",
+          label: "Not confident, some exposure likely",
           playback: "You told us you're not confident, and that some sensitive data has likely been exposed.",
           interpretation: "Sensitive documents, client details, or IP may already be in free tools with no oversight or audit trail. This level of exposure presents reputational, legal, and operational risk. You'll need to act quickly to contain and correct."
         },
@@ -402,7 +403,7 @@ export const SCORING_CONFIG = {
           score: 1,
           label: "Exposure has occurred",
           playback: "You said you know sensitive data has been entered into AI tools without approval.",
-          interpretation: "The breach has already happened. If left unaddressed, this erodes trust — with staff, clients, and partners. Begin with a formal review of what's been shared, by whom, and what controls are missing. Visibility is the first step toward recovery."
+          interpretation: "The breach has already happened. If left unaddressed, this erodes trust with staff, clients, and partners. Begin with a formal review of what's been shared, by whom, and what controls are missing. Visibility is the first step toward recovery."
         },
         "opt_0": {
           score: 0,
@@ -432,7 +433,7 @@ export const SCORING_CONFIG = {
           score: 3,
           label: "General sense of where AI could help",
           playback: "You told us you have a general sense of where AI might help, but no specific initiatives yet.",
-          interpretation: "You see the potential, but it's still abstract. Most businesses in this zone are missing 70–80% of the actual opportunity. A focused opportunity scan typically reveals far more upside than initially expected."
+          interpretation: "You see the potential, but it's still abstract. Most businesses in this zone are missing 70 to 80% of the actual opportunity. A focused opportunity scan typically reveals far more upside than initially expected."
         },
         "opt_2": {
           score: 2,
@@ -486,43 +487,53 @@ export const SCORING_CONFIG = {
   gap_descriptions: {
     q1_ownership: {
       title: "No executive ownership of AI",
-      description: "Without clear leadership accountability, AI adoption will remain fragmented and ineffective."
+      description: "Without clear leadership accountability, AI adoption will remain fragmented and ineffective.",
+      recommendation: "Strengthen accountability: assign a clear AI owner at leadership level to drive strategy and governance."
     },
     q2_strategy: {
       title: "AI absent from strategy",
-      description: "Strategic planning that ignores AI means missing the biggest transformation opportunity of our time."
+      description: "Strategic planning that ignores AI means missing the biggest transformation opportunity of our time.",
+      recommendation: "Bring AI into strategic planning. Make leadership responsible for aligning it with business priorities (accountability and transparency working together)."
     },
     q3_culture: {
       title: "Cultural resistance or uncertainty",
-      description: "Without cultural buy-in, even the best tools and policies will fail to deliver value."
+      description: "Without cultural buy-in, even the best tools and policies will fail to deliver value.",
+      recommendation: "Build trust: start conversations about what AI means for your team, address concerns openly, and involve people in shaping safe use."
     },
     q4_enablement: {
       title: "No staff training or enablement",
-      description: "Untrained staff create risk through well-intentioned mistakes and missed opportunities."
+      description: "Untrained staff create risk through well-intentioned mistakes and missed opportunities.",
+      recommendation: "Build capability: upskill your people so they can use approved tools safely and effectively."
     },
     q5_shadow_ai: {
       title: "Shadow AI exposure",
-      description: "Unmanaged AI use means data exposure, compliance risk, and loss of control."
+      description: "Unmanaged AI use means data exposure, compliance risk, and loss of control.",
+      recommendation: "You can't govern what you can't see. Start with transparency: run a quick Shadow AI discovery and open the conversation with your team."
     },
     q6_governance: {
       title: "No governance framework",
-      description: "Without clear policies and guardrails, you can't manage risk or scale safely."
+      description: "Without clear policies and guardrails, you can't manage risk or scale safely.",
+      recommendation: "Set the foundations for trust: create basic guardrails and policies that make safe, ethical use easy."
     },
     q7_compliance: {
       title: "Legal compliance uncertainty",
-      description: "Operating without clarity on legal obligations creates liability that compounds daily."
+      description: "Operating without clarity on legal obligations creates liability that compounds daily.",
+      recommendation: "Strengthen accountability: get legal and leadership aligned on compliance obligations and document your approach."
     },
     q8_resources: {
       title: "No resources allocated",
-      description: "Good intentions without budget and people means AI remains stuck in the talking phase."
+      description: "Good intentions without budget and people means AI remains stuck in the talking phase.",
+      recommendation: "Show accountability and intent: allocate time, budget, and people to manage AI adoption deliberately."
     },
     q9_data_protection: {
       title: "Data exposure risk",
-      description: "Without controls, sensitive data is likely being shared with AI tools invisibly."
+      description: "Without controls, sensitive data is likely being shared with AI tools invisibly.",
+      recommendation: "Protect trust: implement basic controls to prevent sensitive data from being shared with AI tools invisibly."
     },
     q10_opportunity: {
       title: "Opportunities not identified",
-      description: "You can't capture value you haven't identified. Start by mapping where AI could help."
+      description: "You can't capture value you haven't identified. Start by mapping where AI could help.",
+      recommendation: "Start with transparency: map where AI could add value across operations, customer experience, and decision making."
     }
   } as Record<string, GapDescription>,
 

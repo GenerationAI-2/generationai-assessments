@@ -4,6 +4,7 @@
  */
 
 import type { HttpRequest } from "@azure/functions";
+import { randomUUID } from "crypto";
 import { PDFGenerationRequest, PDFGenerationResponse } from "@generation-ai/types";
 import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine, AssessmentSubmission } from "../shared/scoring-engine";
@@ -11,6 +12,28 @@ import { ScoringEngine, AssessmentSubmission } from "../shared/scoring-engine";
 import { sendAssessmentEmail } from "../shared/email";
 // import { logSubmissionToCSV } from "../shared/csv-logger"; // TEMP DISABLED - deployment issue
 import fetch from "node-fetch";
+
+/**
+ * Retry helper with exponential backoff
+ */
+async function retryWithBackoff<T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  baseDelay: number = 1000
+): Promise<T> {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt === maxRetries) {
+        throw error;
+      }
+      const delay = baseDelay * Math.pow(2, attempt - 1);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  throw new Error('Retry exhausted');
+}
 
 export async function processAssessment(
   context: any,
@@ -42,24 +65,29 @@ export async function processAssessment(
 
     context.log(`Processing assessment for: ${submission.email}`);
 
-    // 2. Check for duplicate submissions - DISABLED (requires Airtable)
+    // 2. Generate unique submission ID
+    const submissionId = randomUUID();
+    context.log(`Generated submission ID: ${submissionId}`);
+
+    // 3. Check for duplicate submissions - DISABLED (requires Airtable)
     // const isDuplicate = await checkDuplicateSubmission(submission.email, 24);
     // if (isDuplicate) {
     //   context.log(`Duplicate submission detected for ${submission.email}`);
     //   // Still allow but log it
     // }
 
-    // 3. Run scoring engine
+    // 4. Run scoring engine
     const scoringResult = ScoringEngine.process(submission);
     context.log(`Score calculated: ${scoringResult.data.readiness_score} (${scoringResult.data.readiness_band})`);
 
-    // 4. Generate PDF report via PDF Generator Service
+    // 5. Generate PDF report via PDF Generator Service with retry
     let pdfBase64: string | undefined;
+    let pdfGenerationFailed = false;
     try {
       const pdfServiceUrl = process.env.PDF_SERVICE_URL || 'http://localhost:7072/api/generatePDF';
       const pdfServiceKey = process.env.PDF_SERVICE_KEY;
 
-      context.log(`Calling PDF service: ${pdfServiceUrl}`);
+      context.log(`Calling PDF service with retry: ${pdfServiceUrl}`);
 
       const pdfRequest: PDFGenerationRequest = {
         reportData: scoringResult.data
@@ -74,21 +102,26 @@ export async function processAssessment(
         headers['x-functions-key'] = pdfServiceKey;
       }
 
-      const response = await fetch(pdfServiceUrl, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(pdfRequest)
-      });
+      // Use retry with exponential backoff
+      const pdfResult = await retryWithBackoff(async () => {
+        const response = await fetch(pdfServiceUrl, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(pdfRequest)
+        });
 
-      if (!response.ok) {
-        throw new Error(`PDF service returned ${response.status}: ${await response.text()}`);
-      }
+        if (!response.ok) {
+          throw new Error(`PDF service returned ${response.status}: ${await response.text()}`);
+        }
 
-      const pdfResult = await response.json() as PDFGenerationResponse;
+        const result = await response.json() as PDFGenerationResponse;
 
-      if (!pdfResult.success || !pdfResult.pdfBase64) {
-        throw new Error(pdfResult.error || 'PDF generation failed');
-      }
+        if (!result.success || !result.pdfBase64) {
+          throw new Error(result.error || 'PDF generation failed');
+        }
+
+        return result;
+      }, 3, 1000);
 
       pdfBase64 = pdfResult.pdfBase64;
       context.log(`PDF generated successfully (${pdfResult.sizeKB}KB)`);
@@ -111,10 +144,10 @@ export async function processAssessment(
         context.log(`📄 PDF saved locally: ${filepath}`);
       }
     } catch (pdfError: any) {
-      context.log('PDF generation failed:', pdfError);
+      context.log.error('PDF generation failed after retries:', pdfError);
+      pdfGenerationFailed = true;
       // Continue even if PDF fails - send email without attachment
-      // Or fail the request - depends on your requirements
-      // throw pdfError; // Uncomment to make PDF generation mandatory
+      // Results page will still be shown to user
     }
 
     // 5. Save to Airtable - DISABLED due to EventTarget compatibility issue in Azure Functions
@@ -145,22 +178,29 @@ export async function processAssessment(
     //   // Continue even if Airtable fails - don't block user from getting report
     // }
 
-    // 6. Send email with PDF attachment
+    // 6. Send email with or without PDF attachment
     let emailSent = false;
     try {
+      const emailSubject = `Your Business AI Readiness Report - ${scoringResult.metadata.final_score}/100`;
+      
       await sendAssessmentEmail({
         to: submission.email,
-        subject: `Your Business AI Readiness Report - ${submission.company_name}`,
-        pdfBase64: pdfBase64, // PDF as base64 for attachment
+        subject: emailSubject,
+        pdfBase64: pdfGenerationFailed ? undefined : pdfBase64, // Only attach if generation succeeded
         recipientName: submission.contact_name,
         companyName: submission.company_name,
         score: scoringResult.metadata.final_score,
         maturityBand: scoringResult.data.readiness_band
       });
-      context.log(`Email sent to ${submission.email} with PDF attachment`);
+      
+      if (pdfGenerationFailed) {
+        context.log(`Email sent to ${submission.email} without PDF (generation failed - will retry separately)`);
+      } else {
+        context.log(`Email sent to ${submission.email} with PDF attachment`);
+      }
       emailSent = true;
     } catch (emailError: any) {
-      context.log('Email send failed:', emailError);
+      context.log.error('Email send failed:', emailError);
       // In development, don't fail if email isn't configured - PDF is still generated locally
       if (process.env.NODE_ENV !== 'development') {
         throw emailError;
@@ -216,15 +256,18 @@ export async function processAssessment(
     //   // Don't fail the request if CSV logging fails
     // }
 
-    // 8. Return success response
+    // 8. Return success response with full data
     context.res = {
       status: 200,
       headers: getCorsHeaders(),
       body: {
         success: true,
-        readiness_score: scoringResult.metadata.final_score,
-        readiness_band: scoringResult.data.readiness_band,
-        message: "Assessment processed successfully. Check your email for the full report."
+        submission_id: submissionId,
+        data: scoringResult.data,
+        pdf_generated: !pdfGenerationFailed,
+        message: pdfGenerationFailed 
+          ? "Assessment processed successfully. Your results are ready and email sent. PDF generation in progress."
+          : "Assessment processed successfully. Check your email for the full report."
       }
     };
 

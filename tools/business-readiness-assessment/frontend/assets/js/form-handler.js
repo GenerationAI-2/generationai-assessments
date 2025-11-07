@@ -10,11 +10,15 @@ class AssessmentForm {
         this.progressBar = document.getElementById('progress-fill');
         this.progressText = document.getElementById('progress-text');
         this.totalQuestions = 13; // 3 text + 10 radio questions
+        this.utmParams = {};
 
         this.init();
     }
 
     init() {
+        // Capture UTM parameters from URL
+        this.captureUTMParams();
+
         // Track form changes for progress
         this.form.addEventListener('change', () => this.updateProgress());
 
@@ -23,6 +27,23 @@ class AssessmentForm {
 
         // Initial progress check
         this.updateProgress();
+    }
+
+    captureUTMParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        
+        utmKeys.forEach(key => {
+            const value = urlParams.get(key);
+            if (value) {
+                this.utmParams[key] = value;
+            }
+        });
+
+        // Store in sessionStorage for use in results page
+        if (Object.keys(this.utmParams).length > 0) {
+            sessionStorage.setItem('utm_params', JSON.stringify(this.utmParams));
+        }
     }
 
     updateProgress() {
@@ -139,7 +160,9 @@ class AssessmentForm {
             q7_compliance: this.getRadioValue('q7_compliance'),
             q8_resources: this.getRadioValue('q8_resources'),
             q9_data_protection: this.getRadioValue('q9_data_protection'),
-            q10_opportunity: this.getRadioValue('q10_opportunity')
+            q10_opportunity: this.getRadioValue('q10_opportunity'),
+            // Include UTM parameters
+            ...this.utmParams
         };
 
         return formData;
@@ -170,7 +193,11 @@ class AssessmentForm {
 
         try {
             // Call Azure Function API
-            const response = await fetch('https://generationai-business-readiness.azurewebsites.net/api/processAssessment', {
+            const apiUrl = window.location.hostname === 'localhost'
+                ? 'http://localhost:7072/api/processAssessment'
+                : 'https://generationai-business-readiness.azurewebsites.net/api/processAssessment';
+
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -184,8 +211,16 @@ class AssessmentForm {
 
             const result = await response.json();
 
-            // Redirect to success page
-            window.location.href = '/success.html?score=' + (result.score || '');
+            if (!result.success || !result.submission_id) {
+                throw new Error('Invalid response from server');
+            }
+
+            // Store full results data in sessionStorage (no PII in URL)
+            const storageKey = `assessment_result_${result.submission_id}`;
+            sessionStorage.setItem(storageKey, JSON.stringify(result.data));
+
+            // Redirect to results page with only UUID in URL
+            window.location.href = `/results.html?id=${result.submission_id}`;
 
         } catch (error) {
             console.error('Submission error:', error);

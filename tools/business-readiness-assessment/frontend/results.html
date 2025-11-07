@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your Business AI Readiness Assessment Results">
+    <title>Your AI Readiness Results | GenerationAI</title>
+    <link rel="stylesheet" href="/assets/css/brand.css">
+    <style>
+        /* Journey signposting */
+        .journey-signpost {
+            text-align: center;
+            padding: var(--space-lg) 0;
+            color: var(--text-body);
+            font-size: var(--font-size-sm);
+            letter-spacing: 0.05em;
+        }
+
+        .journey-signpost-label {
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            color: var(--text-body);
+        }
+
+        .journey-signpost-path {
+            text-transform: uppercase;
+            font-size: var(--font-size-base);
+        }
+
+        .journey-signpost-path strong {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        /* Score visual */
+        .score-hero {
+            text-align: center;
+            padding: var(--space-2xl);
+            background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+            border: 2px solid var(--primary-blue);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .score-number {
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1;
+            margin: var(--space-md) 0;
+            color: var(--primary-blue);
+        }
+
+        .score-label {
+            font-size: var(--font-size-lg);
+            color: var(--text-body);
+            margin-bottom: var(--space-sm);
+        }
+
+        .maturity-badge {
+            display: inline-block;
+            padding: var(--space-sm) var(--space-xl);
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: var(--font-size-lg);
+            margin-top: var(--space-md);
+        }
+
+        .maturity-unmanaged { background: #FEE2E2; color: #DC2626; }
+        .maturity-adhoc { background: #FEF3C7; color: #F59E0B; }
+        .maturity-developing { background: #E0E7FF; color: #2563EB; }
+        .maturity-ready { background: #D1FAE5; color: #10B981; }
+
+        /* Tension line */
+        .tension-line {
+            background: #EFF6FF;
+            border: 1px solid #DBEAFE;
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-xl);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--text-heading);
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* AI Readiness Playbook */
+        .playbook-section {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .playbook-section h2 {
+            text-align: center;
+            margin-bottom: var(--space-md);
+            color: var(--text-heading);
+        }
+
+        .playbook-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-xl) 0;
+        }
+
+        .playbook-pillar {
+            text-align: center;
+            padding: var(--space-lg);
+        }
+
+        .playbook-pillar h3 {
+            color: var(--primary-blue);
+            margin-bottom: var(--space-sm);
+            font-size: 1.25rem;
+        }
+
+        .playbook-pillar p {
+            color: var(--text-body);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Roadmap visual */
+        .roadmap-section {
+            background: var(--bg-light);
+            padding: var(--space-2xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .roadmap-section h2 {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .roadmap-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .roadmap-step {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            transition: border-color 0.2s;
+        }
+
+        .roadmap-step:hover {
+            border-color: var(--primary-blue);
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: var(--font-size-lg);
+        }
+
+        .step-content h3 {
+            margin: 0 0 var(--space-xs);
+            color: var(--text-heading);
+            font-size: var(--font-size-lg);
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .step-content p {
+            margin: 0;
+            color: var(--text-body);
+            font-size: var(--font-size-base);
+        }
+
+        /* Feedback sections */
+        .feedback-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .feedback-item {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .feedback-item h3 {
+            color: var(--text-heading);
+            margin-bottom: var(--space-md);
+        }
+
+        .answer-playback {
+            padding: var(--space-md);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Score-based colors for answer playback - Traffic Light System */
+        .score-excellent {
+            background: #D1FAE5;
+            border: 2px solid #10B981;
+        }
+
+        .score-good {
+            background: #ECFDF5;
+            border: 2px solid #6EE7B7;
+        }
+
+        .score-moderate {
+            background: #FEF3C7;
+            border: 2px solid #FCD34D;
+        }
+
+        .score-needs-attention {
+            background: #FED7AA;
+            border: 2px solid #FB923C;
+        }
+
+        .score-critical {
+            background: #FEE2E2;
+            border: 2px solid #EF4444;
+        }
+
+        .interpretation {
+            color: var(--text-body);
+        }
+
+        /* Priority gaps */
+        .gaps-section {
+            background: #F9FAFB;
+            border: 2px solid var(--primary-blue);
+            padding: var(--space-2xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .gap-item {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            margin-bottom: var(--space-md);
+        }
+
+        .gap-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .gap-item h3 {
+            color: var(--text-heading);
+            margin-bottom: var(--space-sm);
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .gap-description {
+            color: var(--text-body);
+            margin-bottom: var(--space-md);
+        }
+
+        .gap-recommendation {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-top: var(--space-sm);
+            padding-left: var(--space-md);
+            border-left: 3px solid var(--primary-blue);
+            font-style: italic;
+            background: #EFF6FF;
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+        }
+
+        /* CTA section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark-navy) 0%, #1e3a8a 100%);
+            color: white;
+            padding: var(--space-3xl);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .cta-section h2 {
+            color: white;
+            border-bottom: none;
+            margin-bottom: var(--space-md);
+        }
+
+        .cta-section ul {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-lg) 0;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-section li {
+            padding: var(--space-sm) 0;
+            padding-left: var(--space-xl);
+            position: relative;
+        }
+
+        .cta-section li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--lime-accent);
+            font-weight: 700;
+        }
+
+        .cta-promise {
+            font-style: italic;
+            margin-top: var(--space-lg);
+            opacity: 0.9;
+        }
+
+        .scheduler-embed {
+            margin-top: var(--space-xl);
+            padding: var(--space-lg);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Style the HubSpot iframe container */
+        .meetings-iframe-container {
+            min-height: 700px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .scheduler-fallback {
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .scheduler-fallback a {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--lime-accent);
+            color: var(--dark-navy);
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            transition: transform 0.2s;
+        }
+
+        .scheduler-fallback a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Loading state */
+        .loading-state {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .loading-spinner {
+            border: 4px solid var(--border-light);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--space-lg);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-state {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Container overrides for results page */
+        .container--narrow {
+            max-width: 900px !important;
+        }
+
+        .container--narrower {
+            max-width: 700px !important;
+        }
+
+        @media (max-width: 768px) {
+            .score-number {
+                font-size: 56px;
+            }
+
+            .roadmap-steps {
+                gap: var(--space-md);
+            }
+
+            .roadmap-step {
+                padding: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <a href="https://www.generationai.co.nz" class="nav__logo">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- LOADING STATE -->
+    <div id="loading-state" class="loading-state">
+        <div class="loading-spinner"></div>
+        <h2>Loading Your Results...</h2>
+        <p class="text-muted">Just a moment while we prepare your personalized report.</p>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div id="error-state" class="error-state hidden">
+        <h2>Unable to Load Results</h2>
+        <p class="text-muted">We couldn't find your assessment results. This may be because:</p>
+        <ul style="text-align: left; max-width: 500px; margin: var(--space-lg) auto;">
+            <li>The link has expired</li>
+            <li>You've opened this page in a different browser</li>
+            <li>Your browser's storage has been cleared</li>
+        </ul>
+        <a href="/index.html" class="btn btn--primary" style="margin-top: var(--space-lg);">Take the Assessment Again</a>
+        <p style="margin-top: var(--space-lg);" class="text-small text-muted">
+            Your results have also been emailed to you. Check your inbox!
+        </p>
+    </div>
+
+    <!-- RESULTS CONTENT -->
+    <div id="results-content" class="hidden">
+        <section class="section section--light">
+            <div class="container container--narrow">
+                
+                <!-- Journey Signpost -->
+                <div class="journey-signpost">
+                    <div class="journey-signpost-label">You are here</div>
+                    <div class="journey-signpost-path"><strong>Assess</strong> → Learn → Grow → Transform</div>
+                </div>
+
+                <!-- Score Hero -->
+                <div class="score-hero">
+                    <div class="score-label">Your Business AI Readiness Score</div>
+                    <div class="score-number" id="score-display">--</div>
+                    <div class="maturity-badge" id="maturity-badge">Loading...</div>
+                </div>
+
+                <!-- Tension Line (Uncomfortable Truth) - Immediately after score -->
+                <div class="tension-line" id="tension-line">
+                    Loading your assessment...
+                </div>
+
+                <!-- Maturity Band Narrative -->
+                <p id="maturity-narrative" style="margin-top: var(--space-lg); color: var(--text-body); max-width: 700px; margin-left: auto; margin-right: auto;"></p>
+
+            </div>
+        </section>
+
+        <!-- AI Readiness Playbook Section -->
+        <section class="section">
+            <div class="container container--narrower">
+                <div class="playbook-section">
+                    <h2>The AI Readiness Playbook</h2>
+                    <p style="text-align: center; margin-bottom: var(--space-xl); color: var(--text-body);">
+                        Every successful organisation builds its AI capability around these principles:
+                    </p>
+                    
+                    <div class="playbook-pillars">
+                        <div class="playbook-pillar">
+                            <h3>Transparency</h3>
+                            <p>Clear documentation of AI use and decision making processes</p>
+                        </div>
+                        <div class="playbook-pillar">
+                            <h3>Accountability</h3>
+                            <p>Defined ownership and responsibility for AI outcomes</p>
+                        </div>
+                        <div class="playbook-pillar">
+                            <h3>Capability</h3>
+                            <p>Skills and infrastructure to deploy AI effectively</p>
+                        </div>
+                        <div class="playbook-pillar">
+                            <h3>Trust</h3>
+                            <p>Ethical frameworks and stakeholder confidence</p>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: var(--space-xl); font-weight: 600; color: var(--text-heading);">
+                        <span id="playbook-dynamic-line"></span>
+                        Your discovery call identifies which of these areas to focus on first and how to strengthen them inside your business.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Maturity Map -->
+        <section class="section">
+            <div class="container container--narrow">
+                <div class="roadmap-section">
+                    <h2>Your AI Maturity Map</h2>
+                    <p style="margin-bottom: var(--space-md); color: var(--text-body); max-width: 700px; margin-left: auto; margin-right: auto; font-weight: 600;">
+                        The Playbook shows the principles you'll build on. The Maturity Map shows how capability develops over time.
+                    </p>
+                    <p style="margin-bottom: var(--space-xl); color: var(--text-body); max-width: 700px; margin-left: auto; margin-right: auto;">
+                        Every business that wins with AI follows this path. Here's where you need to focus.
+                    </p>
+                    
+                    <div class="roadmap-steps">
+                        <div class="roadmap-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Assess: Find out where you stand</h3>
+                                <p>As a leader you need to evaluate your personal, business and governance AI readiness as the first step to address the overwhelm.</p>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Learn: Build your understanding</h3>
+                                <p>Digital and AI transformation starts with you and your people, and the investment in learning how to use new tools and automation safely and effectively.</p>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Grow: Build capability</h3>
+                                <p>With clarity on your opportunities and risks, it's time to act. Prioritise where to focus on where to invest for productivity gains, innovation and customer value.</p>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>Transform: Clarity with a Plan to embed</h3>
+                                <p>With confidence of proven use cases in place, you're ready to scale. Leverage AI to digitally transform your business, embedding capability, governance, and performance that lasts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Feedback -->
+        <section class="section section--light">
+            <div class="container container--narrow">
+                <h2>Your Assessment Breakdown</h2>
+                <p class="text-muted mb-xl">Here's what your responses tell us about your current AI readiness position.</p>
+
+                <div class="feedback-section" id="detailed-feedback">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Priority Gaps -->
+        <section class="section">
+            <div class="container container--narrow">
+                <div class="gaps-section">
+                    <h2 style="color: var(--text-heading);">Your Top 3 Priority Areas</h2>
+                    <p style="margin-bottom: var(--space-xl); color: var(--text-body);">
+                        Based on your responses, these are the areas that need immediate attention.
+                    </p>
+
+                    <div id="priority-gaps">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+
+                    <p id="gap-summary" style="margin-top: var(--space-xl); font-style: italic; color: var(--text-body);">
+                        <!-- Will be populated by JavaScript -->
+                    </p>
+
+                    <p id="gaps-bridging-sentence" style="margin-top: var(--space-xl); font-weight: 600; color: var(--text-heading); text-align: center;">
+                        <!-- Will be populated by JavaScript -->
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section with Scheduler -->
+        <section class="section">
+            <div class="container container--narrow">
+                <div class="cta-section">
+                    <h2>NEXT STEP: BOOK YOUR 20-MINUTE DISCOVERY CALL</h2>
+                    <p>We'll help you make sense of these results and show you exactly where to start.</p>
+
+                    <ul>
+                        <li>Review your results together and answer any questions</li>
+                        <li>Show you the roadmap that fits your business</li>
+                        <li>Recommend your first move (whether you work with us or not)</li>
+                    </ul>
+
+                    <p class="cta-promise">
+                        You'll walk away with a clear next action, whether you work with us or not.
+                    </p>
+
+                    <!-- HubSpot Scheduler Embed -->
+                    <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md); text-align: center; color: white;">
+                        Pick a time that works for you
+                    </h3>
+                    <div class="scheduler-embed" id="scheduler-embed">
+                        <!-- Start of Meetings Embed Script -->
+                        <div class="meetings-iframe-container" data-src="https://meetings-ap1.hubspot.com/caleb-lucas1?embed=true"></div>
+                        <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+                        <!-- End of Meetings Embed Script -->
+                    </div>
+
+                    <!-- Fallback Link -->
+                    <div class="scheduler-fallback">
+                        <a href="https://meetings-ap1.hubspot.com/caleb-lucas1" id="scheduler-link" target="_blank">
+                            Book Your Discovery Call →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Note -->
+        <section class="section section--light">
+            <div class="container container--narrower text-center">
+                <p class="text-small text-muted">
+                    Your full report has been emailed to <strong id="user-email"></strong><br>
+                    Didn't receive it? Check your spam folder or contact 
+                    <a href="mailto:team@generationai.co.nz">team@generationai.co.nz</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- What Success Looks Like -->
+        <section class="section">
+            <div class="container container--narrower text-center">
+                <p style="color: var(--text-body); font-size: var(--font-size-base); line-height: 1.6;">
+                    Most businesses that start here see measurable improvement within 90 days: tighter governance, safer experimentation, and clearer ROI.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="section section--light">
+        <div class="container text-center">
+            <p class="text-small text-muted">
+                © 2025 GenerationAI Ltd. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/sanitize.js"></script>
+    <script src="/assets/js/results-handler.js"></script>
+</body>
+</html>
+

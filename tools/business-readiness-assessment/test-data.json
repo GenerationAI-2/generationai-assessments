@@ -1,0 +1,17 @@
+{
+  "email": "test@example.com",
+  "contact_name": "Test User",
+  "company_name": "Test Company",
+  "opt_in_marketing": false,
+  "q1_ownership": "no_one",
+  "q2_strategy": "not_discussed",
+  "q3_culture": "unaware",
+  "q4_enablement": "no_training",
+  "q5_shadow_ai": "yes_likely",
+  "q6_governance": "none",
+  "q7_compliance": "unsure",
+  "q8_resources": "none",
+  "q9_data_protection": "no_controls",
+  "q10_opportunity": "unclear"
+}
+

@@ -785,6 +785,19 @@ function getMaturityDescription(maturity: string): string {
 }
 
 /**
+ * Helper function to get background color based on score (0-5)
+ * Traffic Light System: Green = Good, Amber = Caution, Red = Critical
+ */
+function getScoreBackgroundStyle(score: number): string {
+  if (score === 5) return 'background: #D1FAE5; border: 2px solid #10B981;'; // Dark Green - Excellent
+  if (score === 4) return 'background: #ECFDF5; border: 2px solid #6EE7B7;'; // Light Green - Good
+  if (score === 3) return 'background: #FEF3C7; border: 2px solid #FCD34D;'; // Yellow/Amber - Moderate
+  if (score === 2) return 'background: #FED7AA; border: 2px solid #FB923C;'; // Orange - Needs Attention
+  if (score <= 1) return 'background: #FEE2E2; border: 2px solid #EF4444;'; // Red - Critical
+  return 'background: #FEF3C7; border: 2px solid #FCD34D;'; // Default to moderate
+}
+
+/**
  * Business AI Readiness Assessment HTML Template
  */
 function generateBusinessReadinessHTML(data: any): string {
@@ -1037,11 +1050,9 @@ function generateBusinessReadinessHTML(data: any): string {
     }
 
     .insight-box {
-      background: #EFF6FF;
       padding: var(--space-md);
       margin: var(--space-sm) 0;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
       page-break-inside: avoid;
     }
 
@@ -1147,23 +1158,70 @@ function generateBusinessReadinessHTML(data: any): string {
     </div>
   </div>
 
-  <div class="introduction">
-    <h2>Understanding Your AI Readiness Position</h2>
-    <p>AI is reshaping business faster than any technology in history. Is your organisation ready? This diagnostic reveals where your business stands across five critical dimensions. It's not about the tools, it's about whether your leadership, governance, and capability are ready to turn AI from risk into advantage.</p>
-
-    <p>This report surfaces your readiness gaps and shows clear steps to move from uncertainty to strategic advantage.</p>
-  </div>
-
   <div class="score-section">
     <h2>Your Business AI Readiness Profile</h2>
     <div class="score-display score-medium">Your Business AI Readiness Score: ${scoreNum}/100</div>
     <div class="maturity-badge maturity-${readinessClass}">${data.readiness_band}</div>
-    <p style="margin-top: var(--space-md);">${data.readiness_band_narrative}</p>
   </div>
+
+  <!-- Tension Line - Immediately after score for impact -->
+  <div style="background: #EFF6FF; border: 1px solid #DBEAFE; padding: var(--space-lg); border-radius: var(--radius-lg); margin: var(--space-lg) auto; font-weight: 600; color: var(--text-heading); text-align: center; max-width: 700px;">
+    ${data.tension_line || ''}
+  </div>
+
+  <!-- Maturity Band Narrative -->
+  <p style="margin: var(--space-lg) auto; color: var(--text-body); max-width: 700px;">${data.readiness_band_narrative}</p>
+
+  <!-- AI Readiness Playbook Section -->
+  <div style="background: white; border: 1px solid #E5E7EB; border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) auto; max-width: 800px;">
+    <h2 style="text-align: center; margin-bottom: var(--space-md);">The AI Readiness Playbook</h2>
+    <p style="text-align: center; margin-bottom: var(--space-xl); color: var(--text-body);">
+      Every successful organisation builds its AI capability around these principles:
+    </p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin: var(--space-xl) 0;">
+      <div style="text-align: center; padding: var(--space-lg);">
+        <h3 style="color: #0066CC; margin-bottom: var(--space-sm); font-size: 1.25rem;">Transparency</h3>
+        <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.5;">Clear documentation of AI use and decision making processes</p>
+      </div>
+      <div style="text-align: center; padding: var(--space-lg);">
+        <h3 style="color: #0066CC; margin-bottom: var(--space-sm); font-size: 1.25rem;">Accountability</h3>
+        <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.5;">Defined ownership and responsibility for AI outcomes</p>
+      </div>
+      <div style="text-align: center; padding: var(--space-lg);">
+        <h3 style="color: #0066CC; margin-bottom: var(--space-sm); font-size: 1.25rem;">Capability</h3>
+        <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.5;">Skills and infrastructure to deploy AI effectively</p>
+      </div>
+      <div style="text-align: center; padding: var(--space-lg);">
+        <h3 style="color: #0066CC; margin-bottom: var(--space-sm); font-size: 1.25rem;">Trust</h3>
+        <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.5;">Ethical frameworks and stakeholder confidence</p>
+      </div>
+    </div>
+    
+    <p style="text-align: center; margin-top: var(--space-xl); font-weight: 600; color: var(--text-heading);">
+      ${scoreNum <= 50 ? "You'll likely focus on Transparency and Accountability first. " : "You'll likely focus on Capability and Trust next. "}Your discovery call identifies which of these areas to focus on first and how to strengthen them inside your business.
+    </p>
+  </div>
+
+  <div class="introduction">
+    <h2 style="text-align: center;">Your AI Maturity Map</h2>
+    <p style="max-width: 700px; margin: 0 auto var(--space-md) auto; font-weight: 600;">The Playbook shows the principles you'll build on. The Maturity Map shows how capability develops over time.</p>
+    <p style="max-width: 700px; margin: 0 auto var(--space-lg) auto;">Every business that wins with AI follows this path. Here's where you need to focus.</p>
+
+    <ol style="list-style: decimal; padding-left: var(--space-xl); margin-top: var(--space-lg);">
+      <li style="margin-bottom: var(--space-md);"><strong>Assess: Find out where you stand.</strong> As a leader you need to evaluate your personal, business and governance AI readiness as the first step to address the overwhelm.</li>
+      <li style="margin-bottom: var(--space-md);"><strong>Learn: Build your understanding.</strong> Digital and AI transformation starts with you and your people, and the investment in learning how to use new tools and automation safely and effectively.</li>
+      <li style="margin-bottom: var(--space-md);"><strong>Grow: Build capability.</strong> With clarity on your opportunities and risks, it's time to act. Prioritise where to focus on where to invest for productivity gains, innovation and customer value.</li>
+      <li style="margin-bottom: 0;"><strong>Transform: Clarity with a Plan to embed.</strong> With confidence of proven use cases in place, you're ready to scale. Leverage AI to digitally transform your business, embedding capability, governance, and performance that lasts.</li>
+    </ol>
+  </div>
+
+  <h2>Your Assessment Breakdown</h2>
+  <p>Here's what your responses tell us about your current AI readiness position.</p>
 
   <h2>Shadow AI Exposure</h2>
   <p>Shadow AI means staff using free or personal AI accounts (like ChatGPT or Claude) without approval or oversight.</p>
-  <div class="insight-box">
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q5_score || 0)}">
     <strong>What you told us:</strong> ${data.q5_answer_playback}
   </div>
   <div class="insight-box">
@@ -1171,7 +1229,7 @@ function generateBusinessReadinessHTML(data: any): string {
   </div>
 
   <h2>Leadership & Ownership</h2>
-  <div class="insight-box">
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q1_score || 0)}">
     <strong>What you told us:</strong> ${data.q1_answer_playback}
   </div>
   <div class="insight-box">
@@ -1180,7 +1238,7 @@ function generateBusinessReadinessHTML(data: any): string {
 
   <h2>Governance & Risk Management</h2>
   <p>Many organisations discover their AI governance gaps the hard way, through incidents, not intention.</p>
-  <div class="insight-box">
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q6_score || 0)}">
     <strong>What you told us:</strong> ${data.q6_answer_playback}
   </div>
   <div class="insight-box">
@@ -1188,7 +1246,7 @@ function generateBusinessReadinessHTML(data: any): string {
   </div>
 
   <h2>Data & IP Protection</h2>
-  <div class="insight-box">
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q9_score || 0)}">
     <strong>What you told us:</strong> ${data.q9_answer_playback}
   </div>
   <div class="insight-box">
@@ -1196,42 +1254,87 @@ function generateBusinessReadinessHTML(data: any): string {
   </div>
 
   <h2>Opportunity Understanding</h2>
-  <div class="insight-box">
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q10_score || 0)}">
     <strong>What you told us:</strong> ${data.q10_answer_playback}
   </div>
   <div class="insight-box">
     <strong>What this means:</strong> ${data.q10_interpretation_blurb}
   </div>
 
+  ${(() => {
+    // Check if there are any real gaps (not placeholder text)
+    const hasGap1 = data.gap_1_title && data.gap_1_description && 
+                    data.gap_1_title !== 'No significant gaps identified' &&
+                    data.gap_1_title !== 'Continue current progress' &&
+                    data.gap_1_title !== 'Maintain momentum';
+    const hasGap2 = data.gap_2_title && data.gap_2_description &&
+                    data.gap_2_title !== 'No significant gaps identified' &&
+                    data.gap_2_title !== 'Continue current progress' &&
+                    data.gap_2_title !== 'Maintain momentum';
+    const hasGap3 = data.gap_3_title && data.gap_3_description &&
+                    data.gap_3_title !== 'No significant gaps identified' &&
+                    data.gap_3_title !== 'Continue current progress' &&
+                    data.gap_3_title !== 'Maintain momentum';
+    
+    if (!hasGap1 && !hasGap2 && !hasGap3) {
+      return ''; // No gaps to display
+    }
+    
+    return `
   <h2>Your Priority Gaps</h2>
   <p>The following areas require focused attention:</p>
 
-  <div class="gap-section">
+  ${hasGap1 ? `<div class="gap-section">
     <h3>${data.gap_1_title}</h3>
-    <p>${data.gap_1_description}</p>
-  </div>
+    <p style="color: var(--text-body); margin-bottom: var(--space-md);">${data.gap_1_description}</p>
+    ${data.gap_1_recommendation ? `<p style="font-weight: 600; color: var(--primary-blue); margin-top: var(--space-sm); padding: var(--space-md); border-left: 3px solid var(--primary-blue); font-style: italic; background: #EFF6FF; border-radius: var(--radius-md);">${data.gap_1_recommendation}</p>` : ''}
+  </div>` : ''}
 
-  <div class="gap-section">
+  ${hasGap2 ? `<div class="gap-section">
     <h3>${data.gap_2_title}</h3>
-    <p>${data.gap_2_description}</p>
-  </div>
+    <p style="color: var(--text-body); margin-bottom: var(--space-md);">${data.gap_2_description}</p>
+    ${data.gap_2_recommendation ? `<p style="font-weight: 600; color: var(--primary-blue); margin-top: var(--space-sm); padding: var(--space-md); border-left: 3px solid var(--primary-blue); font-style: italic; background: #EFF6FF; border-radius: var(--radius-md);">${data.gap_2_recommendation}</p>` : ''}
+  </div>` : ''}
 
-  <div class="gap-section">
+  ${hasGap3 ? `<div class="gap-section">
     <h3>${data.gap_3_title}</h3>
-    <p>${data.gap_3_description}</p>
-  </div>
+    <p style="color: var(--text-body); margin-bottom: var(--space-md);">${data.gap_3_description}</p>
+    ${data.gap_3_recommendation ? `<p style="font-weight: 600; color: var(--primary-blue); margin-top: var(--space-sm); padding: var(--space-md); border-left: 3px solid var(--primary-blue); font-style: italic; background: #EFF6FF; border-radius: var(--radius-md);">${data.gap_3_recommendation}</p>` : ''}
+  </div>` : ''}
 
   <p style="margin-top: var(--space-md);"><em>${data.gap_summary_blurb}</em></p>
 
-  <h2>Ready to Take the Next Step?</h2>
+  <p style="margin-top: var(--space-xl); font-weight: 600; color: var(--text-heading); text-align: center;">These recommendations reflect the foundations of the AI Readiness Playbook (transparency, accountability, capability, and trust). Your discovery call focuses on how to apply them in your organisation.</p>
+    `;
+  })()}
+
+  <h2>NEXT STEP: BOOK YOUR 20-MINUTE DISCOVERY CALL</h2>
 
   <div class="cta-section">
-    <p style="font-size: var(--font-size-base); margin-bottom: var(--space-xl);">Book a free 15-minute consultation to discuss your assessment results and explore how we can help you turn AI uncertainty into strategic advantage.</p>
-    <p style="margin-top: var(--space-lg);"><a href="https://7bboe8.share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA" class="cta-link">Book Your Free Consultation</a></p>
+    <p style="font-size: var(--font-size-base); margin-bottom: var(--space-md);">We'll help you make sense of these results and show you exactly where to start.</p>
+    
+    <ul style="list-style: none; padding: 0; margin: var(--space-lg) 0; text-align: left;">
+      <li style="padding: var(--space-xs) 0; padding-left: var(--space-xl); position: relative;">
+        <span style="position: absolute; left: 0; color: var(--primary-blue); font-weight: 700;">✓</span>
+        Review your results together and answer any questions
+      </li>
+      <li style="padding: var(--space-xs) 0; padding-left: var(--space-xl); position: relative;">
+        <span style="position: absolute; left: 0; color: var(--primary-blue); font-weight: 700;">✓</span>
+        Show you the roadmap that fits your business
+      </li>
+      <li style="padding: var(--space-xs) 0; padding-left: var(--space-xl); position: relative;">
+        <span style="position: absolute; left: 0; color: var(--primary-blue); font-weight: 700;">✓</span>
+        Recommend your first move (whether you work with us or not)
+      </li>
+    </ul>
+
+    <p style="font-style: italic; margin-top: var(--space-lg);">You'll walk away with a clear next action, whether you work with us or not.</p>
+    
+    <p style="margin-top: var(--space-lg);"><a href="https://meetings-ap1.hubspot.com/caleb-lucas1" class="cta-link">Book Your Discovery Call</a></p>
   </div>
 
-  <p style="text-align: center; margin: var(--space-lg) 0; font-weight: 600; color: var(--text-heading);">
-    Culture moves first. AI adoption only succeeds when your people are ready before your tools. GenerationAI specialises in helping organisations build the foundation for safe, strategic AI adoption that drives real business value.
+  <p style="text-align: center; margin: var(--space-xl) auto; color: var(--text-body); font-size: var(--font-size-base); line-height: 1.6; max-width: 700px;">
+    Most businesses that start here see measurable improvement within 90 days: tighter governance, safer experimentation, and clearer ROI.
   </p>
 
   <div class="footer">
@@ -2388,7 +2491,7 @@ function generatePersonalAIReadinessHTML(data: any): string {
 
   <div class="hero-intro">
     <h2>Your AI Advantage Starts Here</h2>
-    <p><strong>The difference between leaders who thrive and those who struggle isn't access to AI — it's knowing how to use it strategically.</strong></p>
+    <p><strong>The difference between leaders who thrive and those who struggle isn't access to AI, it's knowing how to use it strategically.</strong></p>
 
     <p>Leaders using AI effectively are freeing up a full day per week while making better decisions with richer insights.</p>
 
@@ -2439,11 +2542,11 @@ function generatePersonalAIReadinessHTML(data: any): string {
   <div class="highlight-box">
     <p><strong>Time Recovery:</strong> You estimated AI could save you <strong>${data.hours_saved}</strong>. Leaders at your readiness level typically achieve this within 60-90 days of focused application.</p>
 
-    <p style="margin-top: var(--space-md);"><strong>Starting Point:</strong> You identified "<strong>${data.top_use_case}</strong>" as your biggest pain point. This is exactly where AI excels — we recommend starting here.</p>
+    <p style="margin-top: var(--space-md);"><strong>Starting Point:</strong> You identified "<strong>${data.top_use_case}</strong>" as your biggest pain point. This is exactly where AI excels, we recommend starting here.</p>
   </div>
 
   <p style="margin-top: var(--space-md); font-size: var(--font-size-base); font-style: italic;">
-    <strong>The real advantage isn't just doing things faster — it's doing better things.</strong> AI enhances decision quality, expands analytical capacity, and amplifies your ability to lead at scale.
+    <strong>The real advantage isn't just doing things faster, it's doing better things.</strong> AI enhances decision quality, expands analytical capacity, and amplifies your ability to lead at scale.
   </p>
 
   <h2>Your Priority Development Areas</h2>
