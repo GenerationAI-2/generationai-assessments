@@ -85,7 +85,7 @@ class ResultsHandler {
         this.renderScoreSection();
         this.renderTensionLine();
         this.renderPlaybook();
-        this.renderCriticalAreas();
+        this.renderDetailedFeedback();
         this.renderPriorityGaps();
         this.renderScheduler();
         this.renderUserEmail();
@@ -134,28 +134,54 @@ class ResultsHandler {
         }
     }
 
-    renderCriticalAreas() {
-        const container = document.getElementById('critical-areas');
+    renderDetailedFeedback() {
+        const container = document.getElementById('detailed-feedback');
         
         // Debug: Log the scores to see what we're getting
-        console.log('Critical area scores:', {
+        console.log('Question scores:', {
+            q1: this.data.q1_score,
             q5: this.data.q5_score,
-            q1: this.data.q1_score
+            q6: this.data.q6_score,
+            q9: this.data.q9_score,
+            q10: this.data.q10_score
         });
         
-        // Show only the two most critical areas: Shadow AI (Q5) and Leadership (Q1)
+        // Show all 5 questions in the same order as PDF
         const feedbackItems = [
             {
                 title: 'Shadow AI Exposure',
+                intro: 'Shadow AI means staff using free or personal AI accounts (like ChatGPT or Claude) without approval or oversight.',
                 playback: this.data.q5_answer_playback,
                 interpretation: this.data.q5_interpretation_blurb,
                 score: this.data.q5_score || 0
             },
             {
                 title: 'Leadership & Ownership',
+                intro: null,
                 playback: this.data.q1_answer_playback,
                 interpretation: this.data.q1_interpretation_blurb,
                 score: this.data.q1_score || 0
+            },
+            {
+                title: 'Governance & Risk Management',
+                intro: 'Many organisations discover their AI governance gaps the hard way, through incidents, not intention.',
+                playback: this.data.q6_answer_playback,
+                interpretation: this.data.q6_interpretation_blurb,
+                score: this.data.q6_score || 0
+            },
+            {
+                title: 'Data & IP Protection',
+                intro: null,
+                playback: this.data.q9_answer_playback,
+                interpretation: this.data.q9_interpretation_blurb,
+                score: this.data.q9_score || 0
+            },
+            {
+                title: 'Opportunity Understanding',
+                intro: null,
+                playback: this.data.q10_answer_playback,
+                interpretation: this.data.q10_interpretation_blurb,
+                score: this.data.q10_score || 0
             }
         ];
 
@@ -165,6 +191,7 @@ class ResultsHandler {
             html += `
                 <div class="feedback-item">
                     <h3>${sanitizeHTML(item.title)}</h3>
+                    ${item.intro ? `<p class="text-muted mb-md">${sanitizeHTML(item.intro)}</p>` : ''}
                     <div class="answer-playback ${scoreClass}">
                         <strong>What you told us:</strong> ${sanitizeHTML(item.playback)}
                     </div>
