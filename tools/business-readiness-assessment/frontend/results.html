@@ -635,30 +635,30 @@
                     <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md); text-align: center; color: white;">
                         Pick a time that works for you
                     </h3>
-                    <div class="hubspot-form-embed" id="hubspot-form-embed">
-                        <script charset="utf-8" type="text/javascript" src="//js-ap1.hsforms.net/forms/embed/v2.js"></script>
-                        <script>
-                          hbspt.forms.create({
-                            region: "ap1",
-                            portalId: "144919046",
-                            formId: "214JDII1-nQGu-3Vfx-n_-IrYA7bboe8",
-                            onFormReady: function($form) {
-                              // Form is ready
-                              window.postMessage({
-                                type: 'hsFormCallback',
-                                eventName: 'onFormReady'
-                              }, '*');
-                            },
-                            onFormSubmit: function($form) {
-                              // Form submitted
-                              window.postMessage({
-                                type: 'hsFormCallback',
-                                eventName: 'onFormSubmit'
-                              }, '*');
-                            }
-                          });
-                        </script>
-                    </div>
+                    <div class="hubspot-form-embed" id="hubspot-form-embed"></div>
+                    <script charset="utf-8" type="text/javascript" src="//js-ap1.hsforms.net/forms/embed/v2.js"></script>
+                    <script>
+                      hbspt.forms.create({
+                        region: "ap1",
+                        portalId: "144919046",
+                        formId: "214JDII1-nQGu-3Vfx-n_-IrYA7bboe8",
+                        target: "#hubspot-form-embed",
+                        onFormReady: function($form) {
+                          // Form is ready
+                          window.postMessage({
+                            type: 'hsFormCallback',
+                            eventName: 'onFormReady'
+                          }, '*');
+                        },
+                        onFormSubmit: function($form) {
+                          // Form submitted
+                          window.postMessage({
+                            type: 'hsFormCallback',
+                            eventName: 'onFormSubmit'
+                          }, '*');
+                        }
+                      });
+                    </script>
                 </div>
             </div>
         </section>
