@@ -1363,7 +1363,7 @@ function generateBusinessReadinessHTML(data: any): string {
 
     <p style="font-style: italic; margin-top: var(--space-lg);">You'll walk away with a clear next action, whether you work with us or not.</p>
     
-    <p style="margin-top: var(--space-lg);"><a href="https://meetings-ap1.hubspot.com/caleb-lucas1" class="cta-link">Book Your Discovery Call</a></p>
+    <p style="margin-top: var(--space-lg);"><a href="https://share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA7bboe8" class="cta-link">Book Your Discovery Call</a></p>
   </div>
 
   <p style="text-align: center; margin: var(--space-xl) auto; color: var(--text-body); font-size: var(--font-size-base); line-height: 1.6; max-width: 700px;">
