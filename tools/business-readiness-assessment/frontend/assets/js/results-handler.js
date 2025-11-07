@@ -292,45 +292,19 @@ class ResultsHandler {
     }
 
     renderScheduler() {
-        // HubSpot form will be embedded via the script in results.html
-        // We can optionally prefill form fields using the HubSpot Forms API
-
-        // Wait for HubSpot forms API to be ready
-        if (window.hbspt && window.hbspt.forms) {
-            this.prefillHubSpotForm();
-        } else {
-            // Wait for the HubSpot forms script to load
-            const checkHubSpot = setInterval(() => {
-                if (window.hbspt && window.hbspt.forms) {
-                    clearInterval(checkHubSpot);
-                    this.prefillHubSpotForm();
-                }
-            }, 100);
-
-            // Timeout after 5 seconds
-            setTimeout(() => clearInterval(checkHubSpot), 5000);
+        // Setup CTA button click tracking
+        const ctaLink = document.getElementById('cta-link');
+        if (ctaLink) {
+            ctaLink.addEventListener('click', () => {
+                this.trackEvent('cta_clicked', {
+                    submission_id: this.submissionId,
+                    cta_url: ctaLink.href
+                });
+            });
         }
 
-        this.trackEvent('form_loaded', {
+        this.trackEvent('cta_loaded', {
             submission_id: this.submissionId
-        });
-    }
-
-    prefillHubSpotForm() {
-        // Listen for form ready event to prefill fields
-        window.addEventListener('message', (event) => {
-            if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormReady') {
-                // Form is ready, fields will be auto-filled by HubSpot if available
-                this.trackEvent('form_ready', {
-                    submission_id: this.submissionId
-                });
-            }
-
-            if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmit') {
-                this.trackEvent('form_submitted', {
-                    submission_id: this.submissionId
-                });
-            }
         });
     }
 
