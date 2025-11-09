@@ -3,8 +3,6 @@
  * Sends assessment reports to users
  */
 
-import fetch from 'node-fetch';
-
 export interface EmailOptions {
   to: string;
   subject: string;

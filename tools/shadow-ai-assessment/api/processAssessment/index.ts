@@ -10,7 +10,6 @@ import { ScoringEngine, AssessmentSubmission } from "../shared/scoring-engine";
 // import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable"; // Disabled
 import { sendAssessmentEmail } from "../shared/email";
 // import { logSubmissionToCSV } from "../shared/csv-logger"; // TEMP DISABLED - deployment issue
-import fetch from "node-fetch";
 
 export async function processAssessment(
   context: any,
