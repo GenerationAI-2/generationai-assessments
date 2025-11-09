@@ -8,9 +8,8 @@ import { randomUUID } from "crypto";
 import { PDFGenerationRequest, PDFGenerationResponse } from "@generation-ai/types";
 import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine, AssessmentSubmission } from "../shared/scoring-engine";
-// import { saveToAirtable, checkDuplicateSubmission } from "../shared/airtable"; // Disabled
 import { sendAssessmentEmail } from "../shared/email";
-// import { logSubmissionToCSV } from "../shared/csv-logger"; // TEMP DISABLED - deployment issue
+import { upsertContact } from "../shared/hubspot";
 import fetch from "node-fetch";
 
 /**
@@ -69,16 +68,33 @@ export async function processAssessment(
     const submissionId = randomUUID();
     context.log(`Generated submission ID: ${submissionId}`);
 
-    // 3. Check for duplicate submissions - DISABLED (requires Airtable)
-    // const isDuplicate = await checkDuplicateSubmission(submission.email, 24);
-    // if (isDuplicate) {
-    //   context.log(`Duplicate submission detected for ${submission.email}`);
-    //   // Still allow but log it
-    // }
-
-    // 4. Run scoring engine
+    // 3. Run scoring engine
     const scoringResult = ScoringEngine.process(submission);
     context.log(`Score calculated: ${scoringResult.data.readiness_score} (${scoringResult.data.readiness_band})`);
+
+    // 4. Sync to HubSpot
+    try {
+      await upsertContact({
+        assessmentType: 'business',
+        email: submission.email,
+        firstName: submission.contact_name.split(' ')[0] || submission.contact_name,
+        lastName: submission.contact_name.split(' ').slice(1).join(' ') || '',
+        company: submission.company_name,
+        score: scoringResult.metadata.final_score,
+        band: scoringResult.data.readiness_band,
+        gaps: scoringResult.data.priority_gaps.map(gap => ({
+          id: gap.id,
+          title: gap.title,
+          score: gap.score
+        })),
+        marketingOptIn: (submission as any).opt_in_marketing || false
+      });
+      context.log('Contact synced to HubSpot successfully');
+    } catch (hubspotError) {
+      // Log error but don't block user experience
+      context.log.error('HubSpot sync failed (non-blocking):', hubspotError);
+      // User still gets their results even if HubSpot fails
+    }
 
     // 5. Generate PDF report via PDF Generator Service with retry
     let pdfBase64: string | undefined;
@@ -150,34 +166,6 @@ export async function processAssessment(
       // Results page will still be shown to user
     }
 
-    // 5. Save to Airtable - DISABLED due to EventTarget compatibility issue in Azure Functions
-    // TODO: Re-enable once Airtable SDK is updated or use direct REST API calls
-    // try {
-    //   await saveToAirtable({
-    //     email: submission.email,
-    //     contact_name: submission.contact_name,
-    //     company_name: submission.company_name,
-    //     readiness_score: scoringResult.metadata.final_score,
-    //     readiness_band: scoringResult.data.readiness_band,
-    //     pdf_url: pdfBase64 ? 'Generated' : 'Failed',
-    //     submitted_at: new Date().toISOString(),
-    //     q1_ownership: submission.q1_ownership,
-    //     q2_strategy: submission.q2_strategy,
-    //     q3_culture: submission.q3_culture,
-    //     q4_enablement: submission.q4_enablement,
-    //     q5_shadow_ai: submission.q5_shadow_ai,
-    //     q6_governance: submission.q6_governance,
-    //     q7_compliance: submission.q7_compliance,
-    //     q8_resources: submission.q8_resources,
-    //     q9_data_protection: submission.q9_data_protection,
-    //     q10_opportunity: submission.q10_opportunity
-    //   });
-    //   context.log('Saved to Airtable');
-    // } catch (airtableError: any) {
-    //   context.log('Airtable save failed:', airtableError);
-    //   // Continue even if Airtable fails - don't block user from getting report
-    // }
-
     // 6. Send email with or without PDF attachment
     let emailSent = false;
     try {
@@ -227,34 +215,6 @@ export async function processAssessment(
       context.log('Team notification failed:', notifyError);
       // Don't fail the request if team notification fails
     }
-
-    // 7.5. Log submission to CSV in blob storage - TEMP DISABLED
-    // TODO: Fix deployment to include @azure/storage-blob dependency
-    // try {
-    //   await logSubmissionToCSV('business-readiness', {
-    //     timestamp: new Date().toISOString(),
-    //     email: submission.email,
-    //     contact_name: submission.contact_name,
-    //     company_name: submission.company_name,
-    //     opt_in_marketing: (submission as any).opt_in_marketing || false,
-    //     score: scoringResult.metadata.final_score,
-    //     maturity_band: scoringResult.data.readiness_band,
-    //     q1_ownership: submission.q1_ownership,
-    //     q2_strategy: submission.q2_strategy,
-    //     q3_culture: submission.q3_culture,
-    //     q4_enablement: submission.q4_enablement,
-    //     q5_shadow_ai: submission.q5_shadow_ai,
-    //     q6_governance: submission.q6_governance,
-    //     q7_compliance: submission.q7_compliance,
-    //     q8_resources: submission.q8_resources,
-    //     q9_data_protection: submission.q9_data_protection,
-    //     q10_opportunity: submission.q10_opportunity
-    //   });
-    //   context.log('CSV logged successfully');
-    // } catch (csvError) {
-    //   context.log('CSV logging failed:', csvError);
-    //   // Don't fail the request if CSV logging fails
-    // }
 
     // 8. Return success response with full data
     context.res = {
