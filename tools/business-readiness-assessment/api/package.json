@@ -14,12 +14,10 @@
   "dependencies": {
     "@azure/functions": "^4.0.0",
     "@generation-ai/types": "workspace:*",
-    "@generation-ai/utils": "workspace:*",
-    "node-fetch": "^2.7.0"
+    "@generation-ai/utils": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "@types/node-fetch": "^2.6.13",
     "typescript": "^5.0.0"
   }
 }

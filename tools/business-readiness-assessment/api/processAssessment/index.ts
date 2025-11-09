@@ -10,7 +10,6 @@ import { getCorsHeaders } from "@generation-ai/utils";
 import { ScoringEngine, AssessmentSubmission } from "../shared/scoring-engine";
 import { sendAssessmentEmail } from "../shared/email";
 import { upsertContact } from "../shared/hubspot";
-import fetch from "node-fetch";
 
 /**
  * Retry helper with exponential backoff

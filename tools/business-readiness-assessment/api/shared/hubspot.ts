@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 interface AssessmentSubmission {
   assessmentType: 'business' | 'personal';
   email: string;
@@ -68,7 +66,7 @@ export async function upsertContact(data: AssessmentSubmission): Promise<void> {
     throw new Error(`HubSpot upsert failed: ${response.status} - ${errorBody}`);
   }
 
-  const result = await response.json();
+  const result = await response.json() as { results?: Array<{ id: string }> };
   console.log('HubSpot upsert successful:', {
     contactId: result.results?.[0]?.id,
     email: data.email,
