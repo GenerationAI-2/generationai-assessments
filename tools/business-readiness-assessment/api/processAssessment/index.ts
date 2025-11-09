@@ -74,6 +74,30 @@ export async function processAssessment(
 
     // 4. Sync to HubSpot
     try {
+      // Build gaps array from individual gap properties
+      const gaps = [];
+      if (scoringResult.data.gap_1_title && scoringResult.data.gap_1_title !== "No significant gaps identified") {
+        gaps.push({
+          id: 'gap_1',
+          title: scoringResult.data.gap_1_title,
+          score: 0 // Score not available in flat structure
+        });
+      }
+      if (scoringResult.data.gap_2_title && scoringResult.data.gap_2_title !== "Continue current progress") {
+        gaps.push({
+          id: 'gap_2',
+          title: scoringResult.data.gap_2_title,
+          score: 0
+        });
+      }
+      if (scoringResult.data.gap_3_title && scoringResult.data.gap_3_title !== "Maintain momentum") {
+        gaps.push({
+          id: 'gap_3',
+          title: scoringResult.data.gap_3_title,
+          score: 0
+        });
+      }
+
       await upsertContact({
         assessmentType: 'business',
         email: submission.email,
@@ -82,11 +106,7 @@ export async function processAssessment(
         company: submission.company_name,
         score: scoringResult.metadata.final_score,
         band: scoringResult.data.readiness_band,
-        gaps: scoringResult.data.priority_gaps.map(gap => ({
-          id: gap.id,
-          title: gap.title,
-          score: gap.score
-        })),
+        gaps: gaps,
         marketingOptIn: (submission as any).opt_in_marketing || false
       });
       context.log('Contact synced to HubSpot successfully');
