@@ -1179,7 +1179,7 @@ function generateBusinessReadinessHTML(data: any): string {
 
   <div class="score-section">
     <h2>Your Business AI Readiness Profile</h2>
-    <div class="score-display score-medium">Your Business AI Readiness Score: ${scoreNum}/100</div>
+    <div class="score-display" style="color: var(--primary-blue);">Your Business AI Readiness Score: ${scoreNum}/100</div>
     <div class="maturity-badge maturity-${readinessClass}">${data.readiness_band}</div>
   </div>
 
