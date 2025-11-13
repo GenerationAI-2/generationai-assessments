@@ -84,7 +84,6 @@ class ResultsHandler {
         // Render each section
         this.renderScoreSection();
         this.renderTensionLine();
-        this.renderPlaybook();
         this.renderDetailedFeedback();
         this.renderPriorityGaps();
         this.renderScheduler();
@@ -110,28 +109,16 @@ class ResultsHandler {
 
     getMaturityClass(band) {
         const bandLower = String(band).toLowerCase();
-        if (bandLower.includes('unmanaged')) return 'maturity-unmanaged';
-        if (bandLower.includes('ad hoc') || bandLower.includes('adhoc')) return 'maturity-adhoc';
-        if (bandLower.includes('developing')) return 'maturity-developing';
+        if (bandLower.includes('blind')) return 'maturity-blind';
+        if (bandLower.includes('reactive')) return 'maturity-reactive';
+        if (bandLower.includes('building')) return 'maturity-building';
         if (bandLower.includes('ready')) return 'maturity-ready';
-        return 'maturity-adhoc';
+        return 'maturity-reactive';
     }
 
     renderTensionLine() {
         const tensionEl = document.getElementById('tension-line');
         tensionEl.textContent = sanitizeText(this.data.tension_line);
-    }
-
-    renderPlaybook() {
-        const score = parseInt(this.data.readiness_score) || 0;
-        const playbookDynamicLine = score <= 50
-            ? "You'll likely focus on Transparency and Accountability first. "
-            : "You'll likely focus on Capability and Trust next. ";
-        
-        const dynamicLineEl = document.getElementById('playbook-dynamic-line');
-        if (dynamicLineEl) {
-            dynamicLineEl.textContent = playbookDynamicLine;
-        }
     }
 
     renderDetailedFeedback() {
@@ -150,7 +137,7 @@ class ResultsHandler {
         const feedbackItems = [
             {
                 title: 'Shadow AI Exposure',
-                intro: 'Shadow AI means staff using free or personal AI accounts (like ChatGPT or Claude) without approval or oversight.',
+                intro: 'Shadow AI means staff using unapproved AI tools (like ChatGPT, Gemini or Claude) without oversight.',
                 playback: this.data.q5_answer_playback,
                 interpretation: this.data.q5_interpretation_blurb,
                 score: this.data.q5_score || 0
@@ -284,10 +271,10 @@ class ResultsHandler {
             summaryEl.textContent = sanitizeText(this.data.gap_summary_blurb);
         }
         
-        // Add bridging sentence connecting gaps to playbook
+        // Add bridging sentence connecting gaps to GEN5 framework
         const bridgingSentence = document.getElementById('gaps-bridging-sentence');
         if (bridgingSentence && actualGaps.length > 0) {
-            bridgingSentence.textContent = "These recommendations reflect the foundations of the AI Readiness Playbook (transparency, accountability, capability, and trust). Your discovery call focuses on how to apply them in your organisation.";
+            bridgingSentence.textContent = "These recommendations map directly to the GEN5™ framework: the five essential elements every business needs to move from AI exposure to AI advantage.";
         }
     }
 

@@ -177,17 +177,19 @@ export class ScoringEngine {
       ? SCORING_CONFIG.next_steps.low_readiness
       : SCORING_CONFIG.next_steps.high_readiness;
 
-    // Calculate tension line and phase label based on score with 3 tiers
+    // Calculate tension line and phase label based on score with 4 tiers matching maturity bands
     let tensionLine: string;
-    if (finalScore <= 40) {
-      tensionLine = "You're adopting AI faster than you can govern it, and that's a board-level risk.";
-    } else if (finalScore <= 70) {
-      tensionLine = "You've got awareness, but without a clear roadmap, you'll stay stuck in pilot purgatory while competitors move ahead.";
+    if (finalScore <= 25) {
+      tensionLine = "You have zero visibility on AI — you're either missing opportunities or exposed to risks you can't see.";
+    } else if (finalScore <= 50) {
+      tensionLine = "AI is likely happening in the shadows while you have no plan. You can't manage what you can't see.";
+    } else if (finalScore <= 75) {
+      tensionLine = "You've got awareness, but execution is fragile without a clear roadmap and consistent governance.";
     } else {
-      tensionLine = "You're well positioned, but maintaining momentum requires continuous investment in capability and governance.";
+      tensionLine = "You've got strong foundations. The question now is execution speed and sustaining momentum.";
     }
-    
-    const phaseLabel = finalScore <= 40 ? "Exposed" : finalScore <= 70 ? "Ready to Execute" : "Leading";
+
+    const phaseLabel = finalScore <= 25 ? "Blind" : finalScore <= 50 ? "Reactive" : finalScore <= 75 ? "Building" : "Ready";
 
     const td = results.templateData;
     const rd = results.responseData;

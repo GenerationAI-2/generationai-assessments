@@ -461,26 +461,26 @@ export const SCORING_CONFIG = {
     {
       min_score: 0,
       max_score: 25,
-      label: "Unmanaged",
-      narrative: "AI is happening without your knowledge or control. Staff are using personal accounts, data is likely exposed, and you have no visibility. This isn't sustainable. Shadow AI grows daily while competitors pull ahead. You need immediate discovery and containment."
+      label: "Blind",
+      narrative: "You have zero visibility on AI — you're either missing opportunities or exposed to risks you can't see."
     },
     {
       min_score: 26,
       max_score: 50,
-      label: "Ad Hoc",
-      narrative: "Pockets of AI activity exist but without coordination. Some awareness, some tools, but no strategy. Risk is accumulating faster than value. You're stuck between doing nothing and doing everything. Focus is needed urgently."
+      label: "Reactive",
+      narrative: "AI is likely happening in the shadows while you have no plan. You can't manage what you can't see."
     },
     {
       min_score: 51,
       max_score: 75,
-      label: "Developing",
-      narrative: "Foundation building is underway. Leadership engaged, some governance emerging, but gaps remain. You're moving in the right direction but execution is fragile. The challenge now is maintaining momentum while filling critical gaps."
+      label: "Building",
+      narrative: "You've got awareness, but execution is fragile without a clear roadmap and consistent governance."
     },
     {
       min_score: 76,
       max_score: 100,
       label: "Ready",
-      narrative: "Strong foundations in place. Clear ownership, governance active, resources allocated. You're positioned to scale from experiments to advantage. Focus now on execution excellence and ROI measurement."
+      narrative: "You've got strong foundations. The question now is execution speed and sustaining momentum."
     }
   ] as MaturityBand[],
 
@@ -538,10 +538,10 @@ export const SCORING_CONFIG = {
   } as Record<string, GapDescription>,
 
   gap_summaries: {
-    "Unmanaged": "These gaps represent immediate risks that compound daily. Start with Shadow AI discovery and basic governance.",
-    "Ad Hoc": "These gaps prevent coordinated progress. A structured roadmap will turn scattered activity into strategic capability.",
-    "Developing": "These gaps limit your ability to scale. Address them systematically to maintain momentum.",
-    "Ready": "These represent optimisation opportunities. Focus here to maximise ROI and competitive advantage."
+    "Blind": "These gaps represent critical blind spots. Start with Leadership Mastery and Shadow AI discovery.",
+    "Reactive": "These gaps prevent coordinated progress. Focus on establishing basic Governance & Trust to enable safe experimentation.",
+    "Building": "These gaps limit your ability to scale. Address them systematically to strengthen Execution & Evolution.",
+    "Ready": "These represent optimization opportunities. Focus here to maximize ROI and competitive advantage."
   } as Record<string, string>,
 
   next_steps: {

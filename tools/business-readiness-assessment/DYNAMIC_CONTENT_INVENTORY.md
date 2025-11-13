@@ -14,86 +14,68 @@ This document lists all dynamic text content that appears in the assessment repo
 
 ### Maturity Bands & Narratives
 
-**Band: Unmanaged (0-25)**
-> AI is happening without your knowledge or control. Staff are using personal accounts, data is likely exposed, and you have no visibility. This isn't sustainable. Shadow AI grows daily while competitors pull ahead. You need immediate discovery and containment.
+**Band: Blind (0-25)**
+> You have zero visibility on AI — you're either missing opportunities or exposed to risks you can't see.
 
-**Band: Ad Hoc (26-50)**
-> Pockets of AI activity exist but without coordination. Some awareness, some tools, but no strategy. Risk is accumulating faster than value. You're stuck between doing nothing and doing everything. Focus is needed urgently.
+**Band: Reactive (26-50)**
+> AI is likely happening in the shadows while you have no plan. You can't manage what you can't see.
 
-**Band: Developing (51-75)**
-> Foundation building is underway. Leadership engaged, some governance emerging, but gaps remain. You're moving in the right direction but execution is fragile. The challenge now is maintaining momentum while filling critical gaps.
+**Band: Building (51-75)**
+> You've got awareness, but execution is fragile without a clear roadmap and consistent governance.
 
 **Band: Ready (76-100)**
-> Strong foundations in place. Clear ownership, governance active, resources allocated. You're positioned to scale from experiments to advantage. Focus now on execution excellence and ROI measurement.
+> You've got strong foundations. The question now is execution speed and sustaining momentum.
 
 ---
 
 ## 2. TENSION LINES (Uncomfortable Truth)
 
-**3-Tier Logic (Updated):**
+**4-Tier Logic (Matching Maturity Bands):**
 
-**Score ≤40:**
-> You're adopting AI faster than you can govern it, and that's a board-level risk.
+**Score ≤25:**
+> You have zero visibility on AI — you're either missing opportunities or exposed to risks you can't see.
 
-**Score 41-70:**
-> You've got awareness, but without a clear roadmap, you'll stay stuck in pilot purgatory while competitors move ahead.
+**Score 26-50:**
+> AI is likely happening in the shadows while you have no plan. You can't manage what you can't see.
 
-**Score 71-100:**
-> You're well positioned, but maintaining momentum requires continuous investment in capability and governance.
+**Score 51-75:**
+> You've got awareness, but execution is fragile without a clear roadmap and consistent governance.
+
+**Score 76-100:**
+> You've got strong foundations. The question now is execution speed and sustaining momentum.
 
 ---
 
-## 3. AI READINESS PLAYBOOK (Static Section with Dynamic Line)
+## 3. AI READINESS PLAYBOOK (5-Step Framework)
 
 ### Heading
 > The AI Readiness Playbook
 
 ### Intro Line
-> Every successful organisation builds its AI capability around these principles:
+> From our work with dozens of New Zealand businesses, successful AI adoption always follows this pattern:
 
-### Four Pillars (Static)
-1. **Transparency**: Know what's happening, where AI is being used, and how data flows.
-2. **Accountability**: Clear ownership at every level, from leadership to frontline staff.
-3. **Capability**: People with the skills, tools, and confidence to use AI effectively.
-4. **Trust**: Governance, ethics, and controls that make safe AI use the easy choice.
+### Five Steps (Static)
 
-### Closing Line (Static)
-> Your discovery call identifies which of these areas to focus on first and how to strengthen them inside your business.
+**Step 1: Leadership Readiness**
+> Upskill your leaders first, they can't lead AI if they don't understand it. AI is not an IT project. It needs to be led from the top with clear messaging that builds trust.
 
-### Dynamic Line (Score-based)
-**If score ≤50:**
-> You'll likely focus on **Transparency** and **Accountability** first.
+**Step 2: Discovery & Transparency**
+> Find out what's happening. Talk to your people. Uncover Shadow AI before it becomes a problem. You can't manage what you can't see.
 
-**If score >50:**
-> You'll likely focus on **Capability** and **Trust** next.
+**Step 3: Guardrails & Governance**
+> Put basic policies in place that enable safe use. Treat AI like health and safety: practical controls, not prohibition. Define what's safe and what's not.
 
----
+**Step 4: Capability Building**
+> Identify champions. Build skills across your people so they can use AI safely and effectively.
 
-## 4. AI READINESS MATURITY MAP (Static Section)
-
-### Clarifying Line (appears before this section)
-> The Playbook shows the principles you'll build on. The Maturity Map shows how capability develops over time.
-
-### Heading
-> How AI Readiness Develops Over Time
-
-### 4 Steps (Static Content)
-
-**Step 1: Assess: Find out where you stand**
-> As a leader you need to evaluate your personal, business and governance AI readiness as the first step to address the overwhelm.
-
-**Step 2: Learn: Build your understanding**
-> Digital and AI transformation starts with you and your people, and the investment in learning how to use new tools and automation safely and effectively.
-
-**Step 3: Grow: Build capability**
-> With clarity on your opportunities and risks, it's time to act. Prioritise where to focus on where to invest for productivity gains, innovation and customer value.
-
-**Step 4: Transform: Clarity with a Plan to embed**
-> With confidence of proven use cases in place, you're ready to scale. Leverage AI to digitally transform your business, embedding capability, governance, and performance that lasts.
+**Step 5: Strategy & Execution**
+> Start with small pilots that solve real problems and deliver ROI. Build the foundation before you scale. Develop a digital strategy that aligns AI to business goals and customer value.
 
 ---
 
-## 5. QUESTION-BY-QUESTION FEEDBACK
+---
+
+## 4. QUESTION-BY-QUESTION FEEDBACK
 
 ### Q1: Leadership & Ownership
 
@@ -375,7 +357,7 @@ This document lists all dynamic text content that appears in the assessment repo
 
 ---
 
-## 6. PRIORITY GAPS (Top 3)
+## 5. PRIORITY GAPS (Top 3)
 
 ### Gap Selection Logic
 - **Only include questions with scores < 5** (imperfect scores)
@@ -427,35 +409,35 @@ This document lists all dynamic text content that appears in the assessment repo
 
 ### Gap Summary Statements (by Maturity Band)
 
-**Unmanaged (0-25):**
-> These gaps represent immediate risks that compound daily. Start with Shadow AI discovery and basic governance.
+**Blind (0-25):**
+> These gaps represent critical blind spots. Start with Leadership Mastery and Shadow AI discovery.
 
-**Ad Hoc (26-50):**
-> These gaps prevent coordinated progress. A structured roadmap will turn scattered activity into strategic capability.
+**Reactive (26-50):**
+> These gaps prevent coordinated progress. Focus on establishing basic Governance & Trust to enable safe experimentation.
 
-**Developing (51-75):**
-> These gaps limit your ability to scale. Address them systematically to maintain momentum.
+**Building (51-75):**
+> These gaps limit your ability to scale. Address them systematically to strengthen Execution & Evolution.
 
 **Ready (76-100):**
-> These represent optimisation opportunities. Focus here to maximise ROI and competitive advantage.
+> These represent optimization opportunities. Focus here to maximize ROI and competitive advantage.
 
 ### Bridging Sentence (appears after gaps list)
-> These recommendations reflect the foundations of the AI Readiness Playbook: transparency, accountability, capability, and trust. Your discovery call focuses on how to apply them in your organisation.
+> These recommendations map directly to the GEN5™ framework: the five essential elements every business needs to move from AI exposure to AI advantage.
 
 ---
 
-## 7. CALL TO ACTION
+## 6. CALL TO ACTION
 
-### CTA Heading (Capitalized)
-> NEXT STEP: BOOK YOUR 20-MINUTE DISCOVERY CALL
+### CTA Heading
+> BOOK YOUR 20-MINUTE DISCOVERY CALL
 
 ### CTA Body
-> We'll help you make sense of these results and show you exactly where to start.
+> On the call, we'll:
 
 ### CTA Bullets
 - Review your results together and answer any questions
-- Show you the roadmap that fits your business
-- Recommend your first move (whether you work with us or not)
+- Discuss the roadmap that fits your business
+- Recommend your first move
 
 ### CTA Promise
 > You'll walk away with a clear next action, whether you work with us or not.
@@ -469,14 +451,14 @@ This document lists all dynamic text content that appears in the assessment repo
 
 ---
 
-## 8. SUCCESS FOOTER (NEW)
+## 7. SUCCESS FOOTER
 
 ### Content (appears before main footer)
 > Most businesses that start here see measurable improvement within 90 days: tighter governance, safer experimentation, and clearer ROI.
 
 ---
 
-## 9. METADATA & SYSTEM TEXT
+## 8. METADATA & SYSTEM TEXT
 
 ### Journey Signpost (Vertical Layout)
 - **Label**: You are here
@@ -497,7 +479,7 @@ This document lists all dynamic text content that appears in the assessment repo
 
 ---
 
-## 10. VISUAL STYLING LOGIC
+## 9. VISUAL STYLING LOGIC
 
 ### Score-Based Color Coding (Answer Playback Boxes)
 
@@ -529,16 +511,13 @@ This document lists all dynamic text content that appears in the assessment repo
 
 ---
 
-## 11. LOGIC RULES SUMMARY
+## 10. LOGIC RULES SUMMARY
 
-### Tension Line Selection (3-Tier)
-- If score ≤40 → "You're adopting AI faster than you can govern it..."
-- If score 41-70 → "You've got awareness, but without a clear roadmap..."
-- If score 71-100 → "You're well positioned, but maintaining momentum..."
-
-### Playbook Dynamic Line (2-Tier)
-- If score ≤50 → Show focus on Transparency & Accountability
-- If score >50 → Show focus on Capability & Trust
+### Tension Line Selection (4-Tier - Matches Maturity Bands)
+- If score ≤25 → "You have zero visibility on AI..."
+- If score 26-50 → "AI is likely happening in the shadows..."
+- If score 51-75 → "You've got awareness, but execution is fragile..."
+- If score 76-100 → "You've got strong foundations..."
 
 ### Gap Selection & Display
 - Only include questions with scores < 5
@@ -547,14 +526,15 @@ This document lists all dynamic text content that appears in the assessment repo
 - Add recommendation below each gap description
 - Add bridging sentence after all gaps
 
-### Phase Label (Internal, not displayed)
-- If score ≤40 → "Exposed"
-- If score 41-70 → "Ready to Execute"
-- If score 71-100 → "Leading"
+### Phase Label (Internal - matches maturity band)
+- If score ≤25 → "Blind"
+- If score 26-50 → "Reactive"
+- If score 51-75 → "Building"
+- If score 76-100 → "Ready"
 
 ---
 
-## 12. BRAND CONSISTENCY
+## 11. BRAND CONSISTENCY
 
 ### Color Palette
 - **Primary Blue**: `#1E40AF`
@@ -575,7 +555,7 @@ This document lists all dynamic text content that appears in the assessment repo
 
 ---
 
-*Document Version: 2.0*  
-*Last Updated: 2025-11-07*  
-*All content uses NZ English spelling*  
-*All em dashes removed and replaced with colons or commas*
+*Document Version: 3.0*
+*Last Updated: 2025-01-13*
+*All content uses NZ English spelling*
+*Major Update: Maturity bands renamed (Unmanaged→Blind, Ad Hoc→Reactive, Developing→Building), new 5-step playbook framework, GEN5™ framework integration*
