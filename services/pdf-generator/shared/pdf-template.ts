@@ -1424,19 +1424,16 @@ function generateBusinessReadinessHTML(data: any): string {
 
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); margin: var(--space-xl) auto; max-width: 700px;">
       <div style="text-align: center;">
-        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📹</div>
         <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">AI Knowledge Videos</h3>
         <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Real examples and expert advice</p>
       </div>
 
       <div style="text-align: center;">
-        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📝</div>
         <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">Insight Articles</h3>
         <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Latest research and strategies</p>
       </div>
 
       <div style="text-align: center;">
-        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📥</div>
         <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">Free Toolkits</h3>
         <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Downloadable guides and frameworks</p>
       </div>
