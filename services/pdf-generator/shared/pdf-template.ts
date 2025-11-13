@@ -1024,33 +1024,6 @@ function generateBusinessReadinessHTML(data: any): string {
       color: var(--risk-low);
     }
 
-    /* Journey Signpost */
-    .journey-signpost {
-      text-align: center;
-      padding: var(--space-lg) 0;
-      margin-bottom: var(--space-lg);
-      color: var(--text-body);
-      font-size: var(--font-size-xs);
-      letter-spacing: 0.05em;
-    }
-
-    .journey-signpost-label {
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: var(--space-xs);
-      color: var(--text-body);
-    }
-
-    .journey-signpost-path {
-      text-transform: uppercase;
-      font-size: var(--font-size-base);
-    }
-
-    .journey-signpost-path strong {
-      color: var(--primary-blue);
-      font-weight: 700;
-    }
-
     /* Area Sections */
     .area-section {
       margin: var(--space-lg) 0;
@@ -1185,12 +1158,6 @@ function generateBusinessReadinessHTML(data: any): string {
     </div>
   </div>
 
-  <!-- Journey Signpost -->
-  <div class="journey-signpost">
-    <div class="journey-signpost-label">You are here</div>
-    <div class="journey-signpost-path"><strong>Assess</strong> → Learn → Grow → Transform</div>
-  </div>
-
   <div class="score-section">
     <h2>Your Business AI Readiness Profile</h2>
     <div class="score-display score-medium">Your Business AI Readiness Score: ${scoreNum}/100</div>
@@ -1202,38 +1169,54 @@ function generateBusinessReadinessHTML(data: any): string {
     ${data.tension_line || ''}
   </div>
 
-  <!-- Maturity Band Narrative -->
-  <p style="margin: var(--space-lg) auto; color: var(--text-body); max-width: 700px;">${data.readiness_band_narrative}</p>
-
   <!-- AI Readiness Playbook Section -->
   <div style="background: white; border: 1px solid #E5E7EB; border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) auto; max-width: 800px;">
     <h2 style="text-align: center; margin-bottom: var(--space-md);">The AI Readiness Playbook</h2>
     <p style="text-align: center; margin-bottom: var(--space-xl); color: var(--text-body);">
-      Every successful organisation builds its AI capability around these principles:
+      From our work with dozens of New Zealand businesses, successful AI adoption always follows this pattern:
     </p>
-    
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin: var(--space-xl) 0;">
-      <div style="text-align: center; padding: var(--space-lg);">
-        <h3 style="color: #0066CC; margin-bottom: var(--space-sm); font-size: 1.25rem;">Transparency</h3>
-        <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.5;">Clear documentation of AI use and decision making processes</p>
+
+    <div style="margin-bottom: var(--space-lg);">
+      <div style="display: flex; gap: var(--space-md); margin-bottom: var(--space-lg); align-items: flex-start;">
+        <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #0066CC; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</div>
+        <div>
+          <h3 style="color: #0066CC; margin: 0 0 var(--space-xs) 0; font-size: 1.1rem;">Leadership Readiness</h3>
+          <p style="margin: 0; color: var(--text-body); font-size: 0.95rem;">Upskill your leaders first, they can't lead AI if they don't understand it. AI is not an IT project. It needs to be led from the top with clear messaging that builds trust.</p>
+        </div>
       </div>
-      <div style="text-align: center; padding: var(--space-lg);">
-        <h3 style="color: #0066CC; margin-bottom: var(--space-sm); font-size: 1.25rem;">Accountability</h3>
-        <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.5;">Defined ownership and responsibility for AI outcomes</p>
+
+      <div style="display: flex; gap: var(--space-md); margin-bottom: var(--space-lg); align-items: flex-start;">
+        <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #0066CC; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">2</div>
+        <div>
+          <h3 style="color: #0066CC; margin: 0 0 var(--space-xs) 0; font-size: 1.1rem;">Discovery & Transparency</h3>
+          <p style="margin: 0; color: var(--text-body); font-size: 0.95rem;">Find out what's happening. Talk to your people. Uncover Shadow AI before it becomes a problem. You can't manage what you can't see.</p>
+        </div>
       </div>
-      <div style="text-align: center; padding: var(--space-lg);">
-        <h3 style="color: #0066CC; margin-bottom: var(--space-sm); font-size: 1.25rem;">Capability</h3>
-        <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.5;">Skills and infrastructure to deploy AI effectively</p>
+
+      <div style="display: flex; gap: var(--space-md); margin-bottom: var(--space-lg); align-items: flex-start;">
+        <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #0066CC; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</div>
+        <div>
+          <h3 style="color: #0066CC; margin: 0 0 var(--space-xs) 0; font-size: 1.1rem;">Guardrails & Governance</h3>
+          <p style="margin: 0; color: var(--text-body); font-size: 0.95rem;">Put basic policies in place that enable safe use. Treat AI like health and safety: practical controls, not prohibition. Define what's safe and what's not.</p>
+        </div>
       </div>
-      <div style="text-align: center; padding: var(--space-lg);">
-        <h3 style="color: #0066CC; margin-bottom: var(--space-sm); font-size: 1.25rem;">Trust</h3>
-        <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.5;">Ethical frameworks and stakeholder confidence</p>
+
+      <div style="display: flex; gap: var(--space-md); margin-bottom: var(--space-lg); align-items: flex-start;">
+        <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #0066CC; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</div>
+        <div>
+          <h3 style="color: #0066CC; margin: 0 0 var(--space-xs) 0; font-size: 1.1rem;">Capability Building</h3>
+          <p style="margin: 0; color: var(--text-body); font-size: 0.95rem;">Identify champions. Build skills across your people so they can use AI safely and effectively.</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: var(--space-md); align-items: flex-start;">
+        <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #0066CC; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">5</div>
+        <div>
+          <h3 style="color: #0066CC; margin: 0 0 var(--space-xs) 0; font-size: 1.1rem;">Strategy & Execution</h3>
+          <p style="margin: 0; color: var(--text-body); font-size: 0.95rem;">Start with small pilots that solve real problems and deliver ROI. Build the foundation before you scale. Develop a digital strategy that aligns AI to business goals and customer value.</p>
+        </div>
       </div>
     </div>
-    
-    <p style="text-align: center; margin-top: var(--space-xl); font-weight: 600; color: var(--text-heading);">
-      ${scoreNum <= 50 ? "You'll likely focus on Transparency and Accountability first. " : "You'll likely focus on Capability and Trust next. "}Your discovery call identifies which of these areas to focus on first and how to strengthen them inside your business.
-    </p>
   </div>
 
   <div class="introduction">
@@ -1337,7 +1320,7 @@ function generateBusinessReadinessHTML(data: any): string {
 
   <p style="margin-top: var(--space-md);"><em>${data.gap_summary_blurb}</em></p>
 
-  <p style="margin-top: var(--space-xl); font-weight: 600; color: var(--text-heading); text-align: center;">These recommendations reflect the foundations of the AI Readiness Playbook (transparency, accountability, capability, and trust). Your discovery call focuses on how to apply them in your organisation.</p>
+  <p style="margin-top: var(--space-xl); font-weight: 600; color: var(--text-heading); text-align: center;">These recommendations map directly to the GEN5™ framework: the five essential elements every business needs to move from AI exposure to AI advantage.</p>
     `;
   })()}
 
