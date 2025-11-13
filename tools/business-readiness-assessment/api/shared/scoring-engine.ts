@@ -40,10 +40,22 @@ export interface ScoringResult {
     tension_line: string;
     phase_label: string;
 
-    // Key question playbacks and interpretations (for PDF report)
+    // All 10 question playbacks and interpretations (for PDF report)
     q1_answer_playback: string;
     q1_interpretation_blurb: string;
     q1_score: number;
+
+    q2_answer_playback: string;
+    q2_interpretation_blurb: string;
+    q2_score: number;
+
+    q3_answer_playback: string;
+    q3_interpretation_blurb: string;
+    q3_score: number;
+
+    q4_answer_playback: string;
+    q4_interpretation_blurb: string;
+    q4_score: number;
 
     q5_answer_playback: string;
     q5_interpretation_blurb: string;
@@ -52,6 +64,14 @@ export interface ScoringResult {
     q6_answer_playback: string;
     q6_interpretation_blurb: string;
     q6_score: number;
+
+    q7_answer_playback: string;
+    q7_interpretation_blurb: string;
+    q7_score: number;
+
+    q8_answer_playback: string;
+    q8_interpretation_blurb: string;
+    q8_score: number;
 
     q9_answer_playback: string;
     q9_interpretation_blurb: string;
@@ -208,10 +228,22 @@ export class ScoringEngine {
         tension_line: tensionLine,
         phase_label: phaseLabel,
 
-        // Key questions for report (Q1, Q5, Q6, Q9, Q10)
+        // All 10 questions for report
         q1_answer_playback: rd.q1_ownership?.playback || "Not answered",
         q1_interpretation_blurb: rd.q1_ownership?.interpretation || "",
         q1_score: rd.q1_ownership?.score || 0,
+
+        q2_answer_playback: rd.q2_strategy?.playback || "Not answered",
+        q2_interpretation_blurb: rd.q2_strategy?.interpretation || "",
+        q2_score: rd.q2_strategy?.score || 0,
+
+        q3_answer_playback: rd.q3_culture?.playback || "Not answered",
+        q3_interpretation_blurb: rd.q3_culture?.interpretation || "",
+        q3_score: rd.q3_culture?.score || 0,
+
+        q4_answer_playback: rd.q4_enablement?.playback || "Not answered",
+        q4_interpretation_blurb: rd.q4_enablement?.interpretation || "",
+        q4_score: rd.q4_enablement?.score || 0,
 
         q5_answer_playback: rd.q5_shadow_ai?.playback || "Not answered",
         q5_interpretation_blurb: rd.q5_shadow_ai?.interpretation || "",
@@ -220,6 +252,14 @@ export class ScoringEngine {
         q6_answer_playback: rd.q6_governance?.playback || "Not answered",
         q6_interpretation_blurb: rd.q6_governance?.interpretation || "",
         q6_score: rd.q6_governance?.score || 0,
+
+        q7_answer_playback: rd.q7_compliance?.playback || "Not answered",
+        q7_interpretation_blurb: rd.q7_compliance?.interpretation || "",
+        q7_score: rd.q7_compliance?.score || 0,
+
+        q8_answer_playback: rd.q8_resources?.playback || "Not answered",
+        q8_interpretation_blurb: rd.q8_resources?.interpretation || "",
+        q8_score: rd.q8_resources?.score || 0,
 
         q9_answer_playback: rd.q9_data_protection?.playback || "Not answered",
         q9_interpretation_blurb: rd.q9_data_protection?.interpretation || "",
