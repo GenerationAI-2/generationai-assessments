@@ -92,7 +92,7 @@ class ResultsHandler {
 
     renderScoreSection() {
         const score = parseInt(this.data.readiness_score) || 0;
-        
+
         // Score number
         document.getElementById('score-display').textContent = score + '/100';
 
@@ -101,10 +101,6 @@ class ResultsHandler {
         const bandClass = this.getMaturityClass(this.data.readiness_band);
         badgeEl.className = `maturity-badge ${bandClass}`;
         badgeEl.textContent = sanitizeText(this.data.readiness_band);
-
-        // Maturity narrative
-        const narrativeEl = document.getElementById('maturity-narrative');
-        narrativeEl.textContent = sanitizeText(this.data.readiness_band_narrative);
     }
 
     getMaturityClass(band) {
