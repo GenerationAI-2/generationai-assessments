@@ -33,7 +33,7 @@ export interface ScoringResult {
 
     // Score and band
     readiness_score: string;  // 0-100
-    readiness_band: string;   // Unmanaged/Ad Hoc/Developing/Ready
+    readiness_band: string;   // Blind/Reactive/Building/Advanced
     readiness_band_narrative: string;
 
     // New: Tension line and phase
@@ -189,7 +189,7 @@ export class ScoringEngine {
       tensionLine = "You've got strong foundations. The question now is execution speed and sustaining momentum.";
     }
 
-    const phaseLabel = finalScore <= 25 ? "Blind" : finalScore <= 50 ? "Reactive" : finalScore <= 75 ? "Building" : "Ready";
+    const phaseLabel = finalScore <= 25 ? "Blind" : finalScore <= 50 ? "Reactive" : finalScore <= 75 ? "Building" : "Advanced";
 
     const td = results.templateData;
     const rd = results.responseData;

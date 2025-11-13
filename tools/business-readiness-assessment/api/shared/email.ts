@@ -114,37 +114,52 @@ function generateEmailHTML(options: EmailOptions): string {
             <td style="padding: 0 32px; color: #6B7280; font-size: 15px; line-height: 1.6;">
               <p style="margin: 24px 0;">Your report includes:</p>
               <p style="margin: 24px 0 24px 20px; line-height: 1.8;">
-                ✓ Assessment across 4 key readiness dimensions<br>
-                ✓ Your top 3 priority gaps<br>
-                ✓ Personalised next steps and action plan
+                ✓ Complete assessment of all 10 questions across 4 key categories<br>
+                ✓ Your top 3 priority gaps with recommendations<br>
+                ✓ AI Readiness Playbook with 5-step framework<br>
+                ✓ Personalised insights and next steps
               </p>
             </td>
           </tr>
 
-          <!-- CTA Button -->
+          <!-- Primary CTA Button -->
           <tr>
-            <td align="center" style="padding: 32px;">
-              <a href="https://www.generationai.co.nz/solutions/ai-readiness-roadmap"
-                 style="display: inline-block; background-color: #D4FF00; color: #0F172A; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px;">Get Your AI Readiness Roadmap</a>
+            <td align="center" style="padding: 32px 32px 16px 32px;">
+              <a href="https://share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA7bboe8"
+                 style="display: inline-block; background-color: #2563EB; color: #FFFFFF; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px;">Book Your 20-Minute Discovery Call</a>
             </td>
           </tr>
 
           <!-- Bottom Content -->
           <tr>
-            <td style="padding: 0 32px; color: #6B7280; font-size: 14px; line-height: 1.6;">
-              <p style="margin: 24px 0;">Ready to move from insights to action? We help NZ organisations build safe, strategic AI capability.</p>
+            <td style="padding: 0 32px; color: #6B7280; font-size: 14px; line-height: 1.6; text-align: center;">
+              <p style="margin: 16px 0;">We'll review your results together, discuss the roadmap that fits your business, and recommend your first move.</p>
+            </td>
+          </tr>
+
+          <!-- Secondary CTA - Knowledge Hub -->
+          <tr>
+            <td style="padding: 24px 32px 0 32px; color: #6B7280; font-size: 14px; line-height: 1.6; text-align: center; border-top: 1px solid #E5E7EB;">
+              <p style="margin: 24px 0 12px 0; font-weight: 600; color: #0F172A;">Not quite ready to talk?</p>
+              <p style="margin: 0 0 16px 0;">Explore our <a href="https://www.generationai.co.nz/knowledge-hub" style="color: #2563EB; text-decoration: none; font-weight: 600;">Knowledge Hub</a> for videos, articles, and free toolkits backed by decades of governance and strategy experience.</p>
             </td>
           </tr>
 
           <!-- Footer -->
           <tr>
             <td align="center" style="padding: 32px 32px 32px 32px; border-top: 1px solid #E5E7EB; font-size: 12px; color: #9CA3AF;">
-              <p style="margin: 0 0 12px 0;">
+              <p style="margin: 0 0 16px 0;">
                 <strong style="color: #9CA3AF;">GenerationAI</strong> | Auckland, New Zealand<br>
                 <a href="https://www.generationai.co.nz" style="color: #2563EB; text-decoration: none;">www.generationai.co.nz</a>
               </p>
-              <p style="margin: 12px 0 0 0; font-size: 11px;">
-                This assessment does not constitute legal, compliance, or technical advice.
+              <p style="margin: 0 0 8px 0; font-size: 11px; font-style: italic;">
+                This report is confidential and prepared exclusively for ${options.companyName}.
+              </p>
+              <p style="margin: 0 0 8px 0; font-size: 11px;">
+                This assessment does not constitute legal, compliance, or professional advice.
+              </p>
+              <p style="margin: 0; font-size: 10px; color: #D1D5DB;">
+                © 2025 GenerationAI. All rights reserved.
               </p>
             </td>
           </tr>

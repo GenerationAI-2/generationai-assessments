@@ -47,9 +47,9 @@ export const SCORING_CONFIG = {
         },
         "opt_4": {
           score: 4,
-          label: "Assigned to senior leader in IT or Operations",
-          playback: "You said a senior leader owns AI, but it's not widely visible across the organisation.",
-          interpretation: "You have an owner, but they're not empowered. Without budget, mandate, or visible CEO backing, ownership becomes a side project. The role needs real authority. Otherwise this is leadership theatre, not leadership action."
+          label: "Assigned to a senior leader, but not yet visible across the business",
+          playback: "You said a senior leader owns AI, but it's not yet visible across the organisation.",
+          interpretation: "You have an owner, but they lack visibility or authority to drive change across the business. This needs stronger leadership backing and clear mandate to be effective."
         },
         "opt_3": {
           score: 3,
@@ -61,19 +61,19 @@ export const SCORING_CONFIG = {
           score: 2,
           label: "Discussed occasionally, but not assigned",
           playback: "You said AI has been discussed by leadership, but no one owns it yet.",
-          interpretation: "Leadership is aware, but paralysed. Everyone agrees someone should own it, but nobody wants the responsibility. Meanwhile, Shadow AI spreads and competitors advance. This indecision costs more than any wrong decision would."
+          interpretation: "Leadership is aware but paralysed. Everyone agrees someone should own it, but nobody wants the responsibility. Meanwhile, opportunities are missed and competitors advance. This indecision costs more than any wrong decision would."
         },
         "opt_1": {
           score: 1,
           label: "No clear ownership or intent to assign",
           playback: "You told us no one owns AI, and there's no plan to change that.",
-          interpretation: "This is passive exposure. AI will still be adopted, just without guidance. Every week without ownership means deeper fragmentation. Assign an owner within days, not months."
+          interpretation: "AI has no leadership oversight. Every week without ownership means deeper fragmentation and missed opportunities. Assign an owner within days, not months."
         },
         "opt_0": {
           score: 0,
           label: "Not discussed or considered at all",
           playback: "You said you don't know whether AI ownership exists or has even been discussed.",
-          interpretation: "AI is happening without any leadership oversight. No one is watching the risks, shaping the opportunities, or guiding adoption. This is an organisational blindspot, and a strategic liability."
+          interpretation: "AI is happening without any leadership oversight. No one is watching the risks, shaping the opportunities, or guiding adoption. This is an organisational blind spot, and a strategic liability."
         }
       }
     },
@@ -89,15 +89,15 @@ export const SCORING_CONFIG = {
         },
         "opt_4": {
           score: 4,
-          label: "Regularly discussed at board or exec level",
-          playback: "You said AI is regularly discussed at board or executive level meetings.",
+          label: "Regularly discussed at leadership level",
+          playback: "You said AI is regularly discussed at leadership level meetings.",
           interpretation: "Leadership engagement is strong, but discussion without documentation risks drift. Until AI moves from agenda item to strategic plan, execution remains informal. Document the strategy to convert conversation into coordinated action."
         },
         "opt_3": {
           score: 3,
           label: "Included in planning documents but not acted on",
           playback: "You told us AI appears in planning documents but hasn't translated to action.",
-          interpretation: "This is strategic theatre, AI is mentioned to appear current, but without execution it's just words on paper. The gap between documentation and action is where competitive advantage is lost. Move from planning to pilots immediately."
+          interpretation: "This is strategic theatre. AI is mentioned to appear current, but without execution it's just words on paper. The gap between documentation and action is where competitive advantage is lost. Move from planning to pilots immediately."
         },
         "opt_2": {
           score: 2,
@@ -139,7 +139,7 @@ export const SCORING_CONFIG = {
           score: 3,
           label: "Mixed responses, with some resistance or uncertainty",
           playback: "You told us there are mixed responses, with pockets of resistance and uncertainty.",
-          interpretation: "This is typical and manageable. The split usually follows generational or role lines. Resistance often masks fear, fear of replacement, irrelevance, or failure. Address the fear directly with clear messaging about augmentation, not automation."
+          interpretation: "This is typical and manageable. The split usually follows generational or role lines. Resistance often masks fear, fear of replacement, irrelevance, or failure. Address the fear directly with clear messaging about augmentation, not replacement."
         },
         "opt_2": {
           score: 2,
@@ -157,7 +157,7 @@ export const SCORING_CONFIG = {
           score: 0,
           label: "No visible engagement or signals at all",
           playback: "You said there's no visible engagement or cultural signals around AI adoption.",
-          interpretation: "AI isn't even part of the conversation. This silence is concerning, it suggests either complete disconnection from market reality or active suppression of innovation. Before introducing tools, you need to reintroduce curiosity and possibility."
+          interpretation: "Staff are either unaware or haven't been engaged in the conversation. This usually signals a leadership communication gap, not genuine indifference. Start with transparent conversations about what AI means for your team before imposing policies."
         }
       }
     },
@@ -181,25 +181,25 @@ export const SCORING_CONFIG = {
           score: 3,
           label: "Basic guidance shared across the business",
           playback: "You told us basic guidance has been shared with staff across the organisation.",
-          interpretation: "You've communicated the minimum, but basics won't build capability. Staff know the rules but not the potential. Without deeper enablement, AI use remains superficial, copying text rather than transforming workflows. Investment in proper training pays back quickly."
+          interpretation: "Guidance without training means staff know the rules but not the tools. This creates hesitation and low adoption. People won't use tools they don't understand. Follow guidance with hands-on enablement."
         },
         "opt_2": {
           score: 2,
           label: "Informal tips or peer support only",
-          playback: "You said staff rely on informal tips or peer-to-peer support for AI guidance.",
-          interpretation: "This creates dangerous inconsistency. One person's \"best practice\" becomes another's risk exposure. Peer learning has value, but without formal structure, myths spread faster than facts. Establish official guidance before bad habits become embedded."
+          playback: "You said staff have been told they can use AI, but no training or resources have been provided.",
+          interpretation: "Permission without enablement leads to inconsistent results and hidden risk. This is how data breaches happen, through good intentions and poor knowledge. Provide training immediately."
         },
         "opt_1": {
           score: 1,
           label: "Told not to use AI, without alternatives",
-          playback: "You told us staff have been instructed not to use AI, with no alternatives provided.",
-          interpretation: "Prohibition without provision drives behaviour underground. Staff who need productivity tools will find them anyway, just without your knowledge or control. This approach guarantees Shadow AI. Provide safe alternatives or accept hidden risk."
+          playback: "You told us staff are expected to figure it out themselves, with no formal support.",
+          interpretation: "This is wishful thinking at scale. A few tech-savvy staff will thrive; most will flounder or opt out. Capability gaps will widen, and organisational value will concentrate in the hands of a few. Enablement is not optional for strategic adoption."
         },
         "opt_0": {
           score: 0,
           label: "No guidance, training or enablement at all",
-          playback: "You said no guidance or training has been provided to staff about AI use.",
-          interpretation: "Staff are improvising in a vacuum. Without any enablement, they're learning from YouTube and ChatGPT itself. This isn't just capability gap, it's active risk creation. Every untrained user is a potential incident. Start with one-page guidance and team walkthroughs, simple beats nothing."
+          playback: "You said no training, guidance, or resources have been provided to staff at all.",
+          interpretation: "Staff are in the dark. Any AI usage is happening by accident, with maximum risk and minimal value. Without guidance, staff either avoid AI entirely or experiment unsafely. Begin with basic education and approved tools."
         }
       }
     },
@@ -216,32 +216,32 @@ export const SCORING_CONFIG = {
         "opt_4": {
           score: 4,
           label: "Minimal use in isolated cases only",
-          playback: "You said unauthorised AI use is rare and limited to isolated cases.",
-          interpretation: "You've achieved reasonable control, but vigilance is needed. Those \"isolated cases\" often multiply without active monitoring. Formalise your controls before exceptions become patterns."
+          playback: "You said only minimal Shadow AI use is happening, in isolated cases.",
+          interpretation: "You have strong awareness and controls. Isolated cases are normal, perfect compliance is unrealistic. The key is rapid detection and correction. Monitor these cases to prevent spread."
         },
         "opt_3": {
           score: 3,
           label: "Some teams using personal accounts",
-          playback: "You told us some teams are using personal AI tools or free accounts to get their work done.",
-          interpretation: "This is where most organisations sit, and where risk accumulates fast. Company data is entering personal tools with no audit trail. Without intervention, this spreads from \"some teams\" to \"most teams\" within months."
+          playback: "You told us some teams are using personal accounts.",
+          interpretation: "You're in the danger zone. What starts as a few teams quickly becomes department-wide adoption. Shadow AI spreads through peer influence. Act now to establish approved alternatives."
         },
         "opt_2": {
           score: 2,
-          label: "Widespread informal use across teams",
-          playback: "You said there's widespread informal use of AI tools through free or personal accounts.",
-          interpretation: "Shadow AI is active across your business. This likely includes client data in ChatGPT, IP in Claude, and no system-level tracking. You're one screenshot or accidental disclosure away from crisis."
+          label: "Widespread use across teams (free accounts, no oversight)",
+          playback: "You said there's widespread use across teams with free accounts and no oversight.",
+          interpretation: "This is crisis-level exposure. Shadow AI is happening at scale, and you have no visibility or control. Act within days to assess risk, establish guardrails, and provide approved alternatives."
         },
         "opt_1": {
           score: 1,
           label: "Extensive Shadow AI, no controls in place",
-          playback: "You told us staff are actively using AI tools, but you have no formal tracking, tooling, or policy.",
-          interpretation: "This is crisis-level exposure. Shadow AI is shaping work at scale, and leadership has no visibility. Act within days, not weeks, to assess risk and reassert control."
+          playback: "You said you likely have extensive unauthorised (Shadow AI) use, with no visibility or controls.",
+          interpretation: "This is maximum-risk blindness. You suspect widespread use but have no way to verify, contain, or guide it. Data exposure is highly likely. Begin immediate discovery and establish basic guardrails within days."
         },
         "opt_0": {
           score: 0,
           label: "Don't know what's being used",
-          playback: "You said you don't know whether staff are using AI tools, or to what extent.",
-          interpretation: "You can't protect what you can't see. Shadow AI is definitely active, and data is likely exposed. Start with a discovery exercise to understand your true exposure before incidents occur."
+          playback: "You said you don't know what's being used.",
+          interpretation: "You can't protect what you can't see. If AI is being used, you're exposed to data and compliance risks. If it's not, you're missing productivity gains. Either way, you need visibility. Start with a discovery exercise."
         }
       }
     },
@@ -252,26 +252,26 @@ export const SCORING_CONFIG = {
         "opt_5": {
           score: 5,
           label: "Clear AI policy and guardrails in place",
-          playback: "You told us you have clear governance in place, with AI policies, approved tools, and team guidance already active.",
-          interpretation: "You've built mature, enabling governance. Policies are clear, tools are approved, and staff have confidence to explore safely. This protects trust, reduces exposure, and positions you to scale capability."
+          playback: "You told us you have clear AI governance policies and guardrails in place.",
+          interpretation: "Strong governance means you can scale safely. Clear rules, approved tools, and consistent application create boundaries that enable innovation rather than block it. This is enterprise readiness."
         },
         "opt_4": {
           score: 4,
           label: "Working draft shared and being refined",
-          playback: "You said governance is in place, but still informal or in draft form.",
-          interpretation: "You're building the plane while flying it. Draft policies are better than nothing, but staff are making their own calls in the meantime. One team might paste client data into free tools, while another refuses to use AI at all. Finish what you've started, consistency requires completion."
+          playback: "You said governance policies exist but are still being refined.",
+          interpretation: "You've made a solid start. Policy without consistent application is just guidance. Staff will follow the path of least resistance. Make approved tools easier to use than Shadow AI alternatives."
         },
         "opt_3": {
           score: 3,
           label: "Basic rules or principles communicated",
           playback: "You told us basic rules or principles have been communicated to staff.",
-          interpretation: "Basic guidance is a start, but without formal policy, interpretation varies widely. Some staff think AI is banned, others think it's encouraged, most aren't sure. This confusion guarantees inconsistent behaviour and hidden risk. Document formal guardrails immediately, even a one-page policy beats informal guidance."
+          interpretation: "Basic guidance is better than nothing, but without detail, staff will interpret differently. What's acceptable? What's forbidden? Create clear examples and practical guidelines so people know what good looks like."
         },
         "opt_2": {
           score: 2,
           label: "Informal expectations only",
           playback: "You said there are informal expectations but no formal governance in place.",
-          interpretation: "This is the worst position: permission without protection. Teams assume it's safe to use AI but have no guidance on what's acceptable. Informal expectations shift between teams and managers. You're one client complaint away from discovering what's been shared, and by whom. Start by defining what's in bounds."
+          interpretation: "Informal expectations shift between managers and teams. What's acceptable in one team is forbidden in another. This creates confusion and inconsistent risk. Document clear guidelines and communicate them broadly."
         },
         "opt_1": {
           score: 1,
@@ -283,7 +283,7 @@ export const SCORING_CONFIG = {
           score: 0,
           label: "No guardrails or discussion at all",
           playback: "You said there's been no discussion of AI governance or guardrails at all.",
-          interpretation: "AI governance isn't on the radar. Without visibility, policy, or ownership, you have no ability to detect, contain, or respond to incidents. The first incident (an AI hallucination in a client report, sensitive data exposure, or compliance inquiry) will force this conversation. Begin with discovery and leadership alignment."
+          interpretation: "AI governance isn't on the radar. Without visibility, policy, or ownership, you have no ability to detect, contain, or respond to incidents. Begin with discovery and leadership alignment before the first incident forces the conversation."
         }
       }
     },
@@ -294,38 +294,38 @@ export const SCORING_CONFIG = {
         "opt_5": {
           score: 5,
           label: "Fully confident, legal obligations mapped and controls in place",
-          playback: "You told us you're fully confident, with legal obligations mapped and controls actively enforced.",
-          interpretation: "You've done the work others avoid. Mapping obligations to controls means compliance by design, not luck. This positions you to respond confidently to regulators, auditors, or clients. Maintain this through regular reviews as AI regulations evolve rapidly."
+          playback: "You told us you're fully confident, with legal obligations mapped and controls in place.",
+          interpretation: "You've done the work others avoid. Mapping obligations to controls means compliance by design, not luck. This positions you to respond confidently to regulators, auditors, or clients about how you protect their data."
         },
         "opt_4": {
           score: 4,
           label: "Mostly confident, risks understood and mitigated",
           playback: "You said you're mostly confident, with key risks identified and mitigation in place.",
-          interpretation: "You understand the landscape but haven't mapped every detail. \"Mostly confident\" often means known unknowns remain. The gap between mostly and fully confident is where incidents hide. Close those gaps before they close on you."
+          interpretation: "You understand the landscape but haven't mapped every detail. \"Mostly confident\" often means known unknowns remain. The gap between mostly and fully confident is where data breaches and privacy violations hide. Close those gaps before they close on you."
         },
         "opt_3": {
           score: 3,
           label: "Somewhat confident, partial understanding and oversight",
           playback: "You told us you're somewhat confident, with partial understanding of obligations.",
-          interpretation: "This uncertainty is common but dangerous. \"Somewhat confident\" in legal compliance is like being \"somewhat pregnant\", you either comply or you don't. Partial understanding leads to partial protection. Get legal clarity before an incident forces it."
+          interpretation: "\"Somewhat confident\" in data protection is like being \"somewhat pregnant\". You either protect client data or you don't. Partial understanding leads to partial protection, which isn't protection at all. Map your obligations urgently."
         },
         "opt_2": {
           score: 2,
           label: "Not confident, limited awareness or checks",
           playback: "You said you're not confident, with limited awareness of legal obligations.",
-          interpretation: "You know enough to be worried, but not enough to be safe. This honesty is valuable, it's better than false confidence. But worry without action is just anxiety. Map your obligations urgently; ignorance isn't a legal defence."
+          interpretation: "You know enough to be worried, but not enough to be safe. This honesty is refreshing but dangerous. Privacy Act obligations, confidentiality agreements, and professional duties don't disappear because you're using AI tools. Map your obligations urgently."
         },
         "opt_1": {
           score: 1,
           label: "Know we're likely exposed",
-          playback: "You told us you know your AI use likely violates legal obligations.",
-          interpretation: "You're knowingly operating outside compliance. This isn't just risk, it's liability accumulating daily. Every day of known non-compliance increases penalty severity if discovered. Remediation is cheaper than prosecution. Act immediately."
+          playback: "You told us you know compliance obligations aren't being met.",
+          interpretation: "Operating knowingly out of compliance is the highest-risk position. Every day increases liability for data breaches, privacy violations, or IP exposure. This needs immediate attention and legal review."
         },
         "opt_0": {
           score: 0,
           label: "Haven't considered legal or privacy risks at all",
-          playback: "You said you haven't considered legal or privacy obligations related to AI use.",
-          interpretation: "The law applies whether you consider it or not. Privacy Acts, and data protection laws don't require your awareness to impose penalties. You're operating blind in a minefield. Start with basic legal review, ignorance multiplies penalties."
+          playback: "You said you have no idea whether legal obligations are being met.",
+          interpretation: "Total blindness to compliance creates compounding liability. Privacy and data protection obligations apply whether you're using AI or not. Operating without any awareness of what data is being shared or with which tools is gambling with client trust and your professional reputation."
         }
       }
     },
@@ -335,7 +335,7 @@ export const SCORING_CONFIG = {
       responses: {
         "opt_5": {
           score: 5,
-          label: "Fully resourced with budget, team, and executive time committed",
+          label: "Fully resourced with budget, team, and leadership time committed",
           playback: "You told us you've fully resourced AI adoption with budget, team, and executive commitment in place.",
           interpretation: "You're backing intent with investment. This is where strategy becomes reality. With resources allocated, your focus shifts to execution quality and ROI measurement. The risk now is spreading resources too thin, maintain focus on priority use cases."
         },
@@ -349,25 +349,25 @@ export const SCORING_CONFIG = {
           score: 3,
           label: "Resources identified, approval in progress",
           playback: "You told us resources have been identified but you're still securing formal approval.",
-          interpretation: "You're in the danger zone between intent and action. While approval processes grind on, competitors are already executing. Consider starting with smaller investments that don't need sign-off, build momentum while bureaucracy catches up."
+          interpretation: "Resources exist but aren't committed. This suggests AI hasn't crossed the threshold from \"interesting\" to \"strategic priority.\" Until budget and people are allocated, AI will remain secondary to everything else. Make the call."
         },
         "opt_2": {
           score: 2,
           label: "Considering investment, no formal commitment",
           playback: "You said you're considering investment but haven't made formal commitments yet.",
-          interpretation: "This is exploration without commitment. AI requires more than curiosity, it needs dedicated resources. Without budget or team allocation, you're essentially window shopping while others are building. Set a decision deadline or risk permanent delay."
+          interpretation: "Good intentions without resources means AI stays in the talking phase. Meanwhile, competitors are investing. If AI matters strategically, resource it. If not, stop pretending it does."
         },
         "opt_1": {
           score: 1,
           label: "No resources allocated or planned",
-          playback: "You told us no resources have been allocated and none are planned for AI adoption.",
-          interpretation: "You're treating AI as optional while competitors treat it as essential. No resources means no progress. This isn't just about falling behind, it's about becoming irrelevant. Even small pilot budgets would signal more readiness than zero investment."
+          playback: "You told us there's no discussion of resource allocation for AI.",
+          interpretation: "No resources means no execution. AI won't happen by accident. If you want strategic AI capability, fund it. Without resources, you're watching from the sidelines while others build advantage."
         },
         "opt_0": {
           score: 0,
           label: "Haven't considered resourcing yet",
-          playback: "You said you haven't yet considered what resources AI adoption would require.",
-          interpretation: "This suggests AI isn't even on the strategic radar. While you haven't considered resourcing, your competitors are already seeing returns. Start by understanding resource requirements, you can't make informed decisions without knowing the investment needed."
+          playback: "You said there's no discussion of resourcing yet.",
+          interpretation: "AI hasn't even made it onto the resource discussion agenda. This suggests it's not seen as a strategic priority. Until leadership commits time and budget, AI will remain an idea, not a capability."
         }
       }
     },
@@ -391,7 +391,7 @@ export const SCORING_CONFIG = {
           score: 3,
           label: "Reasonably confident, relying on staff judgment",
           playback: "You said you're somewhat confident, relying on staff judgement rather than formal controls.",
-          interpretation: "This creates inconsistency. Some staff may be cautious; others may paste sensitive info into free tools without thinking. Relying on individual judgment is not a sustainable defence. Formalise your guidance before an incident forces the issue."
+          interpretation: "This creates inconsistency. Some staff may be cautious; others may paste sensitive info into free tools without thinking. Relying on individual judgement is not a sustainable defence. Formalise your guidance before an incident forces the issue."
         },
         "opt_2": {
           score: 2,
@@ -409,7 +409,7 @@ export const SCORING_CONFIG = {
           score: 0,
           label: "No idea what's being shared or with which tools",
           playback: "You said you don't know whether any sensitive data has been shared, or with which tools.",
-          interpretation: "This is high-risk invisibility. If no one's tracking usage, you can't rule out exposure, and you'll be unprepared if clients, regulators, or internal stakeholders ask hard questions. You need immediate discovery and data policy alignment."
+          interpretation: "You have zero visibility into data exposure. This is the highest-risk state, confirmed breaches are bad, but unknown breaches are worse. Start with discovery immediately."
         }
       }
     },
@@ -420,14 +420,14 @@ export const SCORING_CONFIG = {
         "opt_5": {
           score: 5,
           label: "Clear ROI opportunities mapped across multiple areas",
-          playback: "You told us your organisation has clearly identified where AI will deliver value, with mapped use cases and ROI projections across teams.",
-          interpretation: "You know exactly where AI drives value, now it's about execution. You're ready to shift from exploration to scaled implementation. The challenge now is delivery, not direction."
+          playback: "You told us specific opportunities are mapped and prioritised, with business cases ready.",
+          interpretation: "You've done the strategic work. Now focus on execution discipline: start with one pilot, prove value in a low-risk environment, share learnings, and build confidence before scaling. Most businesses fail by running before they walk."
         },
         "opt_4": {
           score: 4,
           label: "Specific use cases identified with estimated benefits",
-          playback: "You said you've identified specific AI use cases and can estimate the potential benefits.",
-          interpretation: "You've done the thinking. Now it's about prioritising, resourcing, and testing. Organisations at this stage often benefit from structured roadmap support to accelerate traction."
+          playback: "You said several clear opportunities have been identified and are being explored.",
+          interpretation: "You know where AI can help. Resist the temptation to explore everything. Pick one high-value use case, run a contained pilot, prove it works, then expand. Build the foundations before you scale."
         },
         "opt_3": {
           score: 3,
@@ -444,8 +444,8 @@ export const SCORING_CONFIG = {
         "opt_1": {
           score: 1,
           label: "Haven't explored opportunities yet",
-          playback: "You told us your organisation hasn't yet explored where AI could add value.",
-          interpretation: "The opportunity is passing you by. Every month of inaction increases the gap between where you are and where leaders are heading. Start by identifying one area where time, cost, or accuracy could be improved."
+          playback: "You told us no one has looked at where or how AI could benefit the organisation.",
+          interpretation: "You're operating blind to opportunity while competitors map theirs. A simple opportunity scan, 2-4 hours with key stakeholders, will reveal 10-15 use cases. Start there."
         },
         "opt_0": {
           score: 0,
@@ -479,61 +479,61 @@ export const SCORING_CONFIG = {
     {
       min_score: 76,
       max_score: 100,
-      label: "Ready",
+      label: "Advanced",
       narrative: "You've got strong foundations. The question now is execution speed and sustaining momentum."
     }
   ] as MaturityBand[],
 
   gap_descriptions: {
     q1_ownership: {
-      title: "No executive ownership of AI",
+      title: "No leadership ownership of AI",
       description: "Without clear leadership accountability, AI adoption will remain fragmented and ineffective.",
-      recommendation: "Strengthen accountability: assign a clear AI owner at leadership level to drive strategy and governance."
+      recommendation: "Strengthen accountability: assign a clear AI owner at leadership level to drive strategy and governance. This is the foundation of Leadership Mastery."
     },
     q2_strategy: {
       title: "AI absent from strategy",
       description: "Strategic planning that ignores AI means missing the biggest transformation opportunity of our time.",
-      recommendation: "Bring AI into strategic planning. Make leadership responsible for aligning it with business priorities (accountability and transparency working together)."
+      recommendation: "Bring AI into strategic planning. Make leadership responsible for aligning it with business priorities (accountability and transparency working together). This builds your Strategy & Direction."
     },
     q3_culture: {
       title: "Cultural resistance or uncertainty",
       description: "Without cultural buy-in, even the best tools and policies will fail to deliver value.",
-      recommendation: "Build trust: start conversations about what AI means for your team, address concerns openly, and involve people in shaping safe use."
+      recommendation: "Build trust: start conversations about what AI means for your team, address concerns openly, and involve people in shaping safe use. This is core to People & Capability development."
     },
     q4_enablement: {
       title: "No staff training or enablement",
       description: "Untrained staff create risk through well-intentioned mistakes and missed opportunities.",
-      recommendation: "Build capability: upskill your people so they can use approved tools safely and effectively."
+      recommendation: "Build capability: upskill your people so they can use approved tools safely and effectively. This strengthens People & Capability across your organisation."
     },
     q5_shadow_ai: {
       title: "Shadow AI exposure",
       description: "Unmanaged AI use means data exposure, compliance risk, and loss of control.",
-      recommendation: "You can't govern what you can't see. Start with transparency: run a quick Shadow AI discovery and open the conversation with your team."
+      recommendation: "You can't govern what you can't see. Start with transparency: run a quick Shadow AI discovery and open the conversation with your team. This builds the foundation for Governance & Trust."
     },
     q6_governance: {
       title: "No governance framework",
       description: "Without clear policies and guardrails, you can't manage risk or scale safely.",
-      recommendation: "Set the foundations for trust: create basic guardrails and policies that make safe, ethical use easy."
+      recommendation: "Set the foundation for trust: create basic guardrails and policies that make safe, ethical use easy. This establishes Governance & Trust."
     },
     q7_compliance: {
       title: "Legal compliance uncertainty",
       description: "Operating without clarity on legal obligations creates liability that compounds daily.",
-      recommendation: "Strengthen accountability: get legal and leadership aligned on compliance obligations and document your approach."
+      recommendation: "Strengthen accountability: get legal and leadership aligned on compliance obligations and document your approach. This is essential for Governance & Trust."
     },
     q8_resources: {
       title: "No resources allocated",
-      description: "Good intentions without budget and people means AI remains stuck in the talking phase.",
-      recommendation: "Show accountability and intent: allocate time, budget, and people to manage AI adoption deliberately."
+      description: "Without budget, people, or leadership time, AI remains an aspiration, not a capability.",
+      recommendation: "Commit resources: allocate budget and leadership time to AI initiatives. Strategic priorities require strategic investment. This enables Execution & Evolution."
     },
     q9_data_protection: {
       title: "Data exposure risk",
       description: "Without controls, sensitive data is likely being shared with AI tools invisibly.",
-      recommendation: "Protect trust: implement basic controls to prevent sensitive data from being shared with AI tools invisibly."
+      recommendation: "Secure your foundation: document how data flows through AI tools and establish clear data protection protocols. This is essential for Governance & Trust."
     },
     q10_opportunity: {
       title: "Opportunities not identified",
       description: "You can't capture value you haven't identified. Start by mapping where AI could help.",
-      recommendation: "Start with transparency: map where AI could add value across operations, customer experience, and decision making."
+      recommendation: "Map your opportunities: identify 3-5 high-ROI use cases where AI solves real problems for your business. This shapes your Strategy & Direction."
     }
   } as Record<string, GapDescription>,
 
@@ -541,7 +541,7 @@ export const SCORING_CONFIG = {
     "Blind": "These gaps represent critical blind spots. Start with Leadership Mastery and Shadow AI discovery.",
     "Reactive": "These gaps prevent coordinated progress. Focus on establishing basic Governance & Trust to enable safe experimentation.",
     "Building": "These gaps limit your ability to scale. Address them systematically to strengthen Execution & Evolution.",
-    "Ready": "These represent optimization opportunities. Focus here to maximize ROI and competitive advantage."
+    "Advanced": "These represent optimization opportunities. Focus here to maximize ROI and competitive advantage."
   } as Record<string, string>,
 
   next_steps: {

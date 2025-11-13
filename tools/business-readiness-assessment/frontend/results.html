@@ -43,7 +43,7 @@
         .maturity-blind { background: #FEE2E2; color: #DC2626; }
         .maturity-reactive { background: #FEF3C7; color: #F59E0B; }
         .maturity-building { background: #E0E7FF; color: #2563EB; }
-        .maturity-ready { background: #D1FAE5; color: #10B981; }
+        .maturity-advanced { background: #D1FAE5; color: #10B981; }
 
         /* Tension line */
         .tension-line {
@@ -425,11 +425,34 @@
         </div>
     </nav>
 
+    <!-- REPORT HEADER -->
+    <section class="section section--light" id="report-header" style="display: none;">
+        <div class="container container--narrow">
+            <div style="background: white; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: var(--space-xl); margin-bottom: var(--space-xl);">
+                <a href="https://www.generationai.co.nz" target="_blank" style="display: inline-block; margin-bottom: var(--space-lg);">
+                    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+                         alt="GenerationAI"
+                         style="height: 50px; cursor: pointer;">
+                </a>
+
+                <h1 style="border-bottom: 3px solid var(--primary-blue); padding-bottom: var(--space-sm); margin-bottom: var(--space-md);">
+                    Business AI Readiness Report
+                </h1>
+
+                <div style="font-size: 1rem; color: var(--text-body); line-height: 1.8;">
+                    <strong style="color: var(--text-heading);">Prepared for:</strong> <span id="header-company-name"></span><br>
+                    <strong style="color: var(--text-heading);">Assessment Completed By:</strong> <span id="header-contact-name"></span><br>
+                    <strong style="color: var(--text-heading);">Date:</strong> <span id="header-date"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- LOADING STATE -->
     <div id="loading-state" class="loading-state">
         <div class="loading-spinner"></div>
         <h2>Loading Your Results...</h2>
-        <p class="text-muted">Just a moment while we prepare your personalized report.</p>
+        <p class="text-muted">Just a moment while we prepare your personalised report.</p>
     </div>
 
     <!-- ERROR STATE -->
@@ -584,6 +607,47 @@
             </div>
         </section>
 
+        <!-- Knowledge Hub CTA -->
+        <section class="section section--light">
+            <div class="container container--narrow">
+                <div style="background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%); border: 1px solid var(--border-light); padding: var(--space-2xl); border-radius: var(--radius-lg); text-align: center; margin-bottom: var(--space-xl);">
+                    <h2 style="border-bottom: none; padding-bottom: 0; margin-bottom: var(--space-md); font-size: 1.75rem;">
+                        Explore Our Knowledge Hub
+                    </h2>
+
+                    <p style="color: var(--text-body); font-size: 1.125rem; margin-bottom: var(--space-lg); max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Backed by decades of governance, strategy and advisory experience, GenerationAI's Knowledge Hub gives leaders the insights they need to stay ahead.
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); margin: var(--space-xl) 0; max-width: 800px; margin-left: auto; margin-right: auto;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📹</div>
+                            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">AI Knowledge Videos</h3>
+                            <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Real examples and expert advice</p>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📝</div>
+                            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">Insight Articles</h3>
+                            <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Latest research and strategies</p>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📥</div>
+                            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">Free Toolkits</h3>
+                            <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Downloadable guides and frameworks</p>
+                        </div>
+                    </div>
+
+                    <a href="https://www.generationai.co.nz/knowledge-hub"
+                       target="_blank"
+                       style="display: inline-block; padding: 14px 32px; background: var(--primary-blue); color: white; text-decoration: none; border-radius: var(--radius); font-weight: 700; font-size: 1rem; margin-top: var(--space-md); transition: all 0.2s ease;">
+                        Explore Resources & Learn More →
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Footer Note -->
         <section class="section section--light">
             <div class="container container--narrower text-center">
@@ -601,6 +665,23 @@
                 <p style="color: var(--text-body); font-size: var(--font-size-base); line-height: 1.6;">
                     Most businesses that start here see measurable improvement within 90 days: tighter governance, safer experimentation, and clearer ROI.
                 </p>
+            </div>
+        </section>
+
+        <!-- Legal Footer -->
+        <section class="section section--light">
+            <div class="container container--narrow">
+                <div style="text-align: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); color: var(--text-body); font-size: 0.875rem; line-height: 1.6;">
+                    <p style="margin: 0 0 var(--space-sm) 0; font-style: italic;">
+                        This report is confidential and prepared exclusively for <strong style="color: var(--text-heading);"><span id="footer-company-name"></span></strong>.
+                    </p>
+                    <p style="margin: var(--space-sm) 0; font-size: 0.8125rem;">
+                        This assessment does not constitute legal, compliance, or professional advice.
+                    </p>
+                    <p style="margin: var(--space-sm) 0; font-size: 0.8125rem; color: #9CA3AF;">
+                        © 2025 GenerationAI. All rights reserved.
+                    </p>
+                </div>
             </div>
         </section>
     </div>

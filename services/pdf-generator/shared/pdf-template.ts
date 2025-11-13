@@ -999,6 +999,27 @@ function generateBusinessReadinessHTML(data: any): string {
       font-size: var(--font-size-lg);
     }
 
+    .maturity-blind {
+      background: var(--risk-high-bg);
+      color: var(--risk-high);
+    }
+
+    .maturity-reactive {
+      background: var(--risk-medium-bg);
+      color: var(--risk-medium);
+    }
+
+    .maturity-building {
+      background: #E0E7FF;
+      color: var(--primary-blue);
+    }
+
+    .maturity-advanced {
+      background: var(--risk-low-bg);
+      color: var(--risk-low);
+    }
+
+    /* Legacy maturity classes for other assessments */
     .maturity-unmanaged {
       background: var(--risk-high-bg);
       color: var(--risk-high);
@@ -1012,11 +1033,6 @@ function generateBusinessReadinessHTML(data: any): string {
     .maturity-developing {
       background: #E0E7FF;
       color: var(--primary-blue);
-    }
-
-    .maturity-ready {
-      background: var(--risk-low-bg);
-      color: var(--risk-low);
     }
 
     .maturity-managed {
@@ -1148,8 +1164,11 @@ function generateBusinessReadinessHTML(data: any): string {
 </head>
 <body>
   <div class="report-header">
-    <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
-         alt="GenerationAI">
+    <a href="https://www.generationai.co.nz" target="_blank" style="display: inline-block; margin-bottom: var(--space-md);">
+      <img src="https://static.wixstatic.com/shapes/b0568f_2942ee61a69b4761b4b39eaca7086c80.svg"
+           alt="GenerationAI"
+           style="cursor: pointer;">
+    </a>
     <h1>Business AI Readiness Diagnostic Report</h1>
     <div class="report-meta">
       <strong>Prepared for:</strong> ${data.company_name}<br>
@@ -1219,32 +1238,15 @@ function generateBusinessReadinessHTML(data: any): string {
     </div>
   </div>
 
-  <div class="introduction">
-    <h2 style="text-align: center;">Your AI Maturity Map</h2>
-    <p style="max-width: 700px; margin: 0 auto var(--space-md) auto; font-weight: 600;">The Playbook shows the principles you'll build on. The Maturity Map shows how capability develops over time.</p>
-    <p style="max-width: 700px; margin: 0 auto var(--space-lg) auto;">Every business that wins with AI follows this path. Here's where you need to focus.</p>
-
-    <ol style="list-style: decimal; padding-left: var(--space-xl); margin-top: var(--space-lg);">
-      <li style="margin-bottom: var(--space-md);"><strong>Assess: Find out where you stand.</strong> As a leader you need to evaluate your personal, business and governance AI readiness as the first step to address the overwhelm.</li>
-      <li style="margin-bottom: var(--space-md);"><strong>Learn: Build your understanding.</strong> Digital and AI transformation starts with you and your people, and the investment in learning how to use new tools and automation safely and effectively.</li>
-      <li style="margin-bottom: var(--space-md);"><strong>Grow: Build capability.</strong> With clarity on your opportunities and risks, it's time to act. Prioritise where to focus on where to invest for productivity gains, innovation and customer value.</li>
-      <li style="margin-bottom: 0;"><strong>Transform: Clarity with a Plan to embed.</strong> With confidence of proven use cases in place, you're ready to scale. Leverage AI to digitally transform your business, embedding capability, governance, and performance that lasts.</li>
-    </ol>
-  </div>
-
   <h2>Your Assessment Breakdown</h2>
   <p>Here's what your responses tell us about your current AI readiness position.</p>
 
-  <h2>Shadow AI Exposure</h2>
-  <p>Shadow AI means staff using free or personal AI accounts (like ChatGPT or Claude) without approval or oversight.</p>
-  <div class="insight-box" style="${getScoreBackgroundStyle(data.q5_score || 0)}">
-    <strong>What you told us:</strong> ${data.q5_answer_playback}
-  </div>
-  <div class="insight-box">
-    <strong>What this means:</strong> ${data.q5_interpretation_blurb}
+  <!-- Category 1: Leadership & Strategy -->
+  <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-left: 4px solid var(--primary-blue); padding: var(--space-md) var(--space-lg); margin: var(--space-2xl) 0 var(--space-lg) 0; border-radius: var(--radius);">
+    <h3 style="margin: 0; color: var(--primary-blue); font-size: 1.25rem; font-weight: 700; border-bottom: none; padding-bottom: 0;">Leadership & Strategy</h3>
   </div>
 
-  <h2>Leadership & Ownership</h2>
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q1: Leadership & Ownership</h3>
   <div class="insight-box" style="${getScoreBackgroundStyle(data.q1_score || 0)}">
     <strong>What you told us:</strong> ${data.q1_answer_playback}
   </div>
@@ -1252,8 +1254,50 @@ function generateBusinessReadinessHTML(data: any): string {
     <strong>What this means:</strong> ${data.q1_interpretation_blurb}
   </div>
 
-  <h2>Governance & Risk Management</h2>
-  <p>Many organisations discover their AI governance gaps the hard way, through incidents, not intention.</p>
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q2: AI in Strategic Planning</h3>
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q2_score || 0)}">
+    <strong>What you told us:</strong> ${data.q2_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q2_interpretation_blurb}
+  </div>
+
+  <!-- Category 2: Culture & Capability -->
+  <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-left: 4px solid var(--primary-blue); padding: var(--space-md) var(--space-lg); margin: var(--space-2xl) 0 var(--space-lg) 0; border-radius: var(--radius);">
+    <h3 style="margin: 0; color: var(--primary-blue); font-size: 1.25rem; font-weight: 700; border-bottom: none; padding-bottom: 0;">Culture & Capability</h3>
+  </div>
+
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q3: Cultural Readiness</h3>
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q3_score || 0)}">
+    <strong>What you told us:</strong> ${data.q3_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q3_interpretation_blurb}
+  </div>
+
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q4: Staff Enablement & Training</h3>
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q4_score || 0)}">
+    <strong>What you told us:</strong> ${data.q4_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q4_interpretation_blurb}
+  </div>
+
+  <!-- Category 3: Governance & Risk -->
+  <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-left: 4px solid var(--primary-blue); padding: var(--space-md) var(--space-lg); margin: var(--space-2xl) 0 var(--space-lg) 0; border-radius: var(--radius);">
+    <h3 style="margin: 0; color: var(--primary-blue); font-size: 1.25rem; font-weight: 700; border-bottom: none; padding-bottom: 0;">Governance & Risk</h3>
+  </div>
+
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q5: Shadow AI Exposure</h3>
+  <p style="margin-bottom: var(--space-sm);">Shadow AI means staff using unapproved AI tools (like ChatGPT, Gemini or Claude) without oversight.</p>
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q5_score || 0)}">
+    <strong>What you told us:</strong> ${data.q5_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q5_interpretation_blurb}
+  </div>
+
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q6: Governance Framework</h3>
   <div class="insight-box" style="${getScoreBackgroundStyle(data.q6_score || 0)}">
     <strong>What you told us:</strong> ${data.q6_answer_playback}
   </div>
@@ -1261,7 +1305,28 @@ function generateBusinessReadinessHTML(data: any): string {
     <strong>What this means:</strong> ${data.q6_interpretation_blurb}
   </div>
 
-  <h2>Data & IP Protection</h2>
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q7: Legal & Compliance Confidence</h3>
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q7_score || 0)}">
+    <strong>What you told us:</strong> ${data.q7_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q7_interpretation_blurb}
+  </div>
+
+  <!-- Category 4: Execution Readiness -->
+  <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-left: 4px solid var(--primary-blue); padding: var(--space-md) var(--space-lg); margin: var(--space-2xl) 0 var(--space-lg) 0; border-radius: var(--radius);">
+    <h3 style="margin: 0; color: var(--primary-blue); font-size: 1.25rem; font-weight: 700; border-bottom: none; padding-bottom: 0;">Execution Readiness</h3>
+  </div>
+
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q8: Resource Allocation</h3>
+  <div class="insight-box" style="${getScoreBackgroundStyle(data.q8_score || 0)}">
+    <strong>What you told us:</strong> ${data.q8_answer_playback}
+  </div>
+  <div class="insight-box">
+    <strong>What this means:</strong> ${data.q8_interpretation_blurb}
+  </div>
+
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q9: Data Protection Confidence</h3>
   <div class="insight-box" style="${getScoreBackgroundStyle(data.q9_score || 0)}">
     <strong>What you told us:</strong> ${data.q9_answer_playback}
   </div>
@@ -1269,7 +1334,7 @@ function generateBusinessReadinessHTML(data: any): string {
     <strong>What this means:</strong> ${data.q9_interpretation_blurb}
   </div>
 
-  <h2>Opportunity Understanding</h2>
+  <h3 style="font-size: 1.25rem; margin-top: var(--space-lg); margin-bottom: var(--space-md); border-bottom: none; padding-bottom: 0;">Q10: Opportunity Understanding</h3>
   <div class="insight-box" style="${getScoreBackgroundStyle(data.q10_score || 0)}">
     <strong>What you told us:</strong> ${data.q10_answer_playback}
   </div>
@@ -1349,21 +1414,51 @@ function generateBusinessReadinessHTML(data: any): string {
     <p style="margin-top: var(--space-lg);"><a href="https://share-ap1.hsforms.com/214JDII1nQGu3Vfxn_-IrYA7bboe8" class="cta-link">Book Your Discovery Call</a></p>
   </div>
 
+  <!-- Knowledge Hub CTA -->
+  <div style="background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%); border: 1px solid var(--border-light); padding: var(--space-2xl); border-radius: var(--radius-lg); margin: var(--space-xl) auto; text-align: center; max-width: 800px;">
+    <h2 style="border-bottom: none; padding-bottom: 0; margin-bottom: var(--space-md); font-size: 1.75rem;">Explore Our Knowledge Hub</h2>
+
+    <p style="color: var(--text-body); font-size: 1.125rem; margin-bottom: var(--space-lg); max-width: 600px; margin-left: auto; margin-right: auto;">
+      Backed by decades of governance, strategy and advisory experience, GenerationAI's Knowledge Hub gives leaders the insights they need to stay ahead.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); margin: var(--space-xl) auto; max-width: 700px;">
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📹</div>
+        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">AI Knowledge Videos</h3>
+        <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Real examples and expert advice</p>
+      </div>
+
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📝</div>
+        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">Insight Articles</h3>
+        <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Latest research and strategies</p>
+      </div>
+
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📥</div>
+        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-heading); margin-bottom: var(--space-xs); border-bottom: none; padding-bottom: 0;">Free Toolkits</h3>
+        <p style="font-size: 0.875rem; color: var(--text-body); margin: 0;">Downloadable guides and frameworks</p>
+      </div>
+    </div>
+
+    <p style="margin-top: var(--space-lg);"><a href="https://www.generationai.co.nz/knowledge-hub" class="cta-link" style="background: var(--primary-blue); color: var(--white);">Explore Resources & Learn More →</a></p>
+  </div>
+
   <p style="text-align: center; margin: var(--space-xl) auto; color: var(--text-body); font-size: var(--font-size-base); line-height: 1.6; max-width: 700px;">
     Most businesses that start here see measurable improvement within 90 days: tighter governance, safer experimentation, and clearer ROI.
   </p>
 
-  <div class="footer">
-    <h3>Important Disclaimers</h3>
-    <p>This assessment is based on information provided during completion and represents a point-in-time snapshot of your organisation's Business AI Readiness profile. Results depend on the accuracy and completeness of responses provided.</p>
-
-    <p>GenerationAI cannot assess risks or activities not disclosed during the diagnostic process. This diagnostic is designed to build awareness and guide strategic thinking about AI readiness and risk management.</p>
-
-    <p>This report does not constitute legal, compliance, or technical advice. Organisations should seek appropriate professional guidance for specific legal, regulatory, or technical requirements.</p>
-
-    <div class="tagline">
-      GenerationAI helps NZ organisations build AI capability through proven frameworks, practical tools, and strategic guidance. We specialise in moving businesses from AI exposure to AI advantage.
-    </div>
+  <div class="footer" style="text-align: center; padding: var(--space-xl) 0; border-top: 2px solid var(--border-light); color: var(--text-body); font-size: var(--font-size-xs); line-height: 1.6;">
+    <p style="margin: 0 0 var(--space-sm) 0; font-style: italic;">
+      This report is confidential and prepared exclusively for <strong style="color: var(--text-heading);">${data.company_name}</strong>.
+    </p>
+    <p style="margin: var(--space-sm) 0; font-size: 0.8125rem;">
+      This assessment does not constitute legal, compliance, or professional advice.
+    </p>
+    <p style="margin: var(--space-sm) 0; font-size: 0.8125rem; color: #9CA3AF;">
+      © 2025 GenerationAI. All rights reserved.
+    </p>
   </div>
 </body>
 </html>
@@ -1372,10 +1467,11 @@ function generateBusinessReadinessHTML(data: any): string {
 
 function getReadinessClass(band: string): string {
   const lower = (band || '').toLowerCase();
-  if (lower.includes('ready')) return 'ready';
-  if (lower.includes('developing')) return 'developing';
-  if (lower.includes('ad hoc') || lower.includes('adhoc')) return 'adhoc';
-  return 'unmanaged';
+  if (lower.includes('advanced')) return 'advanced';
+  if (lower.includes('building')) return 'building';
+  if (lower.includes('reactive')) return 'reactive';
+  if (lower.includes('blind')) return 'blind';
+  return 'reactive';
 }
 
 /**

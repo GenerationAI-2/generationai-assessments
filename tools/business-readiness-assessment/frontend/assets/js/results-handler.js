@@ -80,14 +80,34 @@ class ResultsHandler {
         // Hide loading, show content
         document.getElementById('loading-state').classList.add('hidden');
         document.getElementById('results-content').classList.remove('hidden');
+        document.getElementById('report-header').style.display = 'block';
 
         // Render each section
+        this.renderReportHeader();
         this.renderScoreSection();
         this.renderTensionLine();
         this.renderDetailedFeedback();
         this.renderPriorityGaps();
         this.renderScheduler();
         this.renderUserEmail();
+    }
+
+    renderReportHeader() {
+        // Populate report header with company and contact info
+        const companyName = sanitizeText(this.data.company_name || 'Your Organisation');
+        document.getElementById('header-company-name').textContent = companyName;
+        document.getElementById('header-contact-name').textContent = sanitizeText(this.data.contact_name || '');
+
+        // Format date
+        const date = this.data.response_date || new Date().toLocaleDateString('en-NZ', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+        document.getElementById('header-date').textContent = date;
+
+        // Also populate footer company name
+        document.getElementById('footer-company-name').textContent = companyName;
     }
 
     renderScoreSection() {
@@ -108,7 +128,7 @@ class ResultsHandler {
         if (bandLower.includes('blind')) return 'maturity-blind';
         if (bandLower.includes('reactive')) return 'maturity-reactive';
         if (bandLower.includes('building')) return 'maturity-building';
-        if (bandLower.includes('ready')) return 'maturity-ready';
+        if (bandLower.includes('advanced')) return 'maturity-advanced';
         return 'maturity-reactive';
     }
 
