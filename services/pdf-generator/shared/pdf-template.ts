@@ -960,22 +960,30 @@ function generateBusinessReadinessHTML(data: any): string {
     /* Score Section */
     .score-section {
       text-align: center;
-      margin: var(--space-lg) 0;
-      padding: var(--space-lg);
-      background: var(--bg-light);
+      margin: var(--space-xl) 0;
+      padding: var(--space-2xl);
+      background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
       border-radius: var(--radius-lg);
-      border: 1px solid var(--border-light);
+      border: 2px solid var(--primary-blue);
     }
 
     .score-section h2 {
       border-bottom: none;
       padding-bottom: 0;
+      margin-bottom: var(--space-md);
+    }
+
+    .score-label {
+      font-size: var(--font-size-lg);
+      color: var(--text-body);
+      margin-bottom: var(--space-sm);
     }
 
     .score-display {
-      font-size: 32px;
+      font-size: 60px;
       font-weight: 700;
       margin: var(--space-md) 0;
+      line-height: 1;
     }
 
     .score-high {
@@ -1178,8 +1186,8 @@ function generateBusinessReadinessHTML(data: any): string {
   </div>
 
   <div class="score-section">
-    <h2>Your Business AI Readiness Profile</h2>
-    <div class="score-display" style="color: var(--primary-blue);">Your Business AI Readiness Score: ${scoreNum}/100</div>
+    <div class="score-label">Your Business AI Readiness Score</div>
+    <div class="score-display" style="color: var(--primary-blue);">${scoreNum}/100</div>
     <div class="maturity-badge maturity-${readinessClass}">${data.readiness_band}</div>
   </div>
 
