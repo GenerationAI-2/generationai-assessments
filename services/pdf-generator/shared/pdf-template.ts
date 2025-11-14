@@ -1370,8 +1370,8 @@ function generateBusinessReadinessHTML(data: any): string {
     }
     
     return `
-  <h2>Your Priority Gaps</h2>
-  <p>The following areas require focused attention:</p>
+  <h2>Your Top 3 Priority Areas</h2>
+  <p>Based on your responses, these are the areas that need immediate attention.</p>
 
   ${hasGap1 ? `<div class="gap-section">
     <h3>${data.gap_1_title}</h3>
