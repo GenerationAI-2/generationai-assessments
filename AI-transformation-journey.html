@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Transformation Journey - GenerationAI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* GenerationAI Brand Variables */
+
+        :root {
+
+            --primary-blue: #2563EB;
+
+            --dark-navy: #0F172A;
+
+            --lime-accent: #D4FF00;
+
+            --text-body: #6B7280;
+
+            --text-heading: #0F172A;
+
+            --border-light: #E5E7EB;
+
+            --bg-light: #F9FAFB;
+
+            --white: #FFFFFF;
+
+            
+
+            --space-sm: 8px;
+
+            --space-md: 16px;
+
+            --space-lg: 24px;
+
+            --space-xl: 32px;
+
+            --space-2xl: 48px;
+
+            --space-3xl: 64px;
+
+            
+
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            --radius: 8px;
+
+            --radius-lg: 12px;
+
+            --transition: 0.2s ease;
+
+        }
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            -webkit-font-smoothing: antialiased;
+
+            -moz-osx-font-smoothing: grayscale;
+
+        }
+
+        body {
+
+            font-family: var(--font-family);
+
+            background: var(--white);
+
+            color: var(--text-body);
+
+            line-height: 1.6;
+
+            padding: var(--space-xl) var(--space-lg);
+
+            -webkit-font-smoothing: antialiased;
+
+            -moz-osx-font-smoothing: grayscale;
+
+        }
+
+        .container {
+
+            max-width: 950px;
+
+            margin: 0 auto;
+
+            width: auto;
+
+        }
+
+        .journey-path {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: var(--space-md);
+
+            position: relative;
+
+        }
+
+        /* Desktop connectors - arrows between stages */
+
+        .connector {
+
+            position: absolute;
+
+            top: calc(var(--space-xl) + 100px);
+
+            height: 3px;
+
+            background: var(--primary-blue);
+
+            z-index: -1;
+
+        }
+
+        /* Arrow coming out of stage 4 */
+
+        .stage-arrow {
+
+            position: absolute;
+
+            top: calc(var(--space-xl) + 100px);
+
+            height: 3px;
+
+            background: var(--primary-blue);
+
+            z-index: -1;
+
+            width: 60px;
+
+        }
+
+        .stage-arrow::after {
+
+            content: '';
+
+            position: absolute;
+
+            right: -8px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 0;
+
+            height: 0;
+
+            border-left: 8px solid var(--primary-blue);
+
+            border-top: 5px solid transparent;
+
+            border-bottom: 5px solid transparent;
+
+        }
+
+        /* Connector positions will be set by JavaScript to touch circle edges */
+
+        .journey-stage {
+
+            flex: 1;
+
+            background: transparent;
+
+            padding: var(--space-lg) var(--space-sm);
+
+            cursor: pointer;
+
+            transition: all var(--transition);
+
+            position: relative;
+
+            z-index: 1;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+        .journey-stage:hover {
+
+            transform: translateY(-4px);
+
+        }
+
+        /* Timer Component Styles for Stage 1 */
+
+        .timer-wrapper-link {
+
+            display: block;
+
+            text-decoration: none;
+
+            margin: 0 auto;
+
+            width: fit-content;
+
+            margin-bottom: var(--space-md);
+
+        }
+
+        .timer-wrapper {
+
+            width: 200px;
+
+            height: 200px;
+
+            position: relative;
+
+            margin: 0 auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 2;
+
+        }
+
+        .timer-container {
+
+            position: relative;
+
+            width: 200px;
+
+            height: 200px;
+
+            transform: translateZ(0);
+
+            will-change: transform;
+
+        }
+
+        /* Timer icon (stopwatch) - horizontal bar on TOP, vertical stem hangs DOWN */
+
+        .timer-icon {
+
+            position: absolute;
+
+            top: -8px;
+
+            left: 50%;
+
+            transform: translateX(-50%) translateZ(0);
+
+            width: 28px;
+
+            height: 3px;
+
+            background: var(--primary-blue);
+
+            border-radius: 1.5px;
+
+            z-index: 10;
+
+            will-change: transform;
+
+        }
+
+        .timer-icon::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: 100%;
+
+            left: 50%;
+
+            transform: translateX(-50%) translateZ(0);
+
+            width: 3px;
+
+            height: 5px;
+
+            background: var(--primary-blue);
+
+            border-radius: 0 0 1.5px 1.5px;
+
+        }
+
+        /* Pie fill using conic gradient */
+
+        .pie-container {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%) translateZ(0);
+
+            width: 184px;
+
+            height: 184px;
+
+            border-radius: 50%;
+
+            overflow: hidden;
+
+            will-change: transform;
+
+        }
+
+        .pie-fill {
+
+            width: 100%;
+
+            height: 100%;
+
+            border-radius: 50%;
+
+            background: conic-gradient(var(--lime-accent) 45deg, white 45deg);
+
+            transform: translateZ(0);
+
+            will-change: background;
+
+        }
+
+        /* Blue circle outline */
+
+        .circle-outline {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%) translateZ(0);
+
+            width: 200px;
+
+            height: 200px;
+
+            border-radius: 50%;
+
+            border: 3px solid var(--primary-blue);
+
+            box-sizing: border-box;
+
+            will-change: transform;
+
+        }
+
+        /* White center to mask pie and show content */
+
+        .center-mask {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%) translateZ(0);
+
+            width: 120px;
+
+            height: 120px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            z-index: 4;
+
+            will-change: transform;
+
+        }
+
+        /* Center content */
+
+        .timer-content {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%) translateZ(0);
+
+            text-align: center;
+
+            z-index: 5;
+
+            will-change: transform;
+
+        }
+
+        .timer-number {
+
+            font-size: 64px;
+
+            font-weight: 700;
+
+            color: var(--primary-blue);
+
+            line-height: 1;
+
+            margin-bottom: 4px;
+
+            transform: translateZ(0);
+
+            text-rendering: optimizeLegibility;
+
+        }
+
+        .timer-label {
+
+            font-size: 20px;
+
+            font-weight: 600;
+
+            color: var(--primary-blue);
+
+            text-transform: lowercase;
+
+            transform: translateZ(0);
+
+            text-rendering: optimizeLegibility;
+
+        }
+
+        /* Regular stage icon for other stages */
+
+        .stage-icon {
+
+            width: 200px;
+
+            height: 200px;
+
+            border-radius: 50%;
+
+            margin: 0 auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 64px;
+
+            font-weight: 700;
+
+            color: var(--dark-navy);
+
+            transition: transform var(--transition);
+
+            background: var(--bg-light);
+
+            border: 3px solid var(--primary-blue);
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+        /* Make stage icons clickable links */
+
+        .journey-stage > a {
+
+            display: block;
+
+            text-decoration: none;
+
+            width: fit-content;
+
+            margin: 0 auto var(--space-md);
+
+        }
+
+        /* Stage 2 - outlined circle with blue border */
+
+        .stage-2 .stage-icon {
+
+            background: var(--white);
+
+            border: 3px solid var(--primary-blue);
+
+            color: var(--primary-blue);
+
+        }
+
+        /* Stage 3 & 4 - solid blue circles */
+
+        .stage-3 .stage-icon,
+
+        .stage-4 .stage-icon {
+
+            background: var(--primary-blue);
+
+            border: 3px solid var(--primary-blue);
+
+            color: var(--white);
+
+        }
+
+        .journey-stage:hover .stage-icon {
+
+            transform: scale(1.1);
+
+        }
+
+        /* Stage-specific hover effects */
+
+        .stage-2:hover .stage-icon {
+
+            background: var(--lime-accent);
+
+            color: var(--dark-navy);
+
+            border-color: var(--lime-accent);
+
+        }
+
+        .stage-3:hover .stage-icon,
+
+        .stage-4:hover .stage-icon {
+
+            background: var(--lime-accent);
+
+            color: var(--dark-navy);
+
+            border-color: var(--lime-accent);
+
+        }
+
+        .stage-title {
+
+            font-size: 1.5rem;
+
+            color: var(--primary-blue);
+
+            margin-top: var(--space-md);
+
+            margin-bottom: var(--space-sm);
+
+            font-weight: 700;
+
+            text-align: center;
+
+        }
+
+        .stage-description {
+
+            font-size: 1rem;
+
+            color: #374151;
+
+            margin-bottom: var(--space-md);
+
+            line-height: 1.5;
+
+            text-align: center;
+
+        }
+
+        .stage-details {
+
+            max-height: 0;
+
+            opacity: 0;
+
+            overflow: hidden;
+
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
+
+            width: 100%;
+
+        }
+
+        .journey-stage.active .stage-details,
+
+        .journey-stage:hover .stage-details {
+
+            max-height: 400px;
+
+            opacity: 1;
+
+        }
+
+        .stage-details ul {
+
+            list-style: none;
+
+            margin-bottom: var(--space-lg);
+
+        }
+
+        .stage-details li {
+
+            padding: var(--space-sm) 0 var(--space-sm) 28px;
+
+            position: relative;
+
+            font-size: 0.875rem;
+
+            color: var(--text-body);
+
+        }
+
+        .stage-details li::before {
+
+            content: '✓';
+
+            position: absolute;
+
+            left: 0;
+
+            color: var(--primary-blue);
+
+            font-weight: bold;
+
+        }
+
+
+        .stage-cta {
+
+            display: inline-block;
+
+            padding: 12px var(--space-lg);
+
+            background: var(--primary-blue);
+
+            color: var(--white);
+
+            text-decoration: none;
+
+            border-radius: var(--radius);
+
+            font-weight: 600;
+
+            font-size: 1rem;
+
+            transition: all var(--transition);
+
+            border: none;
+
+            cursor: pointer;
+
+            width: 100%;
+
+            text-align: center;
+
+            box-sizing: border-box;
+
+        }
+
+        /* Hover state - blue buttons become yellow with dark text */
+
+        .stage-cta:hover {
+
+            background: var(--lime-accent);
+
+            color: var(--dark-navy);
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 4px 12px rgba(212, 255, 0, 0.3);
+
+        }
+
+        /* Active/pressed state - blue buttons become yellow with dark text */
+
+        .stage-cta:active,
+
+        .stage-cta.pressed {
+
+            background: var(--lime-accent);
+
+            color: var(--dark-navy);
+
+        }
+
+        /* Accent button for alternating stages */
+
+        .stage-2 .stage-cta,
+
+        .stage-4 .stage-cta {
+
+            background: var(--lime-accent);
+
+            color: var(--dark-navy);
+
+            font-weight: 700;
+
+        }
+
+        /* Hover state - yellow buttons become blue with white text */
+
+        .stage-2 .stage-cta:hover,
+
+        .stage-4 .stage-cta:hover {
+
+            background: var(--primary-blue);
+
+            color: var(--white);
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+
+        }
+
+        /* Active/pressed state - yellow buttons become blue with white text */
+
+        .stage-2 .stage-cta:active,
+
+        .stage-2 .stage-cta.pressed,
+
+        .stage-4 .stage-cta:active,
+
+        .stage-4 .stage-cta.pressed {
+
+            background: var(--primary-blue);
+
+            color: var(--white);
+
+        }
+
+        /* Mobile styles */
+
+        @media (max-width: 768px) {
+
+            body {
+
+                padding: var(--space-2xl) var(--space-md);
+
+            }
+
+            .journey-path {
+
+                flex-direction: column;
+
+                gap: var(--space-xl);
+
+            }
+
+            .connector,
+
+            .stage-arrow {
+
+                display: none;
+
+            }
+
+            .journey-stage {
+
+                padding: var(--space-lg) var(--space-md);
+
+            }
+
+            /* On mobile, hide details to match screenshot design */
+
+            .stage-details {
+
+                display: none !important;
+
+            }
+
+            /* Make icons clickable on mobile */
+
+            .timer-wrapper,
+
+            .stage-icon {
+
+                cursor: pointer;
+
+                transition: transform 0.2s ease;
+
+            }
+
+            .timer-wrapper:active,
+
+            .stage-icon:active {
+
+                transform: scale(0.95);
+
+            }
+
+            .stage-title {
+
+                font-size: 1.125rem;
+
+            }
+
+            .timer-wrapper {
+
+                width: 160px;
+
+                height: 160px;
+
+            }
+
+            .timer-container {
+
+                width: 160px;
+
+                height: 160px;
+
+            }
+
+            .circle-outline {
+
+                width: 160px;
+
+                height: 160px;
+
+            }
+
+            .pie-container {
+
+                width: 147px;
+
+                height: 147px;
+
+            }
+
+            .center-mask {
+
+                width: 96px;
+
+                height: 96px;
+
+            }
+
+            .timer-number {
+
+                font-size: 52px;
+
+            }
+
+            .timer-label {
+
+                font-size: 16px;
+
+            }
+
+            .timer-icon {
+
+                width: 24px;
+
+                height: 2.5px;
+
+                top: -6px;
+
+            }
+
+            .timer-icon::after {
+
+                width: 2.5px;
+
+                height: 4px;
+
+            }
+
+            .stage-icon {
+
+                width: 160px;
+
+                height: 160px;
+
+                font-size: 52px;
+
+                border-width: 3px;
+
+            }
+
+        }
+
+        /* Tablet adjustments */
+
+        @media (min-width: 769px) and (max-width: 950px) {
+
+            .journey-path {
+
+                gap: var(--space-md);
+
+            }
+
+            .journey-stage {
+
+                padding: var(--space-lg) var(--space-sm);
+
+            }
+
+            .stage-title {
+
+                font-size: 1.25rem;
+
+            }
+
+            /* Connector positions will be set by JavaScript */
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="journey-path">
+
+            <!-- Connectors for desktop (no arrows) -->
+
+            <div class="connector connector-1"></div>
+
+            <div class="connector connector-2"></div>
+
+            <div class="connector connector-3"></div>
+
+            <!-- Arrow coming out of stage 4 -->
+
+            <div class="stage-arrow"></div>
+
+            <!-- Stage 1: ASSESS -->
+
+            <div class="journey-stage stage-1">
+
+                <a href="https://business-assessment.generationai.co.nz/" target="_top" class="timer-wrapper-link">
+
+                    <div class="timer-wrapper">
+
+                        <div class="timer-container">
+
+                        <!-- Timer stopwatch icon at top -->
+
+                        <div class="timer-icon"></div>
+
+                        
+
+                        <!-- Blue circle outline -->
+
+                        <div class="circle-outline"></div>
+
+                        
+
+                        <!-- Pie fill container -->
+
+                        <div class="pie-container">
+
+                            <div class="pie-fill" id="pie-fill-1"></div>
+
+                        </div>
+
+
+
+                        <!-- White center mask -->
+
+                        <div class="center-mask"></div>
+
+
+
+                        <!-- Center content -->
+
+                        <div class="timer-content">
+
+                            <div class="timer-number">1</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </a>
+
+                <h3 class="stage-title">ASSESS</h3>
+
+                <p class="stage-description">Find out where you stand</p>
+
+                
+
+                <div class="stage-details">
+
+                    <p class="stage-description">As a leader you need to evaluate your personal, business and governance AI readiness as the first step to address the overwhelm.</p>
+
+                    <a href="https://business-assessment.generationai.co.nz/" class="stage-cta" target="_top">Free</a>
+
+                </div>
+
+            </div>
+
+            <!-- Stage 2: LEARN -->
+
+            <div class="journey-stage stage-2">
+
+                <a href="https://www.generationai.co.nz/knowledge-hub" target="_top">
+
+                    <div class="stage-icon">2</div>
+
+                </a>
+
+                <h3 class="stage-title">LEARN</h3>
+
+                <p class="stage-description">Build your understanding</p>
+
+                
+
+                <div class="stage-details">
+
+                    <p class="stage-description">Digital and AI transformation starts with you and your people, and the investment in learning how to use new tools and automation safely and effectively.</p>
+
+                    <a href="https://www.generationai.co.nz/knowledge-hub" class="stage-cta" target="_top">Low cost (time)</a>
+
+                </div>
+
+            </div>
+
+            <!-- Stage 3: PREPARE -->
+
+            <div class="journey-stage stage-3">
+
+                <a href="https://www.generationai.co.nz/solutions" target="_top">
+
+                    <div class="stage-icon">3</div>
+
+                </a>
+
+                <h3 class="stage-title">PREPARE</h3>
+
+                <p class="stage-description">Build capability</p>
+
+                
+
+                <div class="stage-details">
+
+                    <p class="stage-description">With clarity on your opportunities and risks, it's time to act. Prioritise where to focus on where to invest for productivity gains, innovation and customer value.</p>
+
+                    <a href="https://www.generationai.co.nz/solutions" class="stage-cta" target="_top">Strategic</a>
+
+                </div>
+
+            </div>
+
+            <!-- Stage 4: TRANSFORM -->
+
+            <div class="journey-stage stage-4">
+
+                <a href="https://www.generationai.co.nz/solutions/digital-strategy" target="_top">
+
+                    <div class="stage-icon">4</div>
+
+                </a>
+
+                <h3 class="stage-title">TRANSFORM</h3>
+
+                <p class="stage-description">Clarity with a Plan to embed</p>
+
+                
+
+                <div class="stage-details">
+
+                    <p class="stage-description">With confidence of proven use cases in place, you're ready to scale. Leverage AI to digitally transform your business, embedding capability, governance, and performance that lasts.</p>
+
+                    <a href="https://www.generationai.co.nz/solutions/digital-strategy" class="stage-cta" target="_top">Full Partnership</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // Timer animation for Stage 1
+
+        const pieFill1 = document.getElementById('pie-fill-1');
+
+        if (pieFill1) {
+
+            let startTime = Date.now();
+
+            const duration = 60000; // 60 seconds
+
+            function updatePie() {
+
+                const elapsed = (Date.now() - startTime) % duration;
+
+                const progress = elapsed / duration;
+
+                const angle = progress * 360;
+
+                
+
+                pieFill1.style.background = `conic-gradient(var(--lime-accent) ${angle}deg, white ${angle}deg)`;
+
+                
+
+                requestAnimationFrame(updatePie);
+
+            }
+
+            updatePie();
+
+        }
+
+        // Position connectors to touch circle edges
+
+        function positionConnectors() {
+
+            if (window.innerWidth <= 768) return; // Skip on mobile
+
+            const stages = document.querySelectorAll('.journey-stage');
+
+            const connectors = document.querySelectorAll('.connector');
+
+            const stageArrow = document.querySelector('.stage-arrow');
+
+            const circleRadius = 100; // 200px diameter / 2
+
+            stages.forEach((stage, index) => {
+
+                if (index < stages.length - 1) {
+
+                    const connector = connectors[index];
+
+                    if (!connector) return;
+
+                    // Find the circle in this stage (timer-wrapper or stage-icon)
+
+                    const circle1 = stage.querySelector('.timer-wrapper, .stage-icon');
+
+                    const circle2 = stages[index + 1].querySelector('.timer-wrapper, .stage-icon');
+
+                    if (!circle1 || !circle2) return;
+
+                    const rect1 = circle1.getBoundingClientRect();
+
+                    const rect2 = circle2.getBoundingClientRect();
+
+                    const pathRect = stage.closest('.journey-path').getBoundingClientRect();
+
+                    // Calculate positions relative to journey-path
+
+                    const circle1Right = rect1.right - pathRect.left;
+
+                    const circle2Left = rect2.left - pathRect.left;
+
+                    // Position connector from right edge of circle1 to left edge of circle2
+
+                    connector.style.left = circle1Right + 'px';
+
+                    connector.style.width = (circle2Left - circle1Right) + 'px';
+
+                }
+
+            });
+
+            // Position arrow coming out of stage 4
+
+            if (stageArrow && stages.length > 0) {
+
+                const stage4 = stages[3]; // Stage 4 is index 3
+
+                if (stage4) {
+
+                    const circle4 = stage4.querySelector('.timer-wrapper, .stage-icon');
+
+                    if (circle4) {
+
+                        const rect4 = circle4.getBoundingClientRect();
+
+                        const pathRect = stage4.closest('.journey-path').getBoundingClientRect();
+
+                        const circle4Right = rect4.right - pathRect.left;
+
+                        // Position arrow starting from right edge of circle 4
+
+                        stageArrow.style.left = circle4Right + 'px';
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        // Desktop hover behavior (mobile shows all content statically)
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Button color swap on click - toggle pressed class
+
+            const ctaButtons = document.querySelectorAll('.stage-cta');
+
+            ctaButtons.forEach(button => {
+
+                button.addEventListener('click', function(e) {
+
+                    // Toggle pressed class to swap colors
+
+                    this.classList.toggle('pressed');
+
+                });
+
+            });
+
+            // Position connectors after DOM is ready and layout is complete
+
+            setTimeout(() => {
+
+                positionConnectors();
+
+            }, 100);
+
+            // Also position after a short delay to ensure fonts/images are loaded
+
+            setTimeout(() => {
+
+                positionConnectors();
+
+            }, 500);
+
+        });
+
+        // Reposition connectors on window resize
+
+        window.addEventListener('resize', positionConnectors);
+
+        function handleCTA(stage) {
+
+            console.log(`CTA clicked for ${stage} stage`);
+
+            alert(`You clicked the CTA for ${stage}. This would navigate to your booking/contact page.`);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+
